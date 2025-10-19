@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="theme-color" content="#1a2a6c">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FreePlayHub - Play Free Online HTML5 Games | No Install Browser Games</title>
@@ -501,42 +502,54 @@ document.addEventListener("DOMContentLoaded", function () {
         canonical.href = `https://tikmob.github.io/game/game.html?game=${gameId}`;
     }
 
-    // تحديث Structured Data
-    function updateStructuredData(game) {
-        const schema = {
-            "@context": "https://schema.org",
-            "@type": "VideoGame",
-            "name": game.title,
-            "url": window.location.href,
-            "description": game.description,
-            "playMode": "Browser",
-            "gamePlatform": "HTML5",
-            "applicationCategory": "Game",
-            "genre": game.genre.split(', '),
-            "operatingSystem": "Any",
-            "author": {
-                "@type": "Organization",
-                "name": "FreePlayHub"
-            },
-            "image": game.thumbnail,
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-            }
-        };
+// تحديث Structured Data
+function updateStructuredData(game) {
+  const mainGenre = game.genre.split(',')[0].trim();
 
-        // إزالة الـ Schema القديم إذا وجد
-        const oldSchema = document.getElementById('dynamic-game-schema');
-        if (oldSchema) oldSchema.remove();
-
-        // إضافة الـ Schema الجديد
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.id = 'dynamic-game-schema';
-        script.textContent = JSON.stringify(schema);
-        document.head.appendChild(script);
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": game.title,
+    "url": window.location.href,
+    "description": game.description,
+    "inLanguage": "en",
+    "playMode": "Browser",
+    "gamePlatform": "HTML5",
+    "applicationCategory": "Game",
+    "genre": game.genre.split(', '),
+    "operatingSystem": "Any",
+    "author": {
+      "@type": "Organization",
+      "name": "FreePlayHub"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FreePlayHub"
+    },
+    "image": game.thumbnail,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": window.location.href
     }
+  };
+
+  // إزالة الـ Schema القديم إذا وجد
+  const oldSchema = document.getElementById('dynamic-game-schema');
+  if (oldSchema) oldSchema.remove();
+
+  // إضافة الـ Schema الجديد
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'dynamic-game-schema';
+  script.textContent = JSON.stringify(schema, null, 2);
+  document.head.appendChild(script);
+}
+
 
     // دالة لتحميل الإطار
     function loadGameIframe(gameUrl) {
@@ -819,5 +832,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo(0, 0);
 });
 </script>
+<link rel="preload" as="fetch" href="games.json" crossorigin="anonymous">
 </body>
 </html>
