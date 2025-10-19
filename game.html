@@ -762,5 +762,44 @@ function updateGameStructuredData(game) {
 
     window.scrollTo(0, 0);
   </script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const gameId = params.get("game");
+
+  if (!gameId) return;
+
+  // تحميل بيانات الألعاب من ملف JSON
+  const response = await fetch("games.json"); // عدّل المسار إذا كان مختلف
+  const games = await response.json();
+  const game = games.find(g => g.id === gameId);
+
+  if (!game) return;
+
+  // تعديل وسوم <title> و <meta> و <link rel="canonical">
+  document.title = `${game.title} | Play Free Online Game`;
+  
+  let metaDesc = document.querySelector('meta[name="description"]');
+  if (!metaDesc) {
+    metaDesc = document.createElement('meta');
+    metaDesc.name = "description";
+    document.head.appendChild(metaDesc);
+  }
+  metaDesc.content = game.description;
+
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
+  canonical.href = window.location.href;
+
+  // الآن اعرض اللعبة كما تفعل عادة من JSON
+  document.getElementById("game-iframe").src = game.url; // مثال لو عندك iframe
+});
+</script>
+
 </body>
 </html>
