@@ -763,42 +763,83 @@ function updateGameStructuredData(game) {
     window.scrollTo(0, 0);
   </script>
 
-  <script>
-document.addEventListener("DOMContentLoaded", async () => {
+<script>
+(async function () {
+  // الحصول على اسم اللعبة من رابط الصفحة
   const params = new URLSearchParams(window.location.search);
   const gameId = params.get("game");
 
   if (!gameId) return;
 
   // تحميل بيانات الألعاب من ملف JSON
-  const response = await fetch("games.json"); // عدّل المسار إذا كان مختلف
+  const response = await fetch("games.json");
   const games = await response.json();
   const game = games.find(g => g.id === gameId);
 
   if (!game) return;
 
-  // تعديل وسوم <title> و <meta> و <link rel="canonical">
-  document.title = `${game.title} | Play Free Online Game`;
-  
+  // -------------------------------
+  // 🧠 تحديث بيانات الـ <head>
+  // -------------------------------
+
+  // العنوان Title
+  document.title = `${game.title} - Free Online HTML5 Game | FreePlayHub`;
+
+  // الوصف Meta Description
   let metaDesc = document.querySelector('meta[name="description"]');
   if (!metaDesc) {
-    metaDesc = document.createElement('meta');
+    metaDesc = document.createElement("meta");
     metaDesc.name = "description";
     document.head.appendChild(metaDesc);
   }
   metaDesc.content = game.description;
 
+  // og:title
+  let ogTitle = document.querySelector('meta[property="og:title"]');
+  if (!ogTitle) {
+    ogTitle = document.createElement("meta");
+    ogTitle.setAttribute("property", "og:title");
+    document.head.appendChild(ogTitle);
+  }
+  ogTitle.setAttribute("content", `${game.title} - Play Free Online Game`);
+
+  // og:description
+  let ogDesc = document.querySelector('meta[property="og:description"]');
+  if (!ogDesc) {
+    ogDesc = document.createElement("meta");
+    ogDesc.setAttribute("property", "og:description");
+    document.head.appendChild(ogDesc);
+  }
+  ogDesc.setAttribute("content", game.description);
+
+  // canonical tag
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) {
-    canonical = document.createElement('link');
-    canonical.rel = "canonical";
+    canonical = document.createElement("link");
+    canonical.setAttribute("rel", "canonical");
     document.head.appendChild(canonical);
   }
-  canonical.href = window.location.href;
+  canonical.setAttribute("href", window.location.href);
 
-  // الآن اعرض اللعبة كما تفعل عادة من JSON
-  document.getElementById("game-iframe").src = game.url; // مثال لو عندك iframe
-});
+  // -------------------------------
+  // 🕹️ عرض اللعبة في الصفحة
+  // -------------------------------
+  const gameFrame = document.getElementById("game-frame");
+  if (gameFrame) {
+    gameFrame.src = game.iframe;
+  }
+
+  // يمكنك عرض اسم اللعبة ووصفها أيضًا داخل الصفحة (اختياري)
+  const titleElement = document.getElementById("game-title");
+  if (titleElement) {
+    titleElement.textContent = game.title;
+  }
+
+  const descElement = document.getElementById("game-description");
+  if (descElement) {
+    descElement.textContent = game.description;
+  }
+})();
 </script>
 
 </body>
