@@ -764,83 +764,380 @@ function updateGameStructuredData(game) {
   </script>
 
 <script>
-(async function () {
-  // الحصول على اسم اللعبة من رابط الصفحة
+// متغير عام لتخزين بيانات الألعاب مؤقتاً
+let gamesCache = null;
+
+document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
   const gameId = params.get("game");
-
-  if (!gameId) return;
-
-  // تحميل بيانات الألعاب من ملف JSON
-  const response = await fetch("games.json");
-  const games = await response.json();
-  const game = games.find(g => g.id === gameId);
-
-  if (!game) return;
-
-  // -------------------------------
-  // 🧠 تحديث بيانات الـ <head>
-  // -------------------------------
-
-  // العنوان Title
-  document.title = `${game.title} - Free Online HTML5 Game | FreePlayHub`;
-
-  // الوصف Meta Description
-  let metaDesc = document.querySelector('meta[name="description"]');
-  if (!metaDesc) {
-    metaDesc = document.createElement("meta");
-    metaDesc.name = "description";
-    document.head.appendChild(metaDesc);
+  
+  if (!gameId) {
+    window.location.href = "https://tikmob.github.io/game";
+    return;
   }
-  metaDesc.content = game.description;
 
-  // og:title
-  let ogTitle = document.querySelector('meta[property="og:title"]');
-  if (!ogTitle) {
-    ogTitle = document.createElement("meta");
-    ogTitle.setAttribute("property", "og:title");
-    document.head.appendChild(ogTitle);
+  loadGamesData(gameId);
+});
+
+// دالة لتحميل بيانات الألعاب مع التخزين المؤقت
+function loadGamesData(gameId) {
+  // التحقق من وجود بيانات مخزنة مسبقاً
+  const cachedData = localStorage.getItem("gamesData");
+  const cacheTimestamp = localStorage.getItem("gamesDataTimestamp");
+  const now = Date.now();
+  const oneHour = 60 * 60 * 1000; // ساعة واحدة
+
+  if (cachedData && cacheTimestamp && (now - cacheTimestamp) < oneHour) {
+    // استخدام البيانات المخزنة إذا كانت حديثة
+    gamesCache = JSON.parse(cachedData);
+    processGames(gamesCache, gameId);
+  } else {
+    // جلب بيانات جديدة من السيرفر
+    fetch("games.json")
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load games data');
+        return response.json();
+      })
+      .then(data => {
+        gamesCache = data;
+        // تخزين البيانات مع timestamp
+        localStorage.setItem("gamesData", JSON.stringify(data));
+        localStorage.setItem("gamesDataTimestamp", now.toString());
+        processGames(data, gameId);
+      })
+      .catch(error => {
+        console.error("Error loading games data:", error);
+        // محاولة استخدام البيانات المخزنة حتى لو كانت قديمة
+        if (cachedData) {
+          gamesCache = JSON.parse(cachedData);
+          processGames(gamesCache, gameId);
+        } else {
+          showErrorState();
+        }
+      });
   }
-  ogTitle.setAttribute("content", `${game.title} - Play Free Online Game`);
+}
 
-  // og:description
-  let ogDesc = document.querySelector('meta[property="og:description"]');
-  if (!ogDesc) {
-    ogDesc = document.createElement("meta");
-    ogDesc.setAttribute("property", "og:description");
-    document.head.appendChild(ogDesc);
+// دالة معالجة البيانات بعد التحميل
+function processGames(data, gameId) {
+  const game = data.find(g => g.id === gameId);
+  if (!game) {
+    showGameNotFound();
+    return;
   }
-  ogDesc.setAttribute("content", game.description);
 
-  // canonical tag
+  updateAllMetaTags(game);
+  updateStructuredData(game);
+  updatePageContent(game);
+  updateSuggestedGames(data, gameId);
+  updateCanonicalLink(gameId);
+}
+
+// دالة لتحديث جميع الـ Meta Tags
+function updateAllMetaTags(game) {
+  // تحسين العنوان لمحركات البحث
+  document.title = `${game.title} - Play ${game.genre.split(',')[0].trim()} Game Online | FreePlayHub`;
+  
+  // تحديث Meta Description
+  updateMetaTag('name', 'description', `Play ${game.title} for free on FreePlayHub - ${game.description.substring(0, 160)}`);
+  
+  // تحديث Keywords
+  const mainGenre = game.genre.split(',')[0].trim();
+  updateMetaTag('name', 'keywords', `${game.title}, ${game.genre}, ${mainGenre} game, free online game, HTML5 game, browser game, no install`);
+  
+  // تحديث Open Graph Tags
+  updateMetaTag('property', 'og:title', `${game.title} - FreePlayHub`);
+  updateMetaTag('property', 'og:description', game.description.substring(0, 200));
+  updateMetaTag('property', 'og:url', window.location.href);
+  updateMetaTag('property', 'og:image', game.thumbnail);
+  updateMetaTag('property', 'og:type', 'website');
+  updateMetaTag('property', 'og:site_name', 'FreePlayHub');
+  
+  // تحديث Twitter Cards
+  updateMetaTag('name', 'twitter:title', `${game.title} - FreePlayHub`);
+  updateMetaTag('name', 'twitter:description', game.description.substring(0, 200));
+  updateMetaTag('name', 'twitter:image', game.thumbnail);
+  updateMetaTag('name', 'twitter:card', 'summary_large_image');
+  updateMetaTag('name', 'twitter:site', '@FreePlayHub');
+}
+
+// دالة مساعدة لتحديث/إنشاء meta tags
+function updateMetaTag(attr, name, content) {
+  let meta = document.querySelector(`meta[${attr}="${name}"]`);
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute(attr, name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", content);
+}
+
+// تحديث Canonical Link
+function updateCanonicalLink(gameId) {
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) {
     canonical = document.createElement("link");
-    canonical.setAttribute("rel", "canonical");
+    canonical.rel = "canonical";
     document.head.appendChild(canonical);
   }
-  canonical.setAttribute("href", window.location.href);
+  canonical.href = `https://tikmob.github.io/game/game.html?game=${gameId}`;
+}
 
-  // -------------------------------
-  // 🕹️ عرض اللعبة في الصفحة
-  // -------------------------------
-  const gameFrame = document.getElementById("game-frame");
-  if (gameFrame) {
-    gameFrame.src = game.iframe;
+// تحديث Structured Data
+function updateStructuredData(game) {
+  const mainGenre = game.genre.split(',')[0].trim();
+  
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": game.title,
+    "url": window.location.href,
+    "description": game.description,
+    "playMode": "Browser",
+    "gamePlatform": "HTML5",
+    "applicationCategory": "Game",
+    "genre": game.genre.split(', '),
+    "operatingSystem": "Any",
+    "author": {
+      "@type": "Organization",
+      "name": "FreePlayHub"
+    },
+    "image": game.thumbnail,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": window.location.href
+    }
+  };
+
+  // إزالة الـ Schema القديم إذا وجد
+  const oldSchema = document.getElementById('dynamic-game-schema');
+  if (oldSchema) oldSchema.remove();
+
+  // إضافة الـ Schema الجديد
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'dynamic-game-schema';
+  script.textContent = JSON.stringify(schema);
+  document.head.appendChild(script);
+}
+
+// تحديث محتوى الصفحة
+function updatePageContent(game) {
+  // العناصر الأساسية
+  const elements = {
+    'game-title': game.title,
+    'game-description': game.description,
+    'loading-text': `Loading ${game.title}...`
+  };
+
+  for (const [id, content] of Object.entries(elements)) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = content;
   }
 
-  // يمكنك عرض اسم اللعبة ووصفها أيضًا داخل الصفحة (اختياري)
-  const titleElement = document.getElementById("game-title");
-  if (titleElement) {
-    titleElement.textContent = game.title;
+  // تحديث الإطار مع التحقق من الأمان
+  const iframe = document.getElementById("game-iframe");
+  if (iframe && game.iframe) {
+    // التحقق من أن الرابط آمن (HTTPS فقط)
+    if (game.iframe.startsWith("https://")) {
+      iframe.src = game.iframe;
+      iframe.title = game.title;
+    } else {
+      console.warn("Unsecure iframe URL blocked:", game.iframe);
+      showIframeError(game.title);
+    }
   }
 
-  const descElement = document.getElementById("game-description");
-  if (descElement) {
-    descElement.textContent = game.description;
+  // تحديث محتوى الـ SEO الديناميكي
+  updateSeoContent(game);
+}
+
+// معالجة خطأ الإطار
+function showIframeError(gameTitle) {
+  const loading = document.getElementById('loading');
+  if (loading) {
+    loading.innerHTML = `
+      <div style="text-align:center;color:#fff;padding:40px">
+        <div style="font-size:4rem;margin-bottom:20px">🛡️</div>
+        <h2 style="margin-bottom:15px;color:#ffd700">Security Notice</h2>
+        <p style="margin-bottom:25px;font-size:1.1rem">For your security, ${gameTitle} cannot be loaded from an unsecure source.</p>
+        <a href="https://tikmob.github.io/game" class="back-btn" style="display:inline-block;margin-top:15px">
+          ← Back to Safe Games
+        </a>
+      </div>
+    `;
   }
-})();
+}
+
+// تحديث قسم الـ SEO بالمحتوى الفريد لكل لعبة
+function updateSeoContent(game) {
+  const seoContent = document.querySelector('.seo-content');
+  if (!seoContent) return;
+
+  const mainGenre = game.genre.split(',')[0].trim();
+
+  // تحديث العنوان الرئيسي
+  const mainTitle = seoContent.querySelector('h1');
+  if (mainTitle) {
+    mainTitle.textContent = `Play ${game.title} Online for Free - ${mainGenre} Game`;
+  }
+
+  // تحديث الفقرات
+  const paragraphs = seoContent.querySelectorAll('p');
+  if (paragraphs.length > 0) {
+    // الفقرة الأولى
+    paragraphs[0].textContent = `Welcome to FreePlayHub! Enjoy playing ${game.title}, one of the best ${mainGenre.toLowerCase()} games available online. ${game.description} This HTML5 game runs directly in your browser with no installation required.`;
+    
+    // الفقرة الثانية
+    if (paragraphs.length > 1) {
+      paragraphs[1].textContent = `Experience the excitement of ${game.title} on any device - PC, laptop, tablet, or mobile phone. Our platform ensures smooth gameplay and instant access to this popular ${mainGenre.toLowerCase()} title without any downloads or registration. Play now and enjoy hours of entertainment!`;
+    }
+  }
+
+  // تحديث التصنيفات
+  const categoriesContainer = seoContent.querySelector('.game-categories');
+  if (categoriesContainer) {
+    // تقسيم الأنواع وإضافة تصنيفات إضافية
+    const genres = game.genre.split(', ');
+    let categoriesHTML = '';
+    
+    genres.forEach(genre => {
+      categoriesHTML += `<span class="category-tag">${genre.trim()}</span>`;
+    });
+    
+    // إضافة تصنيفات عامة
+    categoriesHTML += `
+      <span class="category-tag">HTML5 Games</span>
+      <span class="category-tag">Free Online Games</span>
+      <span class="category-tag">Browser Games</span>
+      <span class="category-tag">No Install Games</span>
+    `;
+    
+    categoriesContainer.innerHTML = categoriesHTML;
+  }
+}
+
+// تحديث الألعاب المقترحة
+function updateSuggestedGames(gamesData, currentGameId) {
+  const suggestedGamesGrid = document.getElementById('suggested-games-grid');
+  if (!suggestedGamesGrid) return;
+  
+  // تصفية الألعاب (إزالة اللعبة الحالية)
+  let availableGames = gamesData.filter(game => game.id !== currentGameId);
+  
+  // إذا لم يكن هناك ألعاب كافية، نعرض جميع الألعاب
+  if (availableGames.length < 3) {
+    availableGames = gamesData;
+  }
+  
+  // خلط الألعاب عشوائياً
+  const shuffledGames = [...availableGames].sort(() => 0.5 - Math.random());
+  
+  // اختيار 4 ألعاب عشوائية
+  const selectedGames = shuffledGames.slice(0, 4);
+  
+  // إنشاء HTML للألعاب المقترحة
+  let gamesHTML = '';
+  
+  selectedGames.forEach(game => {
+    gamesHTML += `
+      <div class="game-card" onclick="window.location.href='?game=${game.id}'">
+        <div class="game-card-image">
+          <img src="${game.thumbnail}" alt="${game.title}" 
+               onerror="this.onerror=null; this.src='https://tikmob.github.io/game/images/default-thumb.jpg';"
+               loading="lazy">
+        </div>
+        <div class="game-card-content">
+          <h3 class="game-card-title">${game.title}</h3>
+          <p class="game-card-description">${game.description.substring(0, 100)}...</p>
+          <span class="game-card-genre">${game.genre}</span>
+        </div>
+      </div>
+    `;
+  });
+  
+  suggestedGamesGrid.innerHTML = gamesHTML;
+}
+
+// عرض رسالة عندما لا تكون اللعبة موجودة
+function showGameNotFound() {
+  document.title = "Game Not Found | FreePlayHub";
+  
+  const loading = document.getElementById('loading');
+  if (loading) {
+    loading.innerHTML = `
+      <div style="text-align:center;color:#fff;padding:40px">
+        <div style="font-size:4rem;margin-bottom:20px">🎮</div>
+        <h2 style="margin-bottom:15px;color:#ffd700">Game Not Found</h2>
+        <p style="margin-bottom:25px;font-size:1.1rem">The game you're looking for doesn't exist or may have been removed.</p>
+        <a href="https://tikmob.github.io/game" class="back-btn" style="display:inline-block;margin-top:15px">
+          ← Back to All Games
+        </a>
+      </div>
+    `;
+  }
+  
+  // إخفاء الإطار إذا كان مرئياً
+  const iframe = document.getElementById('game-iframe');
+  if (iframe) iframe.style.display = 'none';
+}
+
+// عرض حالة الخطأ
+function showErrorState() {
+  const loading = document.getElementById('loading');
+  if (loading) {
+    loading.innerHTML = `
+      <div style="text-align:center;color:#fff;padding:40px">
+        <div style="font-size:4rem;margin-bottom:20px">⚠️</div>
+        <h2 style="margin-bottom:15px;color:#ffd700">Connection Error</h2>
+        <p style="margin-bottom:25px;font-size:1.1rem">Unable to load game data. Please check your connection and try again.</p>
+        <a href="https://tikmob.github.io/game" class="back-btn" style="display:inline-block;margin-top:15px">
+          ← Back to All Games
+        </a>
+      </div>
+    `;
+  }
+}
+
+// إضافة مستمع لأحداث التحميل للإطار
+window.addEventListener('load', function() {
+  const iframe = document.getElementById('game-iframe');
+  const loading = document.getElementById('loading');
+  
+  if (iframe && loading) {
+    iframe.addEventListener('load', function() {
+      loading.style.display = 'none';
+      iframe.style.display = 'block';
+    });
+    
+    // بديل في حالة فشل التحميل
+    setTimeout(() => {
+      if (loading.style.display !== 'none') {
+        const gameTitle = document.getElementById('game-title')?.textContent || 'Game';
+        loading.innerHTML += `
+          <div style="margin-top:20px;text-align:center">
+            <p style="margin-bottom:10px">Game is taking longer than expected.</p>
+            <a href="${iframe.src}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline">
+              Open ${gameTitle} in a new tab
+            </a>
+          </div>
+        `;
+      }
+    }, 10000);
+  }
+});
+
+// دالة لتفريخ التخزين المؤقت (للاستخدام أثناء التطوير)
+function clearGamesCache() {
+  localStorage.removeItem("gamesData");
+  localStorage.removeItem("gamesDataTimestamp");
+  console.log("Games cache cleared");
+}
 </script>
-
 </body>
 </html>
