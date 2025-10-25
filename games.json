@@ -118,10 +118,15 @@
   "genre": "Parkour, Adventure, Multiplayer",
   "thumbnail": "https://tikmob.github.io/game/images/15.png",
   "iframe": "https://minefun.io/"
+},
+{
+  "id": "lurkers-io",
+  "title": "Lurkers.io",
+  "description": "Play Lurkers.io online for free — a retro-style multiplayer mining and shooting game where speed, skill, and strategy decide who wins! Gather resources, craft weapons, and build defenses as you fight other players across three epic game modes. In Bed Wars, protect your base while trying to destroy your enemy’s bed. In Team Deathmatch, gear up and eliminate your rivals in fast-paced combat. Or capture your opponent’s flag and bring it home to victory in Capture the Flag mode! Collect loot, upgrade your gear, and dominate the battlefield in this action-packed io game. Perfect for fans of mining, crafting, and competitive multiplayer shooters. Join now and prove you’re the best in Lurkers.io!",
+  "genre": "Action, Shooter, Multiplayer",
+  "thumbnail": "https://tikmob.github.io/game/images/16.png",
+  "iframe": "https://lurkers.io/"
 }
-
-
-
 
 
 ]
