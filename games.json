@@ -198,9 +198,15 @@
   "genre": "Survival, Evolution, Multiplayer",
   "thumbnail": "https://tikmob.github.io/game/images/25.png",
   "iframe": "https://evoworld.io/"
+},
+{
+  "id": "tribals",
+  "title": "Tribals",
+  "description": "Play Tribals.io online for free — a 3D survival multiplayer game inspired by Rust! Explore a massive tropical island, gather resources, craft weapons, and build your base to survive against other players. Team up with friends or go solo as you hunt, mine, and defend your territory. Tribals.io combines open-world exploration, crafting, and PvP combat in a browser-based experience that feels like a full PC survival game. Perfect for fans of sandbox, crafting, and building io games. Start your adventure now and prove your survival skills in Tribals.io!",
+  "genre": "Survival, Sandbox, Multiplayer",
+  "thumbnail": "https://tikmob.github.io/game/images/26.png",
+  "iframe": "https://tribals.io/"
 }
-
-
 
 
 
