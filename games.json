@@ -316,9 +316,27 @@
   "title": "MagicLand",
   "description": "Play MagicLand.io online for free — dive into an enchanted multiplayer wizard battle in this thrilling browser io game! Explore a vibrant magical realm, upgrade your mage’s powers, cast spells, defeat rival sorcerers, and rescue adorable creatures to join you. This unblocked action-adventure offers intense online battles, strategic upgrades, and nonstop fun for fans of magic games, io shooters, and browser multiplayer games. No download required — jump in, dominate the battlefield, and become the ultimate mage in MagicLand.io!",
   "genre": "Action, Multiplayer, Adventure, IO",
-  "thumbnail": "https://tikmob.github.io/game/images/???.png",
+  "thumbnail": "https://tikmob.github.io/game/images/40.png",
   "iframe": "https://iogames.onl/magiclandio.embed"
+},
+{
+  "id": "crazysteve-minecraft",
+  "title": "CrazySteve Minecraft",
+  "description": "Play CrazySteve.io online for free and dive into one of the most explosive io games ever! Join the iconic Steve from Minecraft in wild multiplayer arena battles where you gather diamonds, apples and bombs to grow bigger and dominate the map. Plant TNT, push enemies into your traps, and expand your size as you collect experience in this unblocked browser shooter. With fast-paced action, survival mechanics, and crazy comebacks, CrazySteve.io is perfect for fans of online .io survival games, bomb battle arenas, and browser multiplayer shooters. No download required—jump in, blast your rivals and become the king of the arena!",
+  "genre": "Action, Shooter, Multiplayer, IO",
+  "thumbnail": "https://tikmob.github.io/game/images/41.png",
+  "iframe": "https://crazysteve.io/"
+},
+{
+  "id": "slithercraft-minecraft",
+  "title": "SlitherCraft Minecraft",
+  "description": "Play SlitherCraft.io online for free and experience the ultimate fusion of snake gameplay and Minecraft style! In this unblocked browser io game, you’ll slither through blocky arenas inspired by Minecraft, consuming colorful blocks and rival snakes to grow bigger and dominate the arena. Use TNT to blast your enemies, collect skins, and trap opponents in your tail-loop to claim victory. Perfect for fans of snake games, io multiplayer, Minecraft-style games, and free browser games. No download required — jump in now, boost your snake, throw TNT and become the top blocky slither champion in SlitherCraft.io!",
+  "genre": "Action, Multiplayer, Snake, IO",
+  "thumbnail": "https://tikmob.github.io/game/images/42.png",
+  "iframe": "https://slithercraft.io/"
 }
+
+
 
 
 
