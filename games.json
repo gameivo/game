@@ -334,8 +334,15 @@
   "genre": "Action, Multiplayer, Snake, IO",
   "thumbnail": "https://tikmob.github.io/game/images/42.png",
   "iframe": "https://slithercraft.io/"
+},
+{
+  "id": "worms-zone",
+  "title": "Worms Zone",
+  "description": "Play Worms Zone online for free and dive into one of the most addictive snake-io style worm games in your browser! Grow from a tiny worm into a massive slithering champion by eating yummy food, collecting power-ups, and outsmarting other players in this unblocked multiplayer arcade adventure. Choose your skin, customize your worm, use speed boosts, magnet effects and zoom out power-ups to dominate the arena. With smooth controls, vibrant graphics and endless free play, Worms Zone is perfect for fans of snake games, .io multiplayer games, casual arcade fun and browser gaming with no download required. Jump in now and show your speed, skill and strategy to become the longest worm alive!",
+  "genre": "Arcade, Multiplayer, Snake",
+  "thumbnail": "https://tikmob.github.io/game/images/43.png",
+  "iframe": "https://worms.zone/game/web/"
 }
-
 
 
 
