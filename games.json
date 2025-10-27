@@ -444,8 +444,16 @@
   "title": "Bloxd",
   "description": "Play Bloxd.io online for free and dive into a massive voxel-sandbox multiplayer universe where you can build, explore, battle and create without limits! With Minecraft-style block graphics and browser accessibility, Bloxd.io offers endless game modes: parkour obstacle courses, survival crafting worlds, creative building lobbies, team bedwars and skywars battles, hide-and-seek arenas, one-block islands and much more. Join friends or play solo, customize your avatar, unlock skins and tools, mine resources, place blocks, explore biomes, fight in PvP combat and climb the global leaderboard in this unblocked browser game. Whether you’re into building empires, jumping through challenging platforming levels or engaging in fast-paced team shooter matches, Bloxd.io delivers hours of fun, free online multiplayer action and sandbox creativity. No download required — start your blocky adventure now and become the ultimate world-builder and champion in Bloxd.io!",
   "genre": "Sandbox, Multiplayer, Adventure, Building, Action",
-  "thumbnail": "https://tikmob.github.io/game/images/53.png",
+  "thumbnail": "https://tikmob.github.io/game/images/56.png",
   "iframe": "https://bloxd.io/"
+},
+{
+  "id": "Hole",
+  "title": "Hole",
+  "description": "Play Hole online for free and dive into the chaotic and addictive browser multiplayer game where you control a black hole swallowing everything in sight! In this unblocked io-style arena, you’ll rampage through cityscapes, devouring cars, trees, buildings and even rival black holes to grow bigger and dominate the scoreboard. With fast-paced action, strategic pathing and real-time multiplayer competition against players worldwide, Hole provides hours of free online entertainment. Whether you’re hunting for small objects to grow fast, ambushing larger opponents or mastering the ultimate blockbuster objects like skyscrapers and monuments, this browser game offers intense fun for fans of arcade destruction games, io multiplayer survival, physics-based action and free browser games. No download required — jump in now, grow your hole, outsmart your rivals and become the uncontested giant in Hole!",
+  "genre": "Arcade, Multiplayer, IO Game, Action, Destruction",
+  "thumbnail": "https://tikmob.github.io/game/images/57.png",
+  "iframe": "https://holeio.com/"
 }
 
 
