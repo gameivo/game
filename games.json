@@ -462,7 +462,24 @@
   "genre": "Shooter, Battle Royale, Multiplayer, Action",
   "thumbnail": "https://tikmob.github.io/game/images/58.png",
   "iframe": "https://storage.y8.com/y8-studio/unity_webgl/MirraGames/fortzone_battle_royale/?key=y8&value=default"
+},
+{
+  "id": "Amogus",
+  "title": "Amogus",
+  "description": "Play Amogus online for free — a unique mash-up of territory-conquering gameplay and viral impostor fun! Step into the colorful world where you control a crewmate or impostor, expand your safe zone, draw bold trails across the map, and outsmart other players in this fast-paced browser action game. Dominate the arena by capturing large areas, interrupt rivals’ outlines to eliminate them, and climb the leaderboard in this unblocked multiplayer io title. With intuitive controls (mouse, WASD or arrow keys), vibrant graphics, and energetic match rounds, Amogus is perfect for fans of io games, territory control styles like Paper.io, free online multiplayer, and browser games with no download required. Join now, claim your space, take over the station and become the top-ranked navigator in Amogus!",
+  "genre": "Action, Multiplayer, IO Game, Territory Control, Arcade",
+  "thumbnail": "https://tikmob.github.io/game/images/59.png",
+  "iframe": "https://amogus.io/"
+},
+{
+  "id": "Impostor",
+  "title": "Impostor",
+  "description": "Play Impostor.io online for free and dive into a fierce multiplayer arena where only the strongest survive! In this action-packed browser game inspired by Among Us, you’ll become a powerful alien gladiator or impostor leveling up by collecting energy cubes and defeating opponents across the map. Engage in fast-paced death-match combat, outsmart rivals, upgrade weapons and skills, and dominate the leaderboard in this unblocked io shooter. With intuitive mouse controls, vibrant graphics, and nonstop online competition, Impostor.io is perfect for fans of io games, multiplayer shooters, browser action games and free online battlers. No download required — jump into the arena now and prove you have what it takes to become the ultimate impostor!",
+  "genre": "Action, Shooter, Multiplayer, IO Game",
+  "thumbnail": "https://tikmob.github.io/game/images/60.png",
+  "iframe": "https://impostor.io/"
 }
+
 
 
 
