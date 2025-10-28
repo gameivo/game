@@ -418,6 +418,19 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://tikmob.github.io/game/game.html?game=Amogus</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://tikmob.github.io/game/game.html?game=Impostor</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <!-- صفحات الفئات -->
   <url>
