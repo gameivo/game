@@ -24,73 +24,9 @@
   <meta property="og:url" content="https://tikmob.github.io/game">
 
   <!-- Enhanced Rendertron SEO Solution - Professional Version -->
-<script>
-(function() {
-    'use strict';
-    
-    // ⚡ منع التشغيل أثناء التطوير
-    if (window.location.hostname === 'localhost' || 
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.includes('192.168.') ||
-        window.location.hostname.endsWith('.local')) {
-        console.log('🚧 Development mode - Rendertron disabled');
-        return;
-    }
-    
-    // 🎯 قائمة موسعة للزواحف
-    const SEARCH_BOTS = [
-        'googlebot', 'googlebot-mobile', 'googlebot-image', 'googlebot-news', 'googlebot-video',
-        'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 'yandexbot', 'sogou', 'exabot',
-        'facebot', 'facebookexternalhit', 'twitterbot', 'rogerbot', 'linkedinbot',
-        'embedly', 'quora link preview', 'showyoubot', 'outbrain', 'pinterest',
-        'developers.google.com', 'whatsapp', 'slackbot', 'applebot', 'discordbot',
-        'telegrambot', 'redditbot', 'discordbot', 'iframely'
-    ];
-    
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isSearchBot = SEARCH_BOTS.some(bot => userAgent.includes(bot));
-    
-    if (isSearchBot) {
-        try {
-            const currentUrl = window.location.href;
-            
-            // 🔄 منع حلقات إعادة التوجيه اللانهائية
-            const urlParams = new URLSearchParams(window.location.search);
-            const isAlreadyRendered = urlParams.has('_rendertron') || 
-                                    urlParams.has('_escaped_fragment_') ||
-                                    currentUrl.includes('render-tron.appspot.com') ||
-                                    currentUrl.includes('prerender.io');
-            
-            if (isAlreadyRendered) {
-                console.log('🔄 Already rendered page - skipping redirect');
-                return;
-            }
-            
-            // 🎯 بناء رابط Rendertron مع معلمة تتبع
-            const targetUrl = `https://render-tron.appspot.com/render/${encodeURIComponent(currentUrl)}?_rendertron=true&_source=github_pages`;
-            
-            console.log('🔍 Search bot detected:', userAgent.split('/')[0]);
-            console.log('🎯 Redirecting to:', targetUrl);
-            
-            // ⚡ إعادة توجيه فورية مع معالجة الأخطاء
-            setTimeout(() => {
-                try {
-                    window.location.replace(targetUrl);
-                } catch (redirectError) {
-                    console.warn('⚠️ Redirect failed, continuing normally:', redirectError);
-                }
-            }, 100);
-            
-        } catch (error) {
-            console.warn('⚠️ Rendertron initialization failed:', error);
-            // الاستمرار في التحميل العادي في حالة الخطأ
-        }
-    } else {
-        // 👤 مستخدم عادي - تسجيل للتحليل
-        console.log('👤 Regular user access - Normal loading');
-    }
-})();
-</script>
+
+
+  
   <!-- Game Schema للعبة الحالية -->
 <script type="application/ld+json">
 {
@@ -366,6 +302,177 @@
     }
   }
   </script>
+
+<!-- Safe Dynamic Content for Bots - No Cloaking -->
+<script>
+(function() {
+    'use strict';
+    
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isBot = /googlebot|bingbot|yandexbot|baiduspider|facebookexternalhit|twitterbot/i.test(userAgent);
+    
+    if (isBot) {
+        // منع التنفيذ المزدوج
+        if (window.botContentInjected) return;
+        window.botContentInjected = true;
+        
+        // انتظار تحميل بيانات الألعاب أولاً
+        const injectBotContent = async function() {
+            try {
+                let gamesData = [];
+                
+                // محاولة تحميل بيانات الألعاب من ملف JSON
+                try {
+                    const response = await fetch('games.json');
+                    if (response.ok) {
+                        gamesData = await response.json();
+                    }
+                } catch (e) {
+                    console.log('⚠️ Could not load games.json, using fallback');
+                }
+                
+                const botContent = document.createElement('div');
+                botContent.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;';
+                botContent.setAttribute('aria-hidden', 'true');
+                botContent.setAttribute('data-bot-content', 'true');
+                
+                // استخراج بيانات اللعبة الحالية
+                const urlParams = new URLSearchParams(window.location.search);
+                const gameId = urlParams.get('game');
+                
+                // البحث عن بيانات اللعبة الحقيقية من JSON
+                let currentGame = null;
+                if (gamesData.length > 0 && gameId) {
+                    currentGame = gamesData.find(g => g.id === gameId);
+                }
+                
+                // استخدام البيانات الحقيقية أو بيانات افتراضية آمنة
+                const gameTitle = currentGame ? currentGame.title : (gameId ? gameId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Free HTML5 Game');
+                const gameDescription = currentGame ? currentGame.description : 'Play free online HTML5 games in your browser without download.';
+                const gameGenre = currentGame ? currentGame.genre : 'Browser Game, HTML5 Game';
+                
+                // محتوى آمن - نفس المحتوى الذي يراه المستخدم
+                botContent.innerHTML = `
+                    <h1>${gameTitle}</h1>
+                    <p>${gameDescription}</p>
+                    
+                    <section>
+                        <h2>Game Information</h2>
+                        <p><strong>Genre:</strong> ${gameGenre}</p>
+                        <p><strong>Platform:</strong> HTML5 Web Browser</p>
+                        <p><strong>Price:</strong> Free - No registration required</p>
+                    </section>
+                    
+                    <section>
+                        <h2>How to Play</h2>
+                        <p>Click the game and start playing instantly in your web browser. No downloads or installations needed.</p>
+                        <p>Works on all devices: PC, laptop, tablet, and mobile phones.</p>
+                    </section>
+                    
+                    <nav aria-label="Browse More Games">
+                        <h3>More Free Games on FreePlayHub</h3>
+                        <a href="https://tikmob.github.io/game">View All Games</a> | 
+                        <a href="https://tikmob.github.io/game/game.html?game=stickman-ghost-online-game">Action Games</a> | 
+                        <a href="https://tikmob.github.io/game/game.html?game=shell-shockers">Shooting Games</a>
+                    </nav>
+                `;
+                
+                document.body.appendChild(botContent);
+                console.log('🤖 Safe bot content injected for:', gameTitle);
+                
+            } catch (error) {
+                console.warn('⚠️ Bot content injection failed:', error);
+            }
+        };
+
+        // تحديث البيانات المنظمة باستخدام البيانات الحقيقية
+        const updateSchemaForBots = async function() {
+            try {
+                let gamesData = [];
+                
+                // محاولة تحميل بيانات الألعاب
+                try {
+                    const response = await fetch('games.json');
+                    if (response.ok) {
+                        gamesData = await response.json();
+                    }
+                } catch (e) {
+                    // تجاهل الخطأ - نستخدم البيانات الافتراضية
+                }
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const gameId = urlParams.get('game');
+                
+                // البحث عن اللعبة الحالية
+                let currentGame = null;
+                if (gamesData.length > 0 && gameId) {
+                    currentGame = gamesData.find(g => g.id === gameId);
+                }
+                
+                // استخدام البيانات الحقيقية أو الافتراضية
+                const gameTitle = currentGame ? currentGame.title : (gameId ? gameId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Free HTML5 Game');
+                const gameDescription = currentGame ? currentGame.description : 'Play free online HTML5 games in your browser without download.';
+                const gameGenre = currentGame ? currentGame.genre.split(', ') : ['Browser Game', 'HTML5 Game'];
+                
+                const botSchema = {
+                    "@context": "https://schema.org",
+                    "@type": "VideoGame",
+                    "name": gameTitle,
+                    "description": gameDescription,
+                    "genre": gameGenre,
+                    "playMode": "Browser",
+                    "gamePlatform": "HTML5",
+                    "applicationCategory": "GameApplication",
+                    "operatingSystem": "Any",
+                    "author": {
+                        "@type": "Organization", 
+                        "name": "FreePlayHub",
+                        "url": "https://tikmob.github.io/game"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "FreePlayHub"
+                    },
+                    "offers": {
+                        "@type": "Offer", 
+                        "price": "0", 
+                        "priceCurrency": "USD"
+                    },
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": window.location.href
+                    }
+                };
+                
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.id = 'safe-bot-schema';
+                script.textContent = JSON.stringify(botSchema);
+                
+                // إزالة الـ schema القديم إذا وجد
+                const oldSchema = document.getElementById('safe-bot-schema');
+                if (oldSchema) oldSchema.remove();
+                
+                document.head.appendChild(script);
+                
+            } catch (error) {
+                console.warn('⚠️ Schema update failed:', error);
+            }
+        };
+        
+        // التنفيذ
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                injectBotContent();
+                updateSchemaForBots();
+            });
+        } else {
+            injectBotContent();
+            updateSchemaForBots();
+        }
+    }
+})();
+</script>
 </head>
 
 <body>
