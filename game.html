@@ -23,6 +23,74 @@
   <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg">
   <meta property="og:url" content="https://tikmob.github.io/game">
 
+  <!-- Enhanced Rendertron SEO Solution - Professional Version -->
+<script>
+(function() {
+    'use strict';
+    
+    // ⚡ منع التشغيل أثناء التطوير
+    if (window.location.hostname === 'localhost' || 
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.includes('192.168.') ||
+        window.location.hostname.endsWith('.local')) {
+        console.log('🚧 Development mode - Rendertron disabled');
+        return;
+    }
+    
+    // 🎯 قائمة موسعة للزواحف
+    const SEARCH_BOTS = [
+        'googlebot', 'googlebot-mobile', 'googlebot-image', 'googlebot-news', 'googlebot-video',
+        'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 'yandexbot', 'sogou', 'exabot',
+        'facebot', 'facebookexternalhit', 'twitterbot', 'rogerbot', 'linkedinbot',
+        'embedly', 'quora link preview', 'showyoubot', 'outbrain', 'pinterest',
+        'developers.google.com', 'whatsapp', 'slackbot', 'applebot', 'discordbot',
+        'telegrambot', 'redditbot', 'discordbot', 'iframely'
+    ];
+    
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isSearchBot = SEARCH_BOTS.some(bot => userAgent.includes(bot));
+    
+    if (isSearchBot) {
+        try {
+            const currentUrl = window.location.href;
+            
+            // 🔄 منع حلقات إعادة التوجيه اللانهائية
+            const urlParams = new URLSearchParams(window.location.search);
+            const isAlreadyRendered = urlParams.has('_rendertron') || 
+                                    urlParams.has('_escaped_fragment_') ||
+                                    currentUrl.includes('render-tron.appspot.com') ||
+                                    currentUrl.includes('prerender.io');
+            
+            if (isAlreadyRendered) {
+                console.log('🔄 Already rendered page - skipping redirect');
+                return;
+            }
+            
+            // 🎯 بناء رابط Rendertron مع معلمة تتبع
+            const targetUrl = `https://render-tron.appspot.com/render/${encodeURIComponent(currentUrl)}?_rendertron=true&_source=github_pages`;
+            
+            console.log('🔍 Search bot detected:', userAgent.split('/')[0]);
+            console.log('🎯 Redirecting to:', targetUrl);
+            
+            // ⚡ إعادة توجيه فورية مع معالجة الأخطاء
+            setTimeout(() => {
+                try {
+                    window.location.replace(targetUrl);
+                } catch (redirectError) {
+                    console.warn('⚠️ Redirect failed, continuing normally:', redirectError);
+                }
+            }, 100);
+            
+        } catch (error) {
+            console.warn('⚠️ Rendertron initialization failed:', error);
+            // الاستمرار في التحميل العادي في حالة الخطأ
+        }
+    } else {
+        // 👤 مستخدم عادي - تسجيل للتحليل
+        console.log('👤 Regular user access - Normal loading');
+    }
+})();
+</script>
   <!-- Game Schema للعبة الحالية -->
 <script type="application/ld+json">
 {
