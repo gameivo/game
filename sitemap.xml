@@ -432,6 +432,41 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://tikmob.github.io/game/game.html?game=racing-horizon</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+    <url>
+    <loc>https://tikmob.github.io/game/game.html?game=racing-limits</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+    <url>
+    <loc>https://tikmob.github.io/game/game.html?game=poxel</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+    <url>
+    <loc>https://tikmob.github.io/game/game.html?game=DEADSHOT</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+    <url>
+    <loc>https://tikmob.github.io/game/game.html?game=Drift%20Hunters</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- صفحات الفئات -->
   <url>
     <loc>https://tikmob.github.io/game/arcade.html</loc>
