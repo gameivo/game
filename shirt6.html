@@ -186,7 +186,7 @@
 
         .upload-area i {
             font-size: 2rem;
-            color: var(--primary-color;
+            color: var(--primary-color);
             margin-bottom: 10px;
             display: block;
         }
@@ -428,7 +428,16 @@
             color: #666;
         }
 
-        /* التعديلات الجديدة */
+        .position-info {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            border-left: 4px solid #3498db;
+        }
+
         .order-summary {
             background: #d4edda;
             border: 1px solid #c3e6cb;
@@ -445,23 +454,6 @@
         .order-summary p {
             margin: 5px 0;
             color: #0c5460;
-        }
-
-        #position-info {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            border-right: 4px solid #3498db;
-        }
-
-        .design-border {
-            stroke-dasharray: 5, 5;
-            stroke: #e74c3c;
-            stroke-width: 2;
-            fill: none;
         }
 
         @media (max-width: 768px) {
@@ -491,7 +483,6 @@
             <div class="design-area">
                 <div class="t-shirt-container">
                     <div id="t-shirt-preview">
-                        <!-- صورة التيشيرت الأساسية -->
                         <svg class="t-shirt-base" id="t-shirt-base" viewBox="0 0 300 400">
                             <path id="tshirt-body" d="M50,80 Q150,20 250,80 L250,350 Q150,380 50,350 Z" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
                             <path d="M100,80 Q150,50 200,80" fill="none" stroke="#bdc3c7" stroke-width="2"/>
@@ -499,7 +490,12 @@
                         <canvas id="design-canvas" width="300" height="400"></canvas>
                     </div>
                 </div>
-                <!-- سيتم إضافة position-info هنا عبر JavaScript -->
+                <div class="position-info" id="position-info">
+                    <strong>Design Information:</strong><br>
+                    Position: X=150, Y=200<br>
+                    Size: 0 × 0 pixels<br>
+                    Scale: 100%
+                </div>
             </div>
 
             <div class="controls">
@@ -542,9 +538,9 @@
                         <button class="btn" id="zoom-in">+</button>
                     </div>
                     <div class="zoom-slider-container">
-                        <input type="range" min="1" max="500" value="100" class="zoom-slider" id="zoom-slider">
+                        <input type="range" min="10" max="500" value="100" class="zoom-slider" id="zoom-slider">
                         <div class="zoom-values">
-                            <span>1%</span>
+                            <span>10%</span>
                             <span>100%</span>
                             <span>500%</span>
                         </div>
@@ -563,7 +559,7 @@
             </div>
         </div>
 
-        <div class="form-section">
+        <div class="form-section" id="form-section">
             <h2>Submit Your Design</h2>
             <form id="design-form">
                 <div class="form-group">
@@ -599,8 +595,9 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        // رابط Google Apps Script - استبدل برابط النشر الفعلي
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYv2d1p8J0DcC6p6G5gY5Y5Y5Y5Y5Y5Y5Y5Y5Y5Y5Y5Y5Y5/exec';
+        // استخدم Cloudflare Worker أو Google Apps Script - اختر واحداً فقط
+        const WORKER_URL = 'https://rapid-river-f98b.mohammed1990sid.workers.dev/';
+        // const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/your-script-id/exec';
 
         document.addEventListener('DOMContentLoaded', function() {
             // العناصر الأساسية
@@ -618,6 +615,7 @@
             const uploadStatus = document.getElementById('upload-status');
             const uploadTrigger = document.getElementById('upload-trigger');
             const zoomSlider = document.getElementById('zoom-slider');
+            const positionInfo = document.getElementById('position-info');
             
             // خصائص التصميم
             let designImage = null;
@@ -647,7 +645,7 @@
                         scaledHeight
                     );
                     
-                    // رسم إطار حول التصميم لتوضيح الحدود
+                    // رسم إطار حول التصميم
                     ctx.strokeStyle = '#e74c3c';
                     ctx.lineWidth = 2;
                     ctx.setLineDash([5, 5]);
@@ -666,108 +664,21 @@
                 const zoomLevel = document.getElementById('zoom-level');
                 zoomLevel.textContent = Math.round(designScale * 100) + '%';
                 zoomSlider.value = designScale * 100;
-                
-                // تحديث عرض معلومات الموضع
                 updatePositionInfo();
             }
             
-            // عرض معلومات الموضع والحجم
+            // تحديث معلومات الموضع
             function updatePositionInfo() {
-                const infoElement = document.getElementById('position-info') || createPositionInfoElement();
                 if (designImage) {
                     const scaledWidth = Math.round(designImage.width * designScale);
                     const scaledHeight = Math.round(designImage.height * designScale);
                     
-                    infoElement.innerHTML = `
+                    positionInfo.innerHTML = `
                         <strong>Design Information:</strong><br>
                         Position: X=${Math.round(designX)}, Y=${Math.round(designY)}<br>
                         Size: ${scaledWidth} × ${scaledHeight} pixels<br>
                         Scale: ${(designScale * 100).toFixed(1)}%
                     `;
-                }
-            }
-
-            // إنشاء عنصر عرض المعلومات
-            function createPositionInfoElement() {
-                const infoDiv = document.createElement('div');
-                infoDiv.id = 'position-info';
-                infoDiv.style.cssText = `
-                    background: #f8f9fa;
-                    padding: 10px;
-                    border-radius: 5px;
-                    margin-top: 10px;
-                    font-size: 0.9rem;
-                    border-right: 4px solid #3498db;
-                `;
-                document.querySelector('.design-area').appendChild(infoDiv);
-                return infoDiv;
-            }
-            
-            // ضبط التكبير بقيمة محددة
-            function setZoom(percent) {
-                if (!designImage) return;
-                
-                const newScale = percent / 100;
-                const minScale = 0.1;
-                const maxScale = 5.0;
-                
-                designScale = Math.max(minScale, Math.min(newScale, maxScale));
-                updateZoomLevel();
-                drawDesign();
-            }
-            
-            // اختيار اللون
-            const colorOptions = document.querySelectorAll('.color-option');
-            colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    colorOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    const color = this.getAttribute('data-color');
-                    tshirtBody.setAttribute('fill', color);
-                    drawDesign();
-                });
-            });
-            
-            // إعداد Drag & Drop
-            function setupDragAndDrop() {
-                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                    uploadTrigger.addEventListener(eventName, preventDefaults, false);
-                    document.body.addEventListener(eventName, preventDefaults, false);
-                });
-                
-                ['dragenter', 'dragover'].forEach(eventName => {
-                    uploadTrigger.addEventListener(eventName, highlight, false);
-                });
-                
-                ['dragleave', 'drop'].forEach(eventName => {
-                    uploadTrigger.addEventListener(eventName, unhighlight, false);
-                });
-                
-                uploadTrigger.addEventListener('drop', handleDrop, false);
-            }
-            
-            function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            
-            function highlight() {
-                uploadTrigger.classList.add('dragover');
-            }
-            
-            function unhighlight() {
-                uploadTrigger.classList.remove('dragover');
-            }
-            
-            function handleDrop(e) {
-                const dt = e.dataTransfer;
-                const files = dt.files;
-                handleFiles(files);
-            }
-            
-            function handleFiles(files) {
-                if (files.length > 0) {
-                    processImageFile(files[0]);
                 }
             }
             
@@ -831,7 +742,6 @@
                         
                         updateZoomLevel();
                         drawDesign();
-                        updatePositionInfo();
                         showNotification('Design uploaded successfully!');
                     };
                     designImage.onerror = function() {
@@ -851,6 +761,49 @@
                 reader.readAsDataURL(file);
             }
             
+            // إعداد Drag & Drop
+            function setupDragAndDrop() {
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    uploadTrigger.addEventListener(eventName, preventDefaults, false);
+                    document.body.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    uploadTrigger.addEventListener(eventName, highlight, false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    uploadTrigger.addEventListener(eventName, unhighlight, false);
+                });
+                
+                uploadTrigger.addEventListener('drop', handleDrop, false);
+            }
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            function highlight() {
+                uploadTrigger.classList.add('dragover');
+            }
+            
+            function unhighlight() {
+                uploadTrigger.classList.remove('dragover');
+            }
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+            
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    processImageFile(files[0]);
+                }
+            }
+            
             // رفع التصميم
             const designUpload = document.getElementById('design-upload');
             
@@ -865,32 +818,25 @@
                 }
             });
             
-            // إعداد Drag & Drop
             setupDragAndDrop();
             
-            // التحكم في الحجم بالأزرار
-            const zoomInBtn = document.getElementById('zoom-in');
-            const zoomOutBtn = document.getElementById('zoom-out');
-            
-            zoomInBtn.addEventListener('click', function() {
+            // التحكم في الحجم
+            document.getElementById('zoom-in').addEventListener('click', function() {
                 if (designImage) {
-                    const newScale = Math.min(designScale * 1.2, 5);
-                    designScale = newScale;
+                    designScale = Math.min(designScale * 1.1, 5);
                     updateZoomLevel();
                     drawDesign();
                 }
             });
             
-            zoomOutBtn.addEventListener('click', function() {
+            document.getElementById('zoom-out').addEventListener('click', function() {
                 if (designImage) {
-                    const newScale = Math.max(designScale / 1.2, 0.1);
-                    designScale = newScale;
+                    designScale = Math.max(designScale / 1.1, 0.1);
                     updateZoomLevel();
                     drawDesign();
                 }
             });
             
-            // التحكم في الحجم بالسلايدر
             zoomSlider.addEventListener('input', function() {
                 if (designImage) {
                     designScale = parseInt(this.value) / 100;
@@ -899,20 +845,27 @@
                 }
             });
             
-            // اختيار المكان
-            const frontBtn = document.getElementById('front-btn');
-            const backBtn = document.getElementById('back-btn');
+            // اختيار اللون
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    const color = this.getAttribute('data-color');
+                    tshirtBody.setAttribute('fill', color);
+                });
+            });
             
-            frontBtn.addEventListener('click', function() {
-                frontBtn.classList.add('active');
-                backBtn.classList.remove('active');
+            // اختيار المكان
+            document.getElementById('front-btn').addEventListener('click', function() {
+                this.classList.add('active');
+                document.getElementById('back-btn').classList.remove('active');
                 placement = 'front';
                 showNotification('Design placement set to front');
             });
             
-            backBtn.addEventListener('click', function() {
-                backBtn.classList.add('active');
-                frontBtn.classList.remove('active');
+            document.getElementById('back-btn').addEventListener('click', function() {
+                this.classList.add('active');
+                document.getElementById('front-btn').classList.remove('active');
                 placement = 'back';
                 showNotification('Design placement set to back');
             });
@@ -971,8 +924,7 @@
             }
             
             // إعادة التعيين
-            const resetBtn = document.getElementById('reset-btn');
-            resetBtn.addEventListener('click', function() {
+            document.getElementById('reset-btn').addEventListener('click', function() {
                 designImage = null;
                 designScale = 1.0;
                 designX = 150;
@@ -994,7 +946,7 @@
                 showNotification('Design has been reset');
             });
             
-            // إرسال النموذج إلى Google Apps Script
+            // إرسال النموذج
             designForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
@@ -1007,19 +959,13 @@
                     return;
                 }
 
-                if (!name || !email || !phone) {
-                    showNotification('Please fill all required fields', true);
-                    return;
-                }
-
                 loadingElement.style.display = 'block';
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Submitting...';
 
                 try {
-                    // التقاط الصورة النهائية للطباعة
+                    // التقاط الصور
                     const finalDesign = await captureFinalDesign();
-                    // التقاط صورة المعاينة
                     const previewImage = await capturePreviewImage();
                     
                     const formData = {
@@ -1038,32 +984,33 @@
                         timestamp: new Date().toISOString()
                     };
 
-                    console.log('Sending design data:', {
-                        position: { x: designX, y: designY },
-                        scale: designScale,
-                        size: { width: designImage.width, height: designImage.height }
+                    // استخدم Cloudflare Worker
+                    const response = await fetch(WORKER_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
                     });
 
-                    const response = await sendToGoogleAppsScript(formData);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
                     
-                    if (response.success) {
-                        showNotification(`✅ Thank you, ${name}! Your design has been submitted successfully. Order ID: ${response.id}`);
-                        
-                        // عرض معلومات الطلب
-                        setTimeout(() => {
-                            showOrderSummary(response, name);
-                        }, 1000);
-                        
+                    if (result.success) {
+                        showNotification(`Thank you, ${name}! Your design has been submitted successfully. Order ID: ${result.id}`);
+                        showOrderSummary(result, name);
                         designForm.reset();
                         resetDesign();
-                        
                     } else {
-                        throw new Error(response.message);
+                        throw new Error(result.message || 'Unknown error occurred');
                     }
                     
                 } catch (error) {
                     console.error('Error:', error);
-                    showNotification('❌ Error submitting design: ' + error.message, true);
+                    showNotification('Error submitting design: ' + error.message, true);
                 } finally {
                     loadingElement.style.display = 'none';
                     submitBtn.disabled = false;
@@ -1071,23 +1018,18 @@
                 }
             });
 
-            // التقاط التصميم النهائي للطباعة (بدقة عالية)
+            // التقاط الصور
             function captureFinalDesign() {
                 return new Promise((resolve) => {
                     const canvas = document.createElement('canvas');
-                    // استخدام دقة أعلى للطباعة
                     canvas.width = designImage.width;
                     canvas.height = designImage.height;
                     const ctx = canvas.getContext('2d');
-                    
-                    // رسم التصميم الأصلي بالحجم الكامل
                     ctx.drawImage(designImage, 0, 0, canvas.width, canvas.height);
-                    
-                    resolve(canvas.toDataURL('image/png', 1.0)); // جودة 100%
+                    resolve(canvas.toDataURL('image/png', 1.0));
                 });
             }
 
-            // التقاط صورة المعاينة (التيشيرت كامل)
             function capturePreviewImage() {
                 return new Promise((resolve) => {
                     const canvas = document.createElement('canvas');
@@ -1095,11 +1037,9 @@
                     canvas.height = designCanvas.height;
                     const ctx = canvas.getContext('2d');
                     
-                    // رسم التيشيرت
                     ctx.fillStyle = tshirtBody.getAttribute('fill');
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // رسم التصميم
                     if (designImage) {
                         const scaledWidth = designImage.width * designScale;
                         const scaledHeight = designImage.height * designScale;
@@ -1117,41 +1057,9 @@
                 });
             }
 
-            // إرسال البيانات إلى Google Apps Script
-            function sendToGoogleAppsScript(data) {
-                return new Promise((resolve, reject) => {
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', GOOGLE_SCRIPT_URL, true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    
-                    xhr.onload = function() {
-                        if (xhr.status === 200) {
-                            try {
-                                resolve(JSON.parse(xhr.responseText));
-                            } catch (e) {
-                                reject(new Error('Invalid response from server'));
-                            }
-                        } else {
-                            reject(new Error(`HTTP error: ${xhr.status}`));
-                        }
-                    };
-                    
-                    xhr.onerror = function() {
-                        reject(new Error('Network error'));
-                    };
-                    
-                    xhr.timeout = 30000;
-                    xhr.ontimeout = function() {
-                        reject(new Error('Request timeout'));
-                    };
-                    
-                    xhr.send(JSON.stringify(data));
-                });
-            }
-
             // عرض ملخص الطلب
             function showOrderSummary(response, customerName) {
-                const summary = `
+                const summaryHTML = `
                     <div class="order-summary">
                         <h3>✅ Order Submitted Successfully!</h3>
                         <p><strong>Customer Name:</strong> ${customerName}</p>
@@ -1159,32 +1067,36 @@
                         <p><strong>Design Position:</strong> X=${Math.round(designX)}, Y=${Math.round(designY)}</p>
                         <p><strong>Design Scale:</strong> ${(designScale * 100).toFixed(1)}%</p>
                         <p><strong>Placement:</strong> ${placement}</p>
-                        <p><strong>T-Shirt Color:</strong> <span style="display:inline-block; width:20px; height:20px; background:${tshirtBody.getAttribute('fill')}; border:1px solid #ccc;"></span></p>
+                        <p><strong>T-Shirt Color:</strong> 
+                            <span style="display:inline-block; width:20px; height:20px; background:${tshirtBody.getAttribute('fill')}; border:1px solid #ccc; vertical-align: middle;"></span>
+                        </p>
                     </div>
                 `;
                 
-                // إضافة الملخص فوق النموذج
-                const formSection = document.querySelector('.form-section');
+                const formSection = document.getElementById('form-section');
                 const existingSummary = formSection.querySelector('.order-summary');
                 if (existingSummary) {
                     existingSummary.remove();
                 }
-                
-                const summaryDiv = document.createElement('div');
-                summaryDiv.innerHTML = summary;
-                formSection.insertBefore(summaryDiv, formSection.firstChild);
+                formSection.insertAdjacentHTML('afterbegin', summaryHTML);
             }
-            
+
+            function resetDesign() {
+                designImage = null;
+                designScale = 1.0;
+                designX = 150;
+                designY = 200;
+                designPreview.style.display = 'none';
+                fileInfo.style.display = 'none';
+                updateZoomLevel();
+                drawDesign();
+            }
+
             // نظام الإشعارات
             function showNotification(message, isError = false) {
                 const notification = document.getElementById('notification');
                 notification.textContent = message;
-                notification.className = 'notification';
-                
-                if (isError) {
-                    notification.classList.add('error');
-                }
-                
+                notification.className = 'notification' + (isError ? ' error' : '');
                 notification.classList.add('show');
                 
                 setTimeout(() => {
@@ -1194,7 +1106,7 @@
             
             // الرسم الأولي
             drawDesign();
-            createPositionInfoElement();
+            updatePositionInfo();
         });
     </script>
 </body>
