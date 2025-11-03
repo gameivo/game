@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Your Custom T-Shirt</title>
     <style>
+        /* نفس الستايل السابق - يمكنك استخدامه */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -54,6 +55,22 @@
             color: var(--primary-color);
         }
 
+        .nav-links {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
         .main-content {
             display: flex;
             flex-wrap: wrap;
@@ -95,15 +112,6 @@
             position: absolute;
             top: 0;
             left: 0;
-        }
-
-        #design-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
         }
 
         #design-canvas {
@@ -330,6 +338,10 @@
     <header>
         <div class="container">
             <div class="logo">Create Your <span>Custom T-Shirt</span></div>
+            <div class="nav-links">
+                <a href="index.html">Design</a>
+                <a href="track.html">Track My Order</a>
+            </div>
         </div>
     </header>
 
@@ -340,13 +352,9 @@
                     <div id="t-shirt-preview">
                         <!-- صورة التيشيرت الأساسية -->
                         <svg class="t-shirt-base" id="t-shirt-base" viewBox="0 0 300 400">
-                            <!-- التيشيرت الأبيض كخلفية -->
                             <path id="tshirt-body" d="M50,80 Q150,20 250,80 L250,350 Q150,380 50,350 Z" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
-                            <!-- الياقة -->
                             <path d="M100,80 Q150,50 200,80" fill="none" stroke="#bdc3c7" stroke-width="2"/>
                         </svg>
-                        
-                        <!-- طبقة التصميم -->
                         <canvas id="design-canvas" width="300" height="400"></canvas>
                     </div>
                 </div>
@@ -398,7 +406,7 @@
         </div>
 
         <div class="form-section">
-            <h2>Send Your Design</h2>
+            <h2>Submit Your Design</h2>
             <form id="design-form">
                 <div class="form-group">
                     <label for="name">Your Name</label>
@@ -408,8 +416,11 @@
                     <label for="email">Your Email</label>
                     <input type="email" id="email" required>
                 </div>
-                <button type="submit" class="btn btn-accent submit-btn">Send My Design</button>
+                <button type="submit" class="btn btn-accent submit-btn">Submit My Design</button>
             </form>
+            <p style="text-align: center; margin-top: 15px; color: #666;">
+                After submitting, you can <a href="track.html" style="color: var(--primary-color);">track your order here</a>
+            </p>
         </div>
     </div>
 
@@ -422,18 +433,22 @@
     <div class="notification" id="notification"></div>
 
     <script>
+        // استبدل هذا الرابط برابط Web App الخاص بك
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
         document.addEventListener('DOMContentLoaded', function() {
             // العناصر الأساسية
             const tshirtBody = document.getElementById('tshirt-body');
             const designCanvas = document.getElementById('design-canvas');
             const ctx = designCanvas.getContext('2d');
             const designPreview = document.getElementById('design-preview');
+            const designForm = document.getElementById('design-form');
             
             // خصائص التصميم
             let designImage = null;
             let designScale = 1;
-            let designX = 150; // المركز الأفقي
-            let designY = 200; // المركز العمودي
+            let designX = 150;
+            let designY = 200;
             let isDragging = false;
             let dragStartX = 0;
             let dragStartY = 0;
@@ -443,10 +458,8 @@
             
             // رسم التصميم على التيشيرت
             function drawDesign() {
-                // مسح الكانفاس
                 ctx.clearRect(0, 0, designCanvas.width, designCanvas.height);
                 
-                // رسم التصميم إذا كان موجوداً
                 if (designImage) {
                     const scaledWidth = designImage.width * designScale;
                     const scaledHeight = designImage.height * designScale;
@@ -472,7 +485,7 @@
                 });
             });
             
-            // رفع التصميم - تم التصحيح هنا
+            // رفع التصميم
             const uploadTrigger = document.getElementById('upload-trigger');
             const designUpload = document.getElementById('design-upload');
             
@@ -483,7 +496,6 @@
             designUpload.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
-                    // التحقق من نوع الملف
                     if (!file.type.match('image.*')) {
                         showNotification('Please select an image file (PNG or JPG)', true);
                         return;
@@ -493,11 +505,9 @@
                     reader.onload = function(event) {
                         designImage = new Image();
                         designImage.onload = function() {
-                            // عرض معاينة التصميم
                             designPreview.src = event.target.result;
                             designPreview.style.display = 'block';
                             
-                            // إعادة تعيين الموقع والحجم
                             designX = 150;
                             designY = 200;
                             designScale = Math.min(
@@ -565,37 +575,11 @@
                 showNotification('Design placement set to back');
             });
             
-            // السحب والإفلات - تم التصحيح هنا
+            // السحب والإفلات
             designCanvas.addEventListener('mousedown', startDrag);
             designCanvas.addEventListener('mousemove', drag);
             designCanvas.addEventListener('mouseup', endDrag);
             designCanvas.addEventListener('mouseleave', endDrag);
-            
-            designCanvas.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const mouseEvent = new MouseEvent('mousedown', {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                });
-                designCanvas.dispatchEvent(mouseEvent);
-            });
-            
-            designCanvas.addEventListener('touchmove', function(e) {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const mouseEvent = new MouseEvent('mousemove', {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                });
-                designCanvas.dispatchEvent(mouseEvent);
-            });
-            
-            designCanvas.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                const mouseEvent = new MouseEvent('mouseup');
-                designCanvas.dispatchEvent(mouseEvent);
-            });
             
             function startDrag(e) {
                 if (!designImage) return;
@@ -609,7 +593,6 @@
                 const designLeft = designX - scaledWidth / 2;
                 const designTop = designY - scaledHeight / 2;
                 
-                // التحقق إذا كان النقر على التصميم
                 if (x >= designLeft && x <= designLeft + scaledWidth && 
                     y >= designTop && y <= designTop + scaledHeight) {
                     isDragging = true;
@@ -653,9 +636,8 @@
                 showNotification('Design has been reset');
             });
             
-            // إرسال النموذج
-            const designForm = document.getElementById('design-form');
-            designForm.addEventListener('submit', function(e) {
+            // إرسال النموذج إلى Google Sheets
+            designForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
                 const name = document.getElementById('name').value;
@@ -665,13 +647,73 @@
                     showNotification('Please upload a design first', true);
                     return;
                 }
-                
-                // في التطبيق الحقيقي، هنا يتم إرسال البيانات إلى الخادم
-                showNotification(`Thank you, ${name}! Your design has been sent to ${email}. We'll contact you soon.`);
-                
-                // إعادة تعيين النموذج
-                designForm.reset();
+
+                showNotification('Submitting your design...');
+
+                try {
+                    const finalDesign = await captureFinalDesign();
+                    
+                    const response = await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            tshirtColor: tshirtBody.getAttribute('fill'),
+                            designImage: finalDesign
+                        })
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showNotification(`Thank you, ${name}! Your design has been submitted. You can track your order using your email.`);
+                        designForm.reset();
+                    } else {
+                        throw new Error(result.message);
+                    }
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    showNotification('Error submitting design. Please try again.', true);
+                }
             });
+            
+            // دالة لالتقاط التصميم النهائي
+            function captureFinalDesign() {
+                return new Promise((resolve) => {
+                    const finalCanvas = document.createElement('canvas');
+                    finalCanvas.width = 600;
+                    finalCanvas.height = 800;
+                    const finalCtx = finalCanvas.getContext('2d');
+                    
+                    // رسم التيشيرت
+                    finalCtx.fillStyle = tshirtBody.getAttribute('fill');
+                    finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+                    
+                    // رسم التصميم
+                    if (designImage) {
+                        const scaledWidth = designImage.width * designScale;
+                        const scaledHeight = designImage.height * designScale;
+                        
+                        // حساب الموضع النسبي للتصميم
+                        const finalX = (finalCanvas.width / designCanvas.width) * designX;
+                        const finalY = (finalCanvas.height / designCanvas.height) * designY;
+                        
+                        finalCtx.drawImage(
+                            designImage, 
+                            finalX - scaledWidth / 2, 
+                            finalY - scaledHeight / 2, 
+                            scaledWidth, 
+                            scaledHeight
+                        );
+                    }
+                    
+                    resolve(finalCanvas.toDataURL('image/png'));
+                });
+            }
             
             // نظام الإشعارات
             function showNotification(message, isError = false) {
