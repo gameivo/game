@@ -73,14 +73,43 @@
         .t-shirt-container {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 500px;
             background-color: #f8f9fa;
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        #t-shirt-canvas {
+        #t-shirt-preview {
+            position: relative;
+            width: 300px;
+            height: 400px;
+        }
+
+        .t-shirt-base {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #design-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #design-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             cursor: move;
@@ -133,17 +162,19 @@
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
+            background-color: #fafafa;
         }
 
         .upload-area:hover {
             border-color: var(--primary-color);
-            background-color: #f8f9fa;
+            background-color: #f0f8ff;
         }
 
         .upload-area i {
             font-size: 2rem;
             color: var(--primary-color);
             margin-bottom: 10px;
+            display: block;
         }
 
         #design-upload {
@@ -154,6 +185,7 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            justify-content: center;
         }
 
         .btn {
@@ -276,6 +308,13 @@
             background-color: #e74c3c;
         }
 
+        #design-preview {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+            display: none;
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -298,7 +337,18 @@
         <div class="main-content">
             <div class="design-area">
                 <div class="t-shirt-container">
-                    <canvas id="t-shirt-canvas"></canvas>
+                    <div id="t-shirt-preview">
+                        <!-- صورة التيشيرت الأساسية -->
+                        <svg class="t-shirt-base" id="t-shirt-base" viewBox="0 0 300 400">
+                            <!-- التيشيرت الأبيض كخلفية -->
+                            <path id="tshirt-body" d="M50,80 Q150,20 250,80 L250,350 Q150,380 50,350 Z" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+                            <!-- الياقة -->
+                            <path d="M100,80 Q150,50 200,80" fill="none" stroke="#bdc3c7" stroke-width="2"/>
+                        </svg>
+                        
+                        <!-- طبقة التصميم -->
+                        <canvas id="design-canvas" width="300" height="400"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -320,7 +370,8 @@
                     <div class="upload-area" id="upload-trigger">
                         <i>📁</i>
                         <p>Click to upload your design</p>
-                        <p class="small">(PNG or JPG with transparency)</p>
+                        <p style="font-size: 0.9rem; color: #666;">(PNG or JPG with transparency)</p>
+                        <img id="design-preview" alt="Design Preview">
                         <input type="file" id="design-upload" accept=".png,.jpg,.jpeg">
                     </div>
                 </div>
@@ -372,27 +423,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Canvas setup
-            const canvas = document.getElementById('t-shirt-canvas');
-            const ctx = canvas.getContext('2d');
+            // العناصر الأساسية
+            const tshirtBody = document.getElementById('tshirt-body');
+            const designCanvas = document.getElementById('design-canvas');
+            const ctx = designCanvas.getContext('2d');
+            const designPreview = document.getElementById('design-preview');
             
-            // Set canvas dimensions
-            function setCanvasSize() {
-                const container = canvas.parentElement;
-                canvas.width = container.clientWidth;
-                canvas.height = container.clientHeight;
-                drawTShirt();
-            }
-            
-            setCanvasSize();
-            window.addEventListener('resize', setCanvasSize);
-            
-            // T-shirt properties
-            let tShirtColor = '#ffffff';
+            // خصائص التصميم
             let designImage = null;
             let designScale = 1;
-            let designX = 0;
-            let designY = 0;
+            let designX = 150; // المركز الأفقي
+            let designY = 200; // المركز العمودي
             let isDragging = false;
             let dragStartX = 0;
             let dragStartY = 0;
@@ -400,54 +441,38 @@
             let designOffsetY = 0;
             let placement = 'front';
             
-            // Draw the t-shirt with the design
-            function drawTShirt() {
-                // Clear canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // رسم التصميم على التيشيرت
+            function drawDesign() {
+                // مسح الكانفاس
+                ctx.clearRect(0, 0, designCanvas.width, designCanvas.height);
                 
-                // Draw t-shirt base
-                ctx.fillStyle = tShirtColor;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw t-shirt shape (simplified)
-                ctx.strokeStyle = '#bdc3c7';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
-                
-                // Draw neckline
-                ctx.beginPath();
-                ctx.moveTo(canvas.width * 0.3, 10);
-                ctx.lineTo(canvas.width * 0.5, 40);
-                ctx.lineTo(canvas.width * 0.7, 10);
-                ctx.stroke();
-                
-                // Draw design if exists
+                // رسم التصميم إذا كان موجوداً
                 if (designImage) {
                     const scaledWidth = designImage.width * designScale;
                     const scaledHeight = designImage.height * designScale;
                     
-                    // Calculate position to center design initially
-                    if (designX === 0 && designY === 0) {
-                        designX = (canvas.width - scaledWidth) / 2;
-                        designY = (canvas.height - scaledHeight) / 2;
-                    }
-                    
-                    ctx.drawImage(designImage, designX, designY, scaledWidth, scaledHeight);
+                    ctx.drawImage(
+                        designImage, 
+                        designX - scaledWidth / 2, 
+                        designY - scaledHeight / 2, 
+                        scaledWidth, 
+                        scaledHeight
+                    );
                 }
             }
             
-            // Color selection
+            // اختيار اللون
             const colorOptions = document.querySelectorAll('.color-option');
             colorOptions.forEach(option => {
                 option.addEventListener('click', function() {
                     colorOptions.forEach(opt => opt.classList.remove('active'));
                     this.classList.add('active');
-                    tShirtColor = this.getAttribute('data-color');
-                    drawTShirt();
+                    const color = this.getAttribute('data-color');
+                    tshirtBody.setAttribute('fill', color);
                 });
             });
             
-            // Design upload
+            // رفع التصميم - تم التصحيح هنا
             const uploadTrigger = document.getElementById('upload-trigger');
             const designUpload = document.getElementById('design-upload');
             
@@ -458,24 +483,46 @@
             designUpload.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
+                    // التحقق من نوع الملف
+                    if (!file.type.match('image.*')) {
+                        showNotification('Please select an image file (PNG or JPG)', true);
+                        return;
+                    }
+                    
                     const reader = new FileReader();
                     reader.onload = function(event) {
                         designImage = new Image();
                         designImage.onload = function() {
-                            // Reset position and scale
-                            designX = 0;
-                            designY = 0;
-                            designScale = 1;
+                            // عرض معاينة التصميم
+                            designPreview.src = event.target.result;
+                            designPreview.style.display = 'block';
+                            
+                            // إعادة تعيين الموقع والحجم
+                            designX = 150;
+                            designY = 200;
+                            designScale = Math.min(
+                                150 / designImage.width,
+                                150 / designImage.height,
+                                1
+                            );
+                            
                             updateZoomLevel();
-                            drawTShirt();
+                            drawDesign();
+                            showNotification('Design uploaded successfully!');
+                        };
+                        designImage.onerror = function() {
+                            showNotification('Error loading image', true);
                         };
                         designImage.src = event.target.result;
+                    };
+                    reader.onerror = function() {
+                        showNotification('Error reading file', true);
                     };
                     reader.readAsDataURL(file);
                 }
             });
             
-            // Zoom controls
+            // التحكم في الحجم
             const zoomInBtn = document.getElementById('zoom-in');
             const zoomOutBtn = document.getElementById('zoom-out');
             const zoomLevel = document.getElementById('zoom-level');
@@ -488,7 +535,7 @@
                 if (designImage && designScale < 3) {
                     designScale += 0.1;
                     updateZoomLevel();
-                    drawTShirt();
+                    drawDesign();
                 }
             });
             
@@ -496,11 +543,11 @@
                 if (designImage && designScale > 0.2) {
                     designScale -= 0.1;
                     updateZoomLevel();
-                    drawTShirt();
+                    drawDesign();
                 }
             });
             
-            // Placement controls
+            // اختيار المكان
             const frontBtn = document.getElementById('front-btn');
             const backBtn = document.getElementById('back-btn');
             
@@ -508,7 +555,6 @@
                 frontBtn.classList.add('active');
                 backBtn.classList.remove('active');
                 placement = 'front';
-                // In a real implementation, you would switch between front and back views
                 showNotification('Design placement set to front');
             });
             
@@ -516,70 +562,98 @@
                 backBtn.classList.add('active');
                 frontBtn.classList.remove('active');
                 placement = 'back';
-                // In a real implementation, you would switch between front and back views
                 showNotification('Design placement set to back');
             });
             
-            // Drag and drop functionality
-            canvas.addEventListener('mousedown', startDrag);
-            canvas.addEventListener('mousemove', drag);
-            canvas.addEventListener('mouseup', endDrag);
-            canvas.addEventListener('mouseleave', endDrag);
+            // السحب والإفلات - تم التصحيح هنا
+            designCanvas.addEventListener('mousedown', startDrag);
+            designCanvas.addEventListener('mousemove', drag);
+            designCanvas.addEventListener('mouseup', endDrag);
+            designCanvas.addEventListener('mouseleave', endDrag);
+            
+            designCanvas.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                designCanvas.dispatchEvent(mouseEvent);
+            });
+            
+            designCanvas.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                designCanvas.dispatchEvent(mouseEvent);
+            });
+            
+            designCanvas.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                const mouseEvent = new MouseEvent('mouseup');
+                designCanvas.dispatchEvent(mouseEvent);
+            });
             
             function startDrag(e) {
                 if (!designImage) return;
                 
-                const rect = canvas.getBoundingClientRect();
+                const rect = designCanvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
                 const scaledWidth = designImage.width * designScale;
                 const scaledHeight = designImage.height * designScale;
+                const designLeft = designX - scaledWidth / 2;
+                const designTop = designY - scaledHeight / 2;
                 
-                // Check if click is on the design
-                if (x >= designX && x <= designX + scaledWidth && 
-                    y >= designY && y <= designY + scaledHeight) {
+                // التحقق إذا كان النقر على التصميم
+                if (x >= designLeft && x <= designLeft + scaledWidth && 
+                    y >= designTop && y <= designTop + scaledHeight) {
                     isDragging = true;
                     dragStartX = x;
                     dragStartY = y;
                     designOffsetX = designX;
                     designOffsetY = designY;
-                    canvas.style.cursor = 'grabbing';
+                    designCanvas.style.cursor = 'grabbing';
                 }
             }
             
             function drag(e) {
                 if (!isDragging || !designImage) return;
                 
-                const rect = canvas.getBoundingClientRect();
+                const rect = designCanvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
                 designX = designOffsetX + (x - dragStartX);
                 designY = designOffsetY + (y - dragStartY);
                 
-                drawTShirt();
+                drawDesign();
             }
             
             function endDrag() {
                 isDragging = false;
-                canvas.style.cursor = 'move';
+                designCanvas.style.cursor = 'move';
             }
             
-            // Reset design
+            // إعادة التعيين
             const resetBtn = document.getElementById('reset-btn');
             resetBtn.addEventListener('click', function() {
                 designImage = null;
                 designScale = 1;
-                designX = 0;
-                designY = 0;
+                designX = 150;
+                designY = 200;
                 updateZoomLevel();
                 designUpload.value = '';
-                drawTShirt();
+                designPreview.style.display = 'none';
+                drawDesign();
                 showNotification('Design has been reset');
             });
             
-            // Form submission
+            // إرسال النموذج
             const designForm = document.getElementById('design-form');
             designForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -592,19 +666,14 @@
                     return;
                 }
                 
-                // In a real implementation, you would:
-                // 1. Capture the canvas as an image
-                // 2. Send the image and form data to a server
-                // 3. The server would then email the design
-                
-                // For demonstration, we'll just show a success message
+                // في التطبيق الحقيقي، هنا يتم إرسال البيانات إلى الخادم
                 showNotification(`Thank you, ${name}! Your design has been sent to ${email}. We'll contact you soon.`);
                 
-                // Reset form
+                // إعادة تعيين النموذج
                 designForm.reset();
             });
             
-            // Notification system
+            // نظام الإشعارات
             function showNotification(message, isError = false) {
                 const notification = document.getElementById('notification');
                 notification.textContent = message;
@@ -621,8 +690,8 @@
                 }, 5000);
             }
             
-            // Initial draw
-            drawTShirt();
+            // الرسم الأولي
+            drawDesign();
         });
     </script>
 </body>
