@@ -913,69 +913,72 @@
                 showNotification('Design has been reset');
             });
             
-            // إرسال النموذج عبر Cloudflare Worker
-            designForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                
-                if (!designImage) {
-                    showNotification('Please upload a design first', true);
-                    return;
-                }
+// إرسال النموذج عبر Cloudflare Worker
+designForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    
+    if (!designImage) {
+        showNotification('Please upload a design first', true);
+        return;
+    }
 
-                // إظهار حالة التحميل
-                loadingElement.style.display = 'block';
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
+    // إظهار حالة التحميل
+    loadingElement.style.display = 'block';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
 
-                try {
-                    // التقاط التصميم النهائي (بنفس طريقة الموقع القديم)
-                    const finalDesign = await captureFinalDesign();
-                    
-                    // إرسال البيانات (بنفس طريقة الموقع القديم)
-                    const response = await fetch(WORKER_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            email: email,
-                            phone: phone,
-                            tshirtColor: tshirtBody.getAttribute('fill'),
-                            designImage: finalDesign,  // صورة واحدة كما في القديم
-                            placement: placement,
-                            designScale: designScale,
-                            timestamp: new Date().toISOString()
-                        })
-                    });
+    try {
+        // التقاط التصميم النهائي
+        const finalDesign = await captureFinalDesign();
+        
+        // إرسال البيانات مع جميع الحقول المطلوبة
+        const response = await fetch(WORKER_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                phone: phone,
+                tshirtColor: tshirtBody.getAttribute('fill'),
+                placement: placement,
+                designScale: designScale,
+                designImage: finalDesign,  // الصورة النهائية
+                originalWidth: designImage.width,  // عرض الصورة الأصلية
+                originalHeight: designImage.height, // ارتفاع الصورة الأصلية
+                fileSize: Math.round(finalDesign.length * 0.75 / 1024), // الحجم التقريبي
+                timestamp: new Date().toISOString()
+            })
+        });
 
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        showNotification(`Thank you, ${name}! Your design has been submitted successfully. Order ID: ${result.id || 'N/A'}`);
-                        designForm.reset();
-                        designImage = null;
-                        designPreview.style.display = 'none';
-                        fileInfo.style.display = 'none';
-                        drawDesign();
-                    } else {
-                        throw new Error(result.message || 'Unknown error occurred');
-                    }
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                    showNotification('Error submitting design: ' + error.message, true);
-                } finally {
-                    // إخفاء حالة التحميل
-                    loadingElement.style.display = 'none';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit My Design';
-                }
-            });
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification(`Thank you, ${name}! Your design has been submitted successfully. Order ID: ${result.id || 'N/A'}`);
+            designForm.reset();
+            designImage = null;
+            designPreview.style.display = 'none';
+            fileInfo.style.display = 'none';
+            drawDesign();
+        } else {
+            throw new Error(result.message || 'Unknown error occurred');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error submitting design: ' + error.message, true);
+    } finally {
+        // إخفاء حالة التحميل
+        loadingElement.style.display = 'none';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit My Design';
+    }
+});
             
             // دالة لالتقاط التصميم النهائي (من الموقع القديم)
             function captureFinalDesign() {
