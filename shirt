@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-Shirt Customizer</title>
+<style>
+  body {
+    background:#111;
+    color:#fff;
+    text-align:center;
+    font-family:Arial;
+  }
+  canvas {
+    border:2px solid #333;
+    border-radius:10px;
+    margin-top:15px;
+    background:url('https://i.imgur.com/UH1mU3y.png') center/contain no-repeat; /* صورة التيشيرت */
+  }
+  input[type=file] {
+    margin:15px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Upload Your Design and Move It on the T-Shirt</h2>
+<input type="file" id="upload" accept="image/*">
+<canvas id="tshirtCanvas" width="400" height="450"></canvas>
+
+<form id="sendData" action="https://formsubmit.co/your@email.com" method="POST">
+  <input type="hidden" name="x">
+  <input type="hidden" name="y">
+  <input type="hidden" name="scale">
+  <input type="hidden" name="rotation">
+  <input type="hidden" name="side" value="front">
+  <input type="email" name="email" placeholder="Your Email" required>
+  <button type="submit">Send Design Position</button>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
+<script>
+const canvas = new fabric.Canvas('tshirtCanvas');
+let imgObj;
+
+document.getElementById('upload').onchange = function(e) {
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    fabric.Image.fromURL(event.target.result, function(img) {
+      if (imgObj) canvas.remove(imgObj);
+      img.scaleToWidth(150);
+      img.set({ left: 125, top: 150 });
+      canvas.add(img);
+      imgObj = img;
+    });
+  }
+  reader.readAsDataURL(e.target.files[0]);
+};
+
+document.getElementById('sendData').onsubmit = function() {
+  if (imgObj) {
+    document.querySelector('[name=x]').value = imgObj.left.toFixed(1);
+    document.querySelector('[name=y]').value = imgObj.top.toFixed(1);
+    document.querySelector('[name=scale]').value = imgObj.scaleX.toFixed(2);
+    document.querySelector('[name=rotation]').value = imgObj.angle.toFixed(1);
+  }
+};
+</script>
+
+</body>
+</html>
