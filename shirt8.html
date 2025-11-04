@@ -218,7 +218,7 @@
     resultDiv.innerHTML = 'Checking your order...';
 
     try {
-        const response = await fetch(`https://script.google.com/macros/s/AKfycbz_HOlURe9NRJCTVgLw3DGXIT0CtYbrZPv6vHJ6bn10w05wlqbghpVKxoXfoZ0QiXCE1Q/exec?email=${encodeURIComponent(email)}`);
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbz9Qy2FQQnpk0SlaOM7Jc7u3OHQyjC1mHWofRA_Ae4qlt4rEfKZfmJFlkqXvxCZpM194A/exec?email=${encodeURIComponent(email)}`);
         const data = await response.json();
         
         console.log('API Response:', data);
