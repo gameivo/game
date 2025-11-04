@@ -464,6 +464,16 @@
             .controls {
                 order: -1;
             }
+            .tshirt-img{
+    position:absolute;
+    top:0; left:0;
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain;
+    pointer-events:none;
+    display:none;
+}
+.tshirt-img.active{ display:block; }
         }
     </style>
 </head>
@@ -483,8 +493,8 @@
             <div class="design-area">
                 <div class="t-shirt-container">
                     <div id="t-shirt-preview">
-                        <img id="tshirt-img" class="t-shirt-base" src="images/front.png" alt="T-Shirt">
-                        <img id="tshirt-back"  class="tshirt-img" src="images/back.png"  alt="Back"  style="display:none">
+                        <img id="tshirt-img"  class="tshirt-img active" src="images/front.png" alt="Front">
+                        <img id="tshirt-back" class="tshirt-img"        src="images/back.png"  alt="Back" style="display:none">
                             <path id="tshirt-body" d="M50,80 Q150,20 250,80 L250,350 Q150,380 50,350 Z" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
                             <path d="M100,80 Q150,50 200,80" fill="none" stroke="#bdc3c7" stroke-width="2"/>
                         </svg>
