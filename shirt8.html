@@ -202,7 +202,7 @@
 
     <script>
         // استبدل هذا الرابط برابط Google Script الخاص بك
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9Qy2FQQnpk0SlaOM7Jc7u3OHQyjC1mHWofRA_Ae4qlt4rEfKZfmJFlkqXvxCZpM194A/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJaclgfet-NIw1Py5Uj0nGwg-Ow7lTE0RF8v8lrXm6ikjj_QQpBFXU35EyXCgSsHN0rQ/exec';
 
        async function checkOrder() {
     const email = document.getElementById('email').value.trim().toLowerCase();
@@ -218,7 +218,7 @@
     resultDiv.innerHTML = 'Checking your order...';
 
     try {
-        const response = await fetch(`https://script.google.com/macros/s/AKfycbz9Qy2FQQnpk0SlaOM7Jc7u3OHQyjC1mHWofRA_Ae4qlt4rEfKZfmJFlkqXvxCZpM194A/exec?email=${encodeURIComponent(email)}`);
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbzJaclgfet-NIw1Py5Uj0nGwg-Ow7lTE0RF8v8lrXm6ikjj_QQpBFXU35EyXCgSsHN0rQ/exec?email=${encodeURIComponent(email)}`);
         const data = await response.json();
         
         console.log('API Response:', data);
