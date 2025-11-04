@@ -606,7 +606,9 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             // العناصر الأساسية
-            const tshirtBody = document.getElementById('tshirt-body');
+            // لم نعد نستخدم svg fill لذلك نحفظ اللون في متغير
+let currentTshirtColor = '#ffffff'; // القيمة الافتراضية
+const tshirtPreviewEl = document.getElementById('t-shirt-preview');
             const designCanvas = document.getElementById('design-canvas');
             const ctx = designCanvas.getContext('2d');
             const designPreview = document.getElementById('design-preview');
@@ -1064,24 +1066,24 @@ document.getElementById('back-btn').addEventListener('click',  () => switchSide(
     return new Promise((resolve) => {
         const tempCanvas = document.createElement('canvas');
         const ctx = tempCanvas.getContext('2d');
-        const img = document.getElementById('tshirt-img');   // صورة التيشرت
+        
+        // تحديد أي صورة تيشيرت نستخدم (الأمامية أو الخلفية)
+        let tshirtImg;
+        if (placement === 'front') {
+            tshirtImg = document.getElementById('tshirt-img');
+        } else {
+            tshirtImg = document.getElementById('tshirt-back');
+        }
 
         // نفس أبعاد الـ canvas الأصلي (300×400)
         tempCanvas.width = 300;
         tempCanvas.height = 400;
 
-        // ننتظر تحميل الصورة (في حال لم تكن جاهزة)
-        if (img.complete) {
-            drawAndExport();
-        } else {
-            img.onload = drawAndExport;
-        }
-
         function drawAndExport() {
-            // 1) ارسم التيشرت
-            ctx.drawImage(img, 0, 0, 300, 400);
+            // 1) ارسم التيشرت (الأمامي أو الخلفي)
+            ctx.drawImage(tshirtImg, 0, 0, 300, 400);
 
-            // 2) ارسم التصميم (نفس ما تفعله دائماً)
+            // 2) ارسم التصميم فوق التيشرت
             if (designImage) {
                 const sw = designImage.width * designScale;
                 const sh = designImage.height * designScale;
@@ -1094,6 +1096,15 @@ document.getElementById('back-btn').addEventListener('click',  () => switchSide(
             }
             // 3) استخرج الصورة
             resolve(tempCanvas.toDataURL('image/png', 0.9));
+        }
+
+        // ننتظر تحميل الصورة (في حال لم تكن جاهزة)
+        if (tshirtImg.complete) {
+            drawAndExport();
+        } else {
+            tshirtImg.onload = drawAndExport;
+            // في حالة عدم التحميل بعد فترة، ارسم بأي حال
+            setTimeout(drawAndExport, 1000);
         }
     });
 }
