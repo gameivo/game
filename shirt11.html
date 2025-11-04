@@ -528,6 +528,67 @@
     padding: 8px 5px;
     font-size: 0.8rem;
 }
+.under-tshirt-slider {
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.under-tshirt-slider h4 {
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.under-zoom-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #e0e0e0;
+    outline: none;
+    -webkit-appearance: none;
+    margin: 10px 0;
+}
+
+.under-zoom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: var(--transition);
+}
+
+.under-zoom-slider::-webkit-slider-thumb:hover {
+    background: #2980b9;
+    transform: scale(1.1);
+}
+
+.under-zoom-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.under-zoom-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 600;
+}
 
     
            
@@ -550,19 +611,6 @@
             <div class="design-area">
                 <div class="t-shirt-container">
     <!-- أضف هذا السلايدر العلوي -->
-    <div class="zoom-control-overlay">
-        <h4>تحكم بالحجم</h4>
-        <input type="range" min="10" max="500" value="100" class="overlay-zoom-slider" id="overlay-zoom-slider">
-        <div class="zoom-values">
-            <span>10%</span>
-            <span>100%</span>
-            <span>500%</span>
-        </div>
-        <div class="overlay-zoom-buttons">
-            <button class="btn" id="overlay-zoom-out">تصغير</button>
-            <button class="btn" id="overlay-zoom-in">تكبير</button>
-        </div>
-    </div>
     
     <!-- الكود الحالي يبقى كما هو -->
     <div id="t-shirt-preview">
