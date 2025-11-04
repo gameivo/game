@@ -1115,6 +1115,21 @@
                     notification.classList.remove('show');
                 }, 5000);
             }
+
+            const frontImg = document.getElementById('tshirt-front');
+const backImg  = document.getElementById('tshirt-back');
+let currentSide = 'front';          // أيهما مفعّل الآن
+
+// عند الضغط على أزرار التبديل
+document.getElementById('front-btn').addEventListener('click', () => switchSide('front'));
+document.getElementById('back-btn').addEventListener('click',  () => switchSide('back'));
+
+function switchSide(side){
+    currentSide = side;
+    frontImg.style.display = (side==='front') ? 'block' : 'none';
+    backImg.style.display  = (side==='back')  ? 'block' : 'none';
+    drawDesign();                       // إعادة رسم التصميم فوق الصورة الجديدة
+}
             
             // الرسم الأولي
             drawDesign();
