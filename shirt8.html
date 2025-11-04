@@ -204,73 +204,108 @@
         // استبدل هذا الرابط برابط Google Script الخاص بك
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9Qy2FQQnpk0SlaOM7Jc7u3OHQyjC1mHWofRA_Ae4qlt4rEfKZfmJFlkqXvxCZpM194A/exec';
 
-        async function checkOrder() {
-            const email = document.getElementById('email').value.trim().toLowerCase();
-            const resultDiv = document.getElementById('result');
-            
-            if (!email) {
-                resultDiv.className = 'result error';
-                resultDiv.innerHTML = 'Please enter your email address';
-                return;
-            }
+       async function checkOrder() {
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const resultDiv = document.getElementById('result');
+    
+    if (!email) {
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = 'Please enter your email address';
+        return;
+    }
 
-            resultDiv.className = 'result pending';
-            resultDiv.innerHTML = 'Checking your order...';
+    resultDiv.className = 'result pending';
+    resultDiv.innerHTML = 'Checking your order...';
 
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL);
-                const orders = await response.json();
-                
-                // البحث عن الطلب باستخدام الإيميل
-                const userOrder = orders.find(order => 
-                    order.Email && order.Email.toLowerCase() === email
-                );
-
-                if (userOrder) {
-                    if (userOrder.ProductLink) {
-                        // المنتج جاهز
-                        resultDiv.className = 'result success';
-                        resultDiv.innerHTML = `
-                            <h3>🎉 Your Order is Ready!</h3>
-                            <p><strong>Name:</strong> ${userOrder.Name || 'N/A'}</p>
-                            <p><strong>Submitted:</strong> ${new Date(userOrder.Timestamp).toLocaleDateString()}</p>
-                            <p>Your custom t-shirt is now available for purchase:</p>
-                            <a href="${userOrder.ProductLink}" target="_blank" class="product-link">
-                                View Your T-Shirt on ViralStyle
-                            </a>
-                        `;
-                    } else {
-                        // المنتج قيد التحضير
-                        resultDiv.className = 'result pending';
-                        resultDiv.innerHTML = `
-                            <h3>⏳ Your Order is Being Processed</h3>
-                            <p><strong>Name:</strong> ${userOrder.Name || 'N/A'}</p>
-                            <p><strong>Submitted:</strong> ${new Date(userOrder.Timestamp).toLocaleDateString()}</p>
-                            <p>Your design is being prepared. Please check back later.</p>
-                        `;
-                    }
-                } else {
-                    // لم يتم العثور على الطلب
-                    resultDiv.className = 'result error';
-                    resultDiv.innerHTML = `
-                        <h3>❌ Order Not Found</h3>
-                        <p>No order found with email: <strong>${email}</strong></p>
-                        <p>Please check your email or <a href="index.html">submit a new design</a>.</p>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                resultDiv.className = 'result error';
-                resultDiv.innerHTML = 'Error checking order. Please try again later.';
-            }
+    try {
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbz_HOlURe9NRJCTVgLw3DGXIT0CtYbrZPv6vHJ6bn10w05wlqbghpVKxoXfoZ0QiXCE1Q/exec?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
+        
+        console.log('API Response:', data);
+        
+        if (!data.success) {
+            resultDiv.className = 'result error';
+            resultDiv.innerHTML = `
+                <h3>❌ ${data.message}</h3>
+                <p>No order found with email: <strong>${email}</strong></p>
+                <p>Please check your email or <a href="index.html">submit a new design</a>.</p>
+            `;
+            return;
         }
 
-        // السماح بالبحث عند الضغط على Enter
-        document.getElementById('email').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkOrder();
-            }
-        });
+        const orders = data.orders;
+        const latestOrder = orders[orders.length - 1];
+        
+        if (latestOrder.ProductLink && latestOrder.ProductLink !== '' && latestOrder.ProductLink !== 'www.google.com') {
+            resultDiv.className = 'result success';
+            resultDiv.innerHTML = `
+                <h3>🎉 Your Order is Ready!</h3>
+                <p><strong>Name:</strong> ${latestOrder.Name || 'N/A'}</p>
+                <p><strong>Order ID:</strong> ${latestOrder['Order ID'] || 'N/A'}</p>
+                <p><strong>Submitted:</strong> ${new Date(latestOrder.Timestamp).toLocaleDateString()}</p>
+                <p><strong>Status:</strong> ${latestOrder.Status || 'N/A'}</p>
+                <p>Your custom t-shirt is now available for purchase:</p>
+                <a href="${latestOrder.ProductLink}" target="_blank" class="product-link">
+                    View Your T-Shirt on ViralStyle
+                </a>
+                ${orders.length > 1 ? `<p><small>You have ${orders.length} orders total</small></p>` : ''}
+                ${latestOrder['Preview Image'] ? `<div style="margin-top: 15px;"><img src="${latestOrder['Preview Image']}" alt="Preview" style="max-width: 200px; border-radius: 8px;"></div>` : ''}
+            `;
+        } else {
+            resultDiv.className = 'result pending';
+            resultDiv.innerHTML = `
+                <h3>⏳ Your Order is Being Processed</h3>
+                <p><strong>Name:</strong> ${latestOrder.Name || 'N/A'}</p>
+                <p><strong>Order ID:</strong> ${latestOrder['Order ID'] || 'N/A'}</p>
+                <p><strong>Submitted:</strong> ${new Date(latestOrder.Timestamp).toLocaleDateString()}</p>
+                <p><strong>Status:</strong> ${latestOrder.Status || 'N/A'}</p>
+                <p>Your design is being prepared. Please check back later.</p>
+                ${orders.length > 1 ? `<p><small>You have ${orders.length} orders total</small></p>` : ''}
+                ${latestOrder['Preview Image'] ? `<div style="margin-top: 15px;"><img src="${latestOrder['Preview Image']}" alt="Preview" style="max-width: 200px; border-radius: 8px;"></div>` : ''}
+            `;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = `
+            <h3>❌ Error Checking Order</h3>
+            <p>Please try again later or contact support.</p>
+            <p><small>Error details: ${error.message}</small></p>
+        `;
+    }
+}
+
+// السماح بالبحث عند الضغط على Enter
+document.getElementById('email').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        checkOrder();
+    }
+});
+
+// إضافة ستايل إضافي للمعاينة
+const style = document.createElement('style');
+style.textContent = `
+    .result img {
+        border: 2px solid #ddd;
+        margin-top: 10px;
+    }
+    .product-link {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 12px 25px;
+        background-color: #e74c3c;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .product-link:hover {
+        background-color: #c0392b;
+        transform: translateY(-2px);
+    }
+`;
+document.head.appendChild(style);
     </script>
 </body>
 </html>
