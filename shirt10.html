@@ -1031,31 +1031,42 @@
             }
 
             function capturePreviewImage() {
-                return new Promise((resolve) => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = designCanvas.width;
-                    canvas.height = designCanvas.height;
-                    const ctx = canvas.getContext('2d');
-                    
-                    ctx.fillStyle = tshirtBody.getAttribute('fill');
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
-                    if (designImage) {
-                        const scaledWidth = designImage.width * designScale;
-                        const scaledHeight = designImage.height * designScale;
-                        
-                        ctx.drawImage(
-                            designImage,
-                            designX - scaledWidth / 2,
-                            designY - scaledHeight / 2,
-                            scaledWidth,
-                            scaledHeight
-                        );
-                    }
-                    
-                    resolve(canvas.toDataURL('image/png', 0.8));
-                });
+    return new Promise((resolve) => {
+        const tempCanvas = document.createElement('canvas');
+        const ctx = tempCanvas.getContext('2d');
+        const img = document.getElementById('tshirt-img');   // صورة التيشرت
+
+        // نفس أبعاد الـ canvas الأصلي (300×400)
+        tempCanvas.width = 300;
+        tempCanvas.height = 400;
+
+        // ننتظر تحميل الصورة (في حال لم تكن جاهزة)
+        if (img.complete) {
+            drawAndExport();
+        } else {
+            img.onload = drawAndExport;
+        }
+
+        function drawAndExport() {
+            // 1) ارسم التيشرت
+            ctx.drawImage(img, 0, 0, 300, 400);
+
+            // 2) ارسم التصميم (نفس ما تفعله دائماً)
+            if (designImage) {
+                const sw = designImage.width * designScale;
+                const sh = designImage.height * designScale;
+                ctx.drawImage(
+                    designImage,
+                    designX - sw / 2,
+                    designY - sh / 2,
+                    sw, sh
+                );
             }
+            // 3) استخرج الصورة
+            resolve(tempCanvas.toDataURL('image/png', 0.9));
+        }
+    });
+}
 
             // عرض ملخص الطلب
             function showOrderSummary(response, customerName) {
