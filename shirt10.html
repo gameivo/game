@@ -463,6 +463,30 @@
             
             .controls {
                 order: -1;
+
+        /* ===== تحجيم صارم للتيشيرت ===== */
+.tshirt-img{
+    position:absolute !important;
+    top:0; left:0;
+    width:100% !important;        /* ملء عرض الحاوية */
+    height:100% !important;       /* ملء ارتفاع الحاوية */
+    object-fit:contain;           /* احفظ النسبة ولا تقطع */
+    pointer-events:none;
+    display:none;                 /* نُظهرها لاحقاً بالـ JS */
+}
+
+/* الوجه المختار فقط */
+.tshirt-img.active{
+    display:block !important;
+}
+
+/* أبعاد ثابتة للحاوية */
+#t-shirt-preview{
+    width:300px !important;
+    height:400px !important;
+    position:relative;
+}
+/* ================================= */
            
         }
     </style>
