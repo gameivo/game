@@ -479,45 +479,24 @@
     </header>
 
     <div class="container">
-  <div class="main-content">
-    <div class="design-area">
-      <div class="t-shirt-container" style="position: relative; display: inline-block;">
-
-        <!-- منطقة عرض التيشيرت والتصميم -->
-        <div id="t-shirt-preview" style="position: relative; width: 300px; height: 400px;">
-
-          <!-- صورة التيشيرت (بدلاً من SVG) -->
-          <img 
-            id="t-shirt-base" 
-            src="images/tshirt.png" 
-            alt="T-Shirt Base" 
-            width="300" 
-            height="400"
-            style="position: absolute; top: 0; left: 0; z-index: 1;"
-          >
-
-          <!-- الكانفاس الذي يوضع عليه التصميم -->
-          <canvas 
-            id="design-canvas" 
-            width="300" 
-            height="400"
-            style="position: absolute; top: 0; left: 0; z-index: 2;"
-          ></canvas>
-
-        </div>
-      </div>
-
-      <!-- معلومات التصميم -->
-      <div class="position-info" id="position-info" style="margin-top: 15px;">
-        <strong>Design Information:</strong><br>
-        Position: X=150, Y=200<br>
-        Size: 0 × 0 pixels<br>
-        Scale: 100%
-      </div>
-    </div>
-  </div>
-</div>
-
+        <div class="main-content">
+            <div class="design-area">
+                <div class="t-shirt-container">
+                    <div id="t-shirt-preview">
+                        <svg class="t-shirt-base" id="t-shirt-base" viewBox="0 0 300 400">
+                            <path id="tshirt-body" d="M50,80 Q150,20 250,80 L250,350 Q150,380 50,350 Z" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+                            <path d="M100,80 Q150,50 200,80" fill="none" stroke="#bdc3c7" stroke-width="2"/>
+                        </svg>
+                        <canvas id="design-canvas" width="300" height="400"></canvas>
+                    </div>
+                </div>
+                <div class="position-info" id="position-info">
+                    <strong>Design Information:</strong><br>
+                    Position: X=150, Y=200<br>
+                    Size: 0 × 0 pixels<br>
+                    Scale: 100%
+                </div>
+            </div>
 
             <div class="controls">
                 <div class="control-group">
