@@ -610,6 +610,16 @@
         <div class="main-content">
             <div class="design-area">
                 <div class="t-shirt-container">
+                <!-- السلايدر تحت التيشرت -->
+<div class="under-tshirt-slider">
+    <h4>Design Size Control</h4>
+    <input type="range" min="10" max="500" value="100" class="under-zoom-slider" id="under-zoom-slider">
+    <div class="under-zoom-values">
+        <span>10%</span>
+        <span>100%</span>
+        <span>500%</span>
+    </div>
+</div>
     <!-- أضف هذا السلايدر العلوي -->
     
     <!-- الكود الحالي يبقى كما هو -->
@@ -1292,38 +1302,29 @@ const overlayZoomIn = document.getElementById('overlay-zoom-in');
 const overlayZoomOut = document.getElementById('overlay-zoom-out');
 
 // تحديث السلايدر العلوي عند تغيير الحجم
-function updateOverlayZoom() {
-    overlayZoomSlider.value = designScale * 100;
+// السلايدر تحت التيشرت
+const underZoomSlider = document.getElementById('under-zoom-slider');
+
+// تحديث السلايدر الجديد
+function updateUnderZoom() {
+    underZoomSlider.value = Math.round(designScale * 100);
 }
 
-// أحداث السلايدر العلوي
-overlayZoomSlider.addEventListener('input', function() {
+// أحداث السلايدر الجديد - يعمل بنفس سلاسة السلايدر الأصلي
+underZoomSlider.addEventListener('input', function() {
     if (designImage) {
         designScale = parseInt(this.value) / 100;
         updateZoomLevel();
-        updateOverlayZoom();
+        updateUnderZoom();
         drawDesign();
     }
 });
 
-overlayZoomIn.addEventListener('click', function() {
-    if (designImage) {
-        designScale = Math.min(designScale * 1.2, 5);
-        updateZoomLevel();
-        updateOverlayZoom();
-        drawDesign();
-    }
-});
-
-overlayZoomOut.addEventListener('click', function() {
-    if (designImage) {
-        designScale = Math.max(designScale / 1.2, 0.1);
-        updateZoomLevel();
-        updateOverlayZoom();
-        drawDesign();
-    }
-});
-
+// جعل السلايدرين متزامنين
+function updateAllZoomControls() {
+    updateZoomLevel();
+    updateUnderZoom();
+}
             
             // الرسم الأولي
             drawDesign();
