@@ -595,6 +595,31 @@
 
     <div class="notification" id="notification"></div>
 
+    // عناصر الصور
+const frontImg = document.getElementById('tshirt-img');
+const backImg  = document.getElementById('tshirt-back');
+
+// دالة التبديل بين الوجهين
+function switchSide(side){
+    placement = side;                       // لإرساله مع الفورم
+    if(side === 'front'){
+        frontImg.style.display = 'block';
+        backImg.style.display  = 'none';
+        document.getElementById('front-btn').classList.add('active');
+        document.getElementById('back-btn').classList.remove('active');
+    }else{
+        frontImg.style.display = 'none';
+        backImg.style.display  = 'block';
+        document.getElementById('back-btn').classList.add('active');
+        document.getElementById('front-btn').classList.remove('active');
+    }
+    drawDesign();   // أعد الرسم فوق الصورة الجديدة
+}
+
+// ربط الأزرار بالدالة الجديدة
+document.getElementById('front-btn').addEventListener('click', () => switchSide('front'));
+document.getElementById('back-btn').addEventListener('click',  () => switchSide('back'));
+
     <script>
         // استخدم Cloudflare Worker أو Google Apps Script - اختر واحداً فقط
         const WORKER_URL = 'https://rapid-river-f98b.mohammed1990sid.workers.dev/';
@@ -1116,20 +1141,6 @@
                 }, 5000);
             }
 
-            const frontImg = document.getElementById('tshirt-front');
-const backImg  = document.getElementById('tshirt-back');
-let currentSide = 'front';          // أيهما مفعّل الآن
-
-// عند الضغط على أزرار التبديل
-document.getElementById('front-btn').addEventListener('click', () => switchSide('front'));
-document.getElementById('back-btn').addEventListener('click',  () => switchSide('back'));
-
-function switchSide(side){
-    currentSide = side;
-    frontImg.style.display = (side==='front') ? 'block' : 'none';
-    backImg.style.display  = (side==='back')  ? 'block' : 'none';
-    drawDesign();                       // إعادة رسم التصميم فوق الصورة الجديدة
-}
             
             // الرسم الأولي
             drawDesign();
