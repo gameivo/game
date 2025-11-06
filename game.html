@@ -1,28 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-const id = new URLSearchParams(window.location.search).get("id");
-if (id) {
-  fetch("/games.json")
-    .then(r => r.json())
-    .then(data => {
-      const game = data.find(g => g.id === id);
-      if (game) {
-        document.title = game.title + " | Play Online";
-        const d = document.createElement('meta');
-        d.name = "description";
-        d.content = game.description;
-        document.head.appendChild(d);
 
-        const link = document.createElement('link');
-        link.rel = "canonical";
-        link.href = "https://tikmob.github.io/game/?id=" + id;
-        document.head.appendChild(link);
-      }
-    });
-}
-</script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
 <script>
