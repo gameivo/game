@@ -959,9 +959,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let gamesData = [];
     const gameId = getUrlParameter('game');
 
-    // إذا لم توجد لعبة محددة، عد للصفحة الرئيسية
+    // الحل: إذا لم توجد لعبة محددة، لا نعيد التوجيه بل نعرض رسالة
     if (!gameId) {
-        window.location.href = "https://tikmob.github.io/game";
+        // بدلاً من إعادة التوجيه، نعرض رسالة للمستخدم
+        showNoGameSelected();
         return;
     }
 
@@ -1012,10 +1013,48 @@ document.addEventListener("DOMContentLoaded", function () {
                     "genre": "Action, Adventure",
                     "thumbnail": "https://tikmob.github.io/game/images/1.jpg",
                     "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
+                },
+                {
+                    "id": "shell-shockers",
+                    "title": "Shell Shockers",
+                    "description": "The world's most popular egg-based multiplayer shooter!",
+                    "genre": "Shooting, Multiplayer",
+                    "thumbnail": "https://tikmob.github.io/game/images/2.jpg",
+                    "iframe": "https://html5.gamemonetize.com/shellshockers/"
+                },
+                {
+                    "id": "slope",
+                    "title": "Slope",
+                    "description": "Navigate a ball down a steep slope in this fast-paced 3D game",
+                    "genre": "Racing, Arcade",
+                    "thumbnail": "https://tikmob.github.io/game/images/3.jpg",
+                    "iframe": "https://html5.gamemonetize.com/slope/"
                 }
             ];
             return gamesData;
         }
+    }
+
+    // دالة جديدة: عرض رسالة عندما لا يتم اختيار لعبة
+    function showNoGameSelected() {
+        document.getElementById('game-title').textContent = 'Select a Game';
+        document.getElementById('game-description').textContent = 'Please choose a game from our collection to start playing.';
+        document.getElementById('loading-text').textContent = 'No Game Selected';
+        document.title = 'Select a Game | FreePlayHub';
+        
+        const loading = document.getElementById('loading');
+        loading.innerHTML = `
+            <div style="text-align:center;color:#fff;padding:40px">
+                <div style="font-size:4rem;margin-bottom:20px">🎮</div>
+                <h2 style="margin-bottom:15px;color:#ffd700">No Game Selected</h2>
+                <p style="margin-bottom:25px;font-size:1.1rem">Please choose a game from our collection to start playing.</p>
+                <a href="https://tikmob.github.io/game" class="back-btn" style="display:inline-block;margin-top:15px">
+                    ← Browse All Games
+                </a>
+            </div>`;
+        
+        // عرض الألعاب المقترحة
+        displaySuggestedGames();
     }
 
     // دالة لتحديث معلومات اللعبة
