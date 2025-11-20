@@ -703,7 +703,16 @@
   "genre": "Action, IO, Multiplayer, Arena, Hero Battle",
   "thumbnail": "https://tikmob.github.io/game/images/88.png",
   "iframe": "https://html5.gamedistribution.com/rvvASMiM/9faec663ce9b4b1ba4fa6bee4abc53cd/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2h0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tLzlmYWVjNjYzY2U5YjRiMWJhNGZhNmJlZTRhYmM1M2NkLyIsInBhcmVudERvbWFpbiI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidG9wRG9tYWluIjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xOCJ9"
-}
+},
+{  
+  "id": "kour",  
+  "title": "Kour.io",  
+  "description": "Play Kour.io online for free — a fast-paced multiplayer FPS shooter that combines parkour movement, tactical gunfights, and competitive game modes. Run, jump, wall-run and dash across dynamic maps while using a variety of weapons, from sniper rifles to rocket launchers. Earn Kour Points (KP) by getting kills and completing missions, then use them to unlock skins, characters, crates and emotes. Choose from multiple classes, test your aim, master movement, and dominate in modes like Free-For-All, Team Deathmatch, Gun Game, Battle Royale, Hardpoint and Search & Destroy. With intuitive WASD + mouse controls, fluid parkour-inspired mechanics, and a progression system, Kour.io is perfect for fans of online shooters, competitive browser FPS, movement-based action games, and unblocked multiplayer fun. No download required — jump in, climb rooftops, outgun your rivals and become the top Kour!",  
+  "genre": "Shooter, Multiplayer, FPS, Parkour, Action, IO Game",  
+  "thumbnail": "https://tikmob.github.io/game/images/89.png",  
+  "iframe": "https://kour.io/"  
+},
+
 
 {
   "id": "test",
