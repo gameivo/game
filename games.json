@@ -777,7 +777,7 @@
   "iframe": "https://brutalmania.io/"
 },
 {
-  "id": "warcall-io",
+  "id": "warcall",
   "title": "WarCall",
   "description": "Play WarCall.io online and enter a dark fantasy battle arena where warriors, assassins, beasts, and magical fighters clash in fast-paced multiplayer combat. In this intense .io action game, you gather gold, upgrade your hero, unlock powerful abilities, and fight to survive against countless enemies. Each match is a brutal free-for-all where strategy, timing, and smart movement decide who becomes the last survivor. Choose from unique characters, each with special stats and combat styles, and grow stronger as you eliminate foes and collect loot. This game is perfect for players who love arena battles, PvP survival games, fantasy combat, hero progression, roguelike elements, and competitive io games. Jump into the battlefield and dominate the arena in WarCall.io!",
   "genre": "Action, Fantasy, Multiplayer",
@@ -791,7 +791,16 @@
   "genre": "Shooter, Multiplayer, FPS, Action, Blocky",
   "thumbnail": "https://tikmob.github.io/game/images/99.png",
   "iframe": "https://blocops.io/"
+},
+{
+  "id": "minigolfclub",
+  "title": "MiniGolfClub",
+  "description": "Play MiniGolfClub.io online for free — a fun and relaxing multiplayer mini-golf game where you compete against other players in creative, challenging golf courses! Put your putting skills to the test as you aim, drive the ball, and navigate tricky obstacles, hills, and tunnels across beautifully designed tracks. Customize your golfer and your club, join global matches, and climb the leaderboard as you master the art of mini golf. This unblocked browser game is perfect for fans of casual sports games, browser golf games, multiplayer arcade challenges, and free online fun. No download required — tee off, sink the shots, and dominate the mini golf course in MiniGolfClub.io!",
+  "genre": "Sports, Golf, Multiplayer, Casual, Online",
+  "thumbnail": "https://tikmob.github.io/game/images/100.png",
+  "iframe": "https://minigolfclub.io/"
 }
+
 
 
 
