@@ -3,17 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download GTA San Andreas - All Platforms | PS5, PS4, Xbox, PC, Mobile</title>
-    <meta name="description" content="Download GTA San Andreas for all platforms - PS5, PS4, Xbox, PC, Android, and iPhone. Fast and secure downloads available.">
-    <meta name="keywords" content="GTA San Andreas, download GTA, GTA San Andreas PS5, GTA mobile, GTA Android, GTA iPhone, GTA PC">
+    <title>Download GTA San Andreas Free | All Platforms PS5, PS4, Xbox, PC, Mobile</title>
+    <meta name="description" content="Download GTA San Andreas for free on all platforms - PS5, PS4, Xbox, PC, Android, iPhone. Experience the complete game with graphics and performance enhancements. Safe and fast downloads.">
+    <meta name="keywords" content="GTA San Andreas, download GTA, GTA San Andreas PS5, GTA mobile, GTA Android, GTA iPhone, GTA PC, GTA game, Grand Theft Auto San Andreas, free GTA download, GTA SA">
+    <meta name="author" content="GTA Downloads">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.yoursite.com/download-gta-san-andreas">
+    
+    <!-- Open Graph Tags for Social Media -->
+    <meta property="og:title" content="Download GTA San Andreas Free | All Platforms">
+    <meta property="og:description" content="Download GTA San Andreas for free on all platforms - PS5, PS4, Xbox, PC, Android, iPhone.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yoursite.com/download-gta-san-andreas">
+    <meta property="og:image" content="https://www.yoursite.com/images/gta-san-andreas-cover.jpg">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Grand Theft Auto: San Andreas",
+      "description": "Grand Theft Auto: San Andreas is a 2004 action-adventure game developed by Rockstar North and published by Rockstar Games.",
+      "gamePlatform": ["PS5", "PS4", "Xbox Series X", "Xbox One", "PC", "Android", "iOS"],
+      "applicationCategory": "Game",
+      "operatingSystem": "All Platforms",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
     <style>
         :root {
             --primary: #ff8c00;
             --primary-dark: #e67e00;
+            --primary-light: #ffa733;
             --dark: #1a1a1a;
+            --darker: #0f0f0f;
             --light: #f5f5f5;
             --gray: #333;
             --gray-light: #555;
+            --success: #4CAF50;
         }
         
         * {
@@ -27,6 +59,7 @@
             background-color: var(--dark);
             color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -36,10 +69,21 @@
             padding: 20px;
         }
         
+        /* Header Styles */
         header {
             background: linear-gradient(to right, #000, var(--gray));
-            padding: 20px 0;
+            padding: 15px 0;
             border-bottom: 3px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
@@ -55,11 +99,45 @@
         .logo h1 {
             font-size: 1.8rem;
             color: var(--primary);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
         
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
         .hero {
-            background: url('https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -67,43 +145,93 @@
             position: relative;
         }
         
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.5s ease;
         }
         
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .hero h2 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
             color: var(--primary);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 30px;
+            line-height: 1.8;
         }
         
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        /* Platforms Section */
         .platforms {
-            padding: 60px 0;
-            background-color: var(--gray);
+            padding: 80px 0;
+            background-color: var(--darker);
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             font-size: 2.5rem;
             color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary);
         }
         
         .platform-grid {
@@ -113,15 +241,17 @@
         }
         
         .platform-card {
-            background-color: var(--dark);
+            background: linear-gradient(to bottom, var(--gray), var(--dark));
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--gray-light);
         }
         
         .platform-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
         }
         
         .platform-icon {
@@ -138,7 +268,7 @@
         }
         
         .platform-content {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
         }
         
@@ -152,26 +282,9 @@
             color: #ccc;
         }
         
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-dark);
-        }
-        
+        /* Features Section */
         .features {
-            padding: 60px 0;
+            padding: 80px 0;
             background-color: var(--dark);
         }
         
@@ -183,7 +296,15 @@
         
         .feature-card {
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
+            background-color: var(--darker);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
         
         .feature-card i {
@@ -197,19 +318,124 @@
             font-size: 1.3rem;
         }
         
+        /* Game Info Section */
+        .game-info {
+            padding: 80px 0;
+            background-color: var(--darker);
+        }
+        
+        .info-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .info-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .info-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .info-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .info-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .info-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .info-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background-color: var(--dark);
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid var(--gray-light);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background-color: var(--darker);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--gray);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        /* Footer */
         footer {
             background-color: #000;
-            padding: 40px 0;
-            text-align: center;
+            padding: 60px 0 20px;
             border-top: 2px solid var(--primary);
         }
         
-        .footer-links {
+        .footer-content {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
         }
         
         .footer-links a {
@@ -222,14 +448,51 @@
             color: var(--primary);
         }
         
-        .copyright {
-            color: #777;
+        .social-links {
+            display: flex;
+            gap: 15px;
             margin-top: 20px;
         }
         
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--gray);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #777;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray);
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
             }
             
             .section-title {
@@ -239,6 +502,21 @@
             .platform-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .info-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -247,9 +525,17 @@
     <!-- Header Section -->
     <header>
         <div class="container">
-            <div class="logo">
-                <i class="fas fa-gamepad" style="font-size: 2.5rem; color: var(--primary);"></i>
-                <h1>GTA San Andreas Downloads</h1>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad" style="font-size: 2.5rem; color: var(--primary);"></i>
+                    <h1>GTA San Andreas Downloads</h1>
+                </div>
+                <nav class="nav-links">
+                    <a href="#platforms">Platforms</a>
+                    <a href="#features">Features</a>
+                    <a href="#game-info">About</a>
+                    <a href="#faq">FAQ</a>
+                </nav>
             </div>
         </div>
     </header>
@@ -257,8 +543,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h2>Download GTA San Andreas</h2>
-            <p>Experience the classic open-world action game on all your favorite platforms. Fast, secure downloads available now.</p>
+            <h2>Download GTA San Andreas - Free</h2>
+            <p>Experience the classic open-world action game on all your favorite platforms. Enhanced graphics, improved performance, and all DLCs included. Fast, secure downloads available now.</p>
             <a href="#platforms" class="btn">Download Now</a>
         </div>
     </section>
@@ -275,8 +561,8 @@
                     </div>
                     <div class="platform-content">
                         <h3>PlayStation 5</h3>
-                        <p>Optimized for PS5 with enhanced graphics and performance.</p>
-                        <a href="www.google.com" class="btn" onclick="downloadGame('ps5')">Download for PS5</a>
+                        <p>Optimized for PS5 with enhanced graphics, 4K resolution, and improved performance.</p>
+                        <a href="#" class="btn" onclick="downloadGame('ps5')">Download for PS5</a>
                     </div>
                 </div>
                 
@@ -287,7 +573,7 @@
                     </div>
                     <div class="platform-content">
                         <h3>PlayStation 4</h3>
-                        <p>Full experience on PS4 with all features and DLCs included.</p>
+                        <p>Full experience on PS4 with all features, DLCs, and trophy support included.</p>
                         <a href="#" class="btn" onclick="downloadGame('ps4')">Download for PS4</a>
                     </div>
                 </div>
@@ -299,7 +585,7 @@
                     </div>
                     <div class="platform-content">
                         <h3>Xbox Series X/S & One</h3>
-                        <p>Compatible with all Xbox consoles. Enhanced for Series X/S.</p>
+                        <p>Compatible with all Xbox consoles. Enhanced for Series X/S with faster load times.</p>
                         <a href="#" class="btn" onclick="downloadGame('xbox')">Download for Xbox</a>
                     </div>
                 </div>
@@ -311,7 +597,7 @@
                     </div>
                     <div class="platform-content">
                         <h3>Windows PC</h3>
-                        <p>Full HD experience with mod support and custom content.</p>
+                        <p>Full HD experience with mod support, custom content, and advanced graphics settings.</p>
                         <a href="#" class="btn" onclick="downloadGame('pc')">Download for PC</a>
                     </div>
                 </div>
@@ -323,7 +609,7 @@
                     </div>
                     <div class="platform-content">
                         <h3>Android</h3>
-                        <p>Mobile version optimized for touch controls and performance.</p>
+                        <p>Mobile version optimized for touch controls, performance, and extended battery life.</p>
                         <a href="#" class="btn" onclick="downloadGame('android')">Download for Android</a>
                     </div>
                 </div>
@@ -335,7 +621,7 @@
                     </div>
                     <div class="platform-content">
                         <h3>iPhone & iPad</h3>
-                        <p>iOS version with controller support and retina display optimization.</p>
+                        <p>iOS version with controller support, retina display optimization, and cloud saves.</p>
                         <a href="#" class="btn" onclick="downloadGame('iphone')">Download for iOS</a>
                     </div>
                 </div>
@@ -344,29 +630,119 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
             <h2 class="section-title">Why Download From Us?</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <i class="fas fa-shield-alt"></i>
                     <h3>Safe & Secure</h3>
-                    <p>All downloads are scanned for viruses and malware.</p>
+                    <p>All downloads are scanned for viruses and malware. Your security is our priority.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-bolt"></i>
                     <h3>Fast Downloads</h3>
-                    <p>High-speed servers ensure quick download times.</p>
+                    <p>High-speed servers with unlimited bandwidth ensure quick download times.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-headset"></i>
                     <h3>Full Support</h3>
-                    <p>Get help with installation and troubleshooting.</p>
+                    <p>Get help with installation, troubleshooting, and gameplay from our support team.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-sync"></i>
                     <h3>Regular Updates</h3>
-                    <p>Always get the latest version with all patches.</p>
+                    <p>Always get the latest version with all patches, bug fixes, and new features.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-download"></i>
+                    <h3>No Ads</h3>
+                    <p>Clean, ad-free download experience without any annoying pop-ups or redirects.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Verified Files</h3>
+                    <p>All game files are verified for integrity to ensure a perfect installation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Info Section -->
+    <section class="game-info" id="game-info">
+        <div class="container">
+            <div class="info-content">
+                <div class="info-text">
+                    <h2>About GTA San Andreas</h2>
+                    <p>Grand Theft Auto: San Andreas is a 2004 action-adventure game developed by Rockstar North and published by Rockstar Games. It is the fifth main entry in the Grand Theft Auto series.</p>
+                    <p>Set within the fictional state of San Andreas, the game follows former gangster Carl "CJ" Johnson, who returns home following his mother's murder and is drawn back into his former gang and a life of crime.</p>
+                    <p>Our version includes all the original content plus:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                        <li>Enhanced graphics and textures</li>
+                        <li>Improved character models</li>
+                        <li>Updated vehicle physics</li>
+                        <li>All official DLCs included</li>
+                        <li>Bug fixes and performance improvements</li>
+                    </ul>
+                    <a href="#platforms" class="btn">Download Now</a>
+                </div>
+                <div class="info-image">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="GTA San Andreas Gameplay">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is this download completely free?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our download is completely free with no hidden costs. We believe in providing access to classic games for all players.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are the system requirements for PC?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Minimum: Windows 7, Intel Core 2 Duo 1.8GHz or AMD Athlon X2 64 2.0GHz, 2GB RAM, 512MB NVIDIA 7900 / 256MB ATI X1900, 15GB HDD space.</p>
+                        <p>Recommended: Windows 10, Intel Core i5 3.0GHz or AMD Phenom II X4 3.0GHz, 4GB RAM, 1GB NVIDIA GTX 460 / 1GB ATI Radeon HD 5770, 20GB HDD space.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is multiplayer supported?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our version includes support for multiplayer through various mods and community servers. Instructions for setting up multiplayer are included with the download.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I install the game after downloading?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After downloading, simply run the installer and follow the on-screen instructions. The installation process is straightforward and typically takes 5-10 minutes depending on your system.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I mod the game?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! Our PC version is fully moddable and we even include a mod manager to help you get started with popular mods.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -375,23 +751,55 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="#">Home</a>
-                <a href="#">Downloads</a>
-                <a href="#">System Requirements</a>
-                <a href="#">Support</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GTA San Andreas</h3>
+                    <p>Your trusted source for downloading GTA San Andreas on all platforms. Safe, fast, and free.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#platforms">Download</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#game-info">About</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">System Requirements</a></li>
+                        <li><a href="#">Installation Guide</a></li>
+                        <li><a href="#">Troubleshooting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">DMCA</a></li>
+                    </ul>
+                </div>
             </div>
-            <p class="copyright">© 2023 GTA San Andreas Downloads. This is a fan site and is not affiliated with Rockstar Games.</p>
-            <p class="copyright">All game content and trademarks are property of their respective owners.</p>
+            <div class="copyright">
+                <p>© 2023 GTA San Andreas Downloads. This is a fan site and is not affiliated with Rockstar Games.</p>
+                <p>All game content and trademarks are property of their respective owners.</p>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Download function
         function downloadGame(platform) {
-            // In a real implementation, this would redirect to the actual download page
-            // For demonstration, we'll show an alert
             const platformNames = {
                 'ps5': 'PlayStation 5',
                 'ps4': 'PlayStation 4',
@@ -401,21 +809,64 @@
                 'iphone': 'iPhone/iPad'
             };
             
-            alert(`Download starting for ${platformNames[platform]}...\n\nIn a real implementation, this would redirect to the actual download page.`);
+            // Show loading state
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Download...';
+            button.disabled = true;
             
             // Simulate download process
-            // In a real site, you would redirect to the download URL:
-            // window.location.href = `downloads/gta-san-andreas-${platform}.zip`;
+            setTimeout(() => {
+                alert(`Download starting for ${platformNames[platform]}...\n\nIn a real implementation, this would redirect to the actual download page.`);
+                
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                // In a real site, you would redirect to the download URL:
+                // window.location.href = `downloads/gta-san-andreas-${platform}.zip`;
+            }, 1500);
         }
         
-        // Add smooth scrolling for anchor links
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+                
+                // Close other open items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
                 });
             });
+        });
+        
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.5)';
+            } else {
+                header.style.background = 'linear-gradient(to right, #000, var(--gray))';
+                header.style.boxShadow = 'none';
+            }
         });
     </script>
 </body>
