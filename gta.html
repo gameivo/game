@@ -49,7 +49,7 @@
         "Android",
         "iOS"
       ],
-      "applicationCategory": "Game",
+      "applicationCategory": "GameApplication",
       "operatingSystem": "All Platforms",
       "offers": {
         "@type": "Offer",
@@ -71,7 +71,9 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
-        "ratingCount": "12500"
+        "ratingCount": "12500",
+        "bestRating": "5",
+        "worstRating": "1"
       },
       "releaseDate": "2004-10-26",
       "author": {
@@ -153,6 +155,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, our version includes support for multiplayer through various mods and community servers. Instructions for setting up multiplayer are included with the download."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I install the game after downloading?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After downloading, simply run the installer and follow the on-screen instructions. The installation process is straightforward and typically takes 5-10 minutes depending on your system."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I mod the game?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! Our PC version is fully moddable and we even include a mod manager to help you get started with popular mods."
           }
         }
       ]
@@ -877,12 +895,12 @@
     </section>
 
     <!-- Ratings Section -->
-    <section class="ratings" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+    <section class="ratings">
         <div class="container">
             <h2 class="section-title">Player Ratings</h2>
             <div class="rating-stats">
                 <div class="rating-item">
-                    <div class="rating-value" itemprop="ratingValue">4.8</div>
+                    <div class="rating-value">4.8/5</div>
                     <div class="stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -890,7 +908,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
-                    <div class="rating-count" itemprop="ratingCount">12,500+ Downloads</div>
+                    <div class="rating-count">12,500+ Downloads</div>
                 </div>
                 <div class="rating-item">
                     <div class="rating-value">98%</div>
@@ -910,72 +928,72 @@
             <h2 class="section-title">Download for Your Platform</h2>
             <div class="platform-grid">
                 <!-- PS5 -->
-                <div class="platform-card" itemscope itemtype="https://schema.org/VideoGame">
+                <div class="platform-card">
                     <div class="platform-icon">
                         <i class="fab fa-playstation"></i>
                     </div>
                     <div class="platform-content">
-                        <h3 itemprop="gamePlatform">PlayStation 5</h3>
+                        <h3>PlayStation 5</h3>
                         <p>Optimized for PS5 with enhanced graphics, 4K resolution, and improved performance.</p>
                         <a href="#" class="btn" onclick="downloadGame('ps5')">Download for PS5</a>
                     </div>
                 </div>
                 
                 <!-- PS4 -->
-                <div class="platform-card" itemscope itemtype="https://schema.org/VideoGame">
+                <div class="platform-card">
                     <div class="platform-icon">
                         <i class="fab fa-playstation"></i>
                     </div>
                     <div class="platform-content">
-                        <h3 itemprop="gamePlatform">PlayStation 4</h3>
+                        <h3>PlayStation 4</h3>
                         <p>Full experience on PS4 with all features, DLCs, and trophy support included.</p>
                         <a href="#" class="btn" onclick="downloadGame('ps4')">Download for PS4</a>
                     </div>
                 </div>
                 
                 <!-- Xbox -->
-                <div class="platform-card" itemscope itemtype="https://schema.org/VideoGame">
+                <div class="platform-card">
                     <div class="platform-icon">
                         <i class="fab fa-xbox"></i>
                     </div>
                     <div class="platform-content">
-                        <h3 itemprop="gamePlatform">Xbox Series X/S & One</h3>
+                        <h3>Xbox Series X/S & One</h3>
                         <p>Compatible with all Xbox consoles. Enhanced for Series X/S with faster load times.</p>
                         <a href="#" class="btn" onclick="downloadGame('xbox')">Download for Xbox</a>
                     </div>
                 </div>
                 
                 <!-- PC -->
-                <div class="platform-card" itemscope itemtype="https://schema.org/VideoGame">
+                <div class="platform-card">
                     <div class="platform-icon">
                         <i class="fas fa-desktop"></i>
                     </div>
                     <div class="platform-content">
-                        <h3 itemprop="gamePlatform">Windows PC</h3>
+                        <h3>Windows PC</h3>
                         <p>Full HD experience with mod support, custom content, and advanced graphics settings.</p>
                         <a href="#" class="btn" onclick="downloadGame('pc')">Download for PC</a>
                     </div>
                 </div>
                 
                 <!-- Android -->
-                <div class="platform-card" itemscope itemtype="https://schema.org/VideoGame">
+                <div class="platform-card">
                     <div class="platform-icon">
                         <i class="fab fa-android"></i>
                     </div>
                     <div class="platform-content">
-                        <h3 itemprop="gamePlatform">Android</h3>
+                        <h3>Android</h3>
                         <p>Mobile version optimized for touch controls, performance, and extended battery life.</p>
                         <a href="#" class="btn" onclick="downloadGame('android')">Download for Android</a>
                     </div>
                 </div>
                 
                 <!-- iPhone -->
-                <div class="platform-card" itemscope itemtype="https://schema.org/VideoGame">
+                <div class="platform-card">
                     <div class="platform-icon">
                         <i class="fab fa-apple"></i>
                     </div>
                     <div class="platform-content">
-                        <h3 itemprop="gamePlatform">iPhone & iPad</h3>
+                        <h3>iPhone & iPad</h3>
                         <p>iOS version with controller support, retina display optimization, and cloud saves.</p>
                         <a href="#" class="btn" onclick="downloadGame('iphone')">Download for iOS</a>
                     </div>
@@ -1080,63 +1098,54 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="faq" id="faq" itemscope itemtype="https://schema.org/FAQPage">
+    <section class="faq" id="faq">
         <div class="container">
             <h2 class="section-title">Frequently Asked Questions</h2>
             <div class="faq-list">
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <div class="faq-item">
                     <div class="faq-question">
-                        <span itemprop="name">Is this download completely free?</span>
+                        <span>Is this download completely free?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">Yes, our download is completely free with no hidden costs. We believe in providing access to classic games for all players.</p>
+                    <div class="faq-answer">
+                        <p>Yes, our download is completely free with no hidden costs. We believe in providing access to classic games for all players.</p>
                     </div>
                 </div>
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <div class="faq-item">
                     <div class="faq-question">
-                        <span itemprop="name">What are the system requirements for PC?</span>
+                        <span>What are the system requirements for PC?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">Minimum: Windows 7, Intel Core 2 Duo 1.8GHz or AMD Athlon X2 64 2.0GHz, 2GB RAM, 512MB NVIDIA 7900 / 256MB ATI X1900, 15GB HDD space.</p>
+                    <div class="faq-answer">
+                        <p>Minimum: Windows 7, Intel Core 2 Duo 1.8GHz or AMD Athlon X2 64 2.0GHz, 2GB RAM, 512MB NVIDIA 7900 / 256MB ATI X1900, 15GB HDD space.</p>
                         <p>Recommended: Windows 10, Intel Core i5 3.0GHz or AMD Phenom II X4 3.0GHz, 4GB RAM, 1GB NVIDIA GTX 460 / 1GB ATI Radeon HD 5770, 20GB HDD space.</p>
                     </div>
                 </div>
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <div class="faq-item">
                     <div class="faq-question">
-                        <span itemprop="name">Is multiplayer supported?</span>
+                        <span>Is multiplayer supported?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">Yes, our version includes support for multiplayer through various mods and community servers. Instructions for setting up multiplayer are included with the download.</p>
+                    <div class="faq-answer">
+                        <p>Yes, our version includes support for multiplayer through various mods and community servers. Instructions for setting up multiplayer are included with the download.</p>
                     </div>
                 </div>
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <div class="faq-item">
                     <div class="faq-question">
-                        <span itemprop="name">How do I install the game after downloading?</span>
+                        <span>How do I install the game after downloading?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">After downloading, simply run the installer and follow the on-screen instructions. The installation process is straightforward and typically takes 5-10 minutes depending on your system.</p>
+                    <div class="faq-answer">
+                        <p>After downloading, simply run the installer and follow the on-screen instructions. The installation process is straightforward and typically takes 5-10 minutes depending on your system.</p>
                     </div>
                 </div>
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <div class="faq-item">
                     <div class="faq-question">
-                        <span itemprop="name">Can I mod the game?</span>
+                        <span>Can I mod the game?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">Absolutely! Our PC version is fully moddable and we even include a mod manager to help you get started with popular mods.</p>
-                    </div>
-                </div>
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <div class="faq-question">
-                        <span itemprop="name">Is this version legal to download?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">This is a fan-made preservation project. We recommend supporting the official release when possible. Rockstar Games offers official versions on modern platforms.</p>
+                    <div class="faq-answer">
+                        <p>Absolutely! Our PC version is fully moddable and we even include a mod manager to help you get started with popular mods.</p>
                     </div>
                 </div>
             </div>
@@ -1221,9 +1230,6 @@
                 // Reset button
                 button.innerHTML = originalText;
                 button.disabled = false;
-                
-                // Track download event
-                trackDownload(platform);
             }, 1500);
         }
         
@@ -1266,40 +1272,6 @@
                 header.style.background = 'linear-gradient(to right, #000, var(--gray))';
                 header.style.boxShadow = 'none';
             }
-        });
-
-        // Track downloads for analytics
-        function trackDownload(platform) {
-            // This would integrate with Google Analytics in a real implementation
-            console.log(`Download tracked for platform: ${platform}`);
-            
-            // Example Google Analytics event
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'download', {
-                    'event_category': 'game_download',
-                    'event_label': platform,
-                    'value': 1
-                });
-            }
-        }
-
-        // Initialize page view tracking
-        document.addEventListener('DOMContentLoaded', function() {
-            // Track page view
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'page_view', {
-                    'page_title': 'GTA San Andreas Download Page',
-                    'page_location': window.location.href
-                });
-            }
-        });
-
-        // Add microdata attributes dynamically
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add itemtype to platform cards
-            document.querySelectorAll('.platform-card').forEach(card => {
-                card.setAttribute('itemtype', 'https://schema.org/VideoGame');
-            });
         });
     </script>
 </body>
