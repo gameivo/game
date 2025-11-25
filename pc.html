@@ -747,13 +747,11 @@
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
-                    modalMessage.textContent = 'Download complete! Check your downloads folder.';
+                    modalMessage.textContent = 'Download complete! Opening download page...';
                     
-                    // In a real implementation, this would trigger the actual download
-                    // Replace the URL below with your actual download link
+                    // Open new tab with download page after completion
                     setTimeout(() => {
-                        // Uncomment the line below and replace with your actual download URL
-                        // window.location.href = "https://your-actual-download-link.com/gta-san-andreas.exe";
+                        window.open('https://example.com/download-page', '_blank');
                     }, 1000);
                 }
                 progressBar.style.width = `${progress}%`;
