@@ -727,32 +727,25 @@
 
     <script>
         // Download function
-        function startDownload() {
-            // Show modal
-            const modal = document.getElementById('downloadModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const progressBar = document.getElementById('progressBar');
-            
-            modalTitle.textContent = "Downloading GTA San Andreas";
-            modalMessage.textContent = "Preparing GTA_San_Andreas_PC_Enhanced.exe (4.2 GB)...";
-            progressBar.style.width = '0%';
-            
-            modal.style.display = 'flex';
-            
-           let progress = 0;
-const interval = setInterval(() => {
-    progress += Math.random() * 10;
-    if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        modalMessage.textContent = 'Download complete! Check your downloads folder.';
+function startDownload() {
+    // افتح الرابط في تبويب جديد فوراً
+    window.open("https://www.google.com", "_blank");   // غيِّر الرابط إلى ما تريده
 
-        // فتح الرابط في صفحة جديدة
-        setTimeout(() => {
-            window.open("https://www.google.com", "_blank"); // غيِّر الرابط كما تشاء
-        }, 1000);
-    }
+    // اختياري: أظهر نافذة صغيرة تؤكد أن التنزيل بدأ
+    const modal        = document.getElementById('downloadModal');
+    const modalTitle   = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const progressBar  = document.getElementById('progressBar');
+
+    modalTitle.textContent   = "جارِ التحميل...";
+    modalMessage.textContent = "تم فتح صفحة التحميل في تبويب جديد.";
+    progressBar.style.width  = '100%';   // املأ الشريط مباشرة
+
+    modal.style.display = 'flex';
+
+    // أغلق النافذة تلقائياً بعد ثانيتين
+    setTimeout(closeModal, 2000);
+}
     progressBar.style.width = `${progress}%`;
 }, 200);
         }
