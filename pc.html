@@ -740,24 +740,21 @@
             
             modal.style.display = 'flex';
             
-            // Simulate download progress
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 10;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    modalMessage.textContent = 'Download complete! Check your downloads folder.';
-                    
-                    // In a real implementation, this would trigger the actual download
-                    // Replace the URL below with your actual download link
-                    setTimeout(() => {
-                        // Uncomment the line below and replace with your actual download URL
-                        // window.location.href = "https://your-actual-download-link.com/gta-san-andreas.exe";
-                    }, 1000);
-                }
-                progressBar.style.width = `${progress}%`;
-            }, 200);
+           let progress = 0;
+const interval = setInterval(() => {
+    progress += Math.random() * 10;
+    if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        modalMessage.textContent = 'Download complete! Check your downloads folder.';
+
+        // فتح الرابط في صفحة جديدة
+        setTimeout(() => {
+            window.open("https://www.google.com", "_blank"); // غيِّر الرابط كما تشاء
+        }, 1000);
+    }
+    progressBar.style.width = `${progress}%`;
+}, 200);
         }
         
         // Close modal
