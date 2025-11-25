@@ -727,36 +727,34 @@
 
     <script>
         // Download function
-        function startDownload() {
-            // Show modal
-            const modal = document.getElementById('downloadModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const progressBar = document.getElementById('progressBar');
-            
-            modalTitle.textContent = "Downloading GTA San Andreas";
-            modalMessage.textContent = "Preparing GTA_San_Andreas_PC_Enhanced.exe (4.2 GB)...";
-            progressBar.style.width = '0%';
-            
-            modal.style.display = 'flex';
-            
-            // Simulate download progress
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 10;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    modalMessage.textContent = 'Download complete! Opening download page...';
-                    
-                    // Open new tab with download page after completion
-                    setTimeout(() => {
-                        window.open('https://example.com/download-page', '_blank');
-                    }, 1000);
-                }
-                progressBar.style.width = `${progress}%`;
-            }, 200);
+function startDownload() {
+    // ✅ افتح الصفحة الجديدة مباشرة عند النقر
+    window.open('https://example.com/download-page', '_blank');
+
+    // ثم استمر في عرض المودال أو المحاكاة
+    const modal = document.getElementById('downloadModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const progressBar = document.getElementById('progressBar');
+
+    modalTitle.textContent = "Downloading GTA San Andreas";
+    modalMessage.textContent = "Preparing GTA_San_Andreas_PC_Enhanced.exe (4.2 GB)...";
+    progressBar.style.width = '0%';
+
+    modal.style.display = 'flex';
+
+    // Simulate download progress
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            modalMessage.textContent = 'Download complete!';
         }
+        progressBar.style.width = `${progress}%`;
+    }, 200);
+}
         
         // Close modal
         function closeModal() {
