@@ -14,57 +14,30 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://tikmob.github.io/game/images/gta1.jpg">
     
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "VideoGame",
-      "name": "Grand Theft Auto: San Andreas",
-      "description": "Download GTA San Andreas for Android. Enhanced graphics and performance improvements.",
-      "image": "https://tikmob.github.io/game/images/gta1.jpg",
-      "playMode": "SinglePlayer",
-      "applicationCategory": "Game",
-      "operatingSystem": "Android",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rockstar Games"
-      },
-      "genre": ["Action", "Adventure"],
-      "processorRequirements": "ARMv7 or higher",
-      "memoryRequirements": "2GB RAM",
-      "storageRequirements": "2.5GB available space",
-      "softwareVersion": "Enhanced Edition",
-      "url": "https://tikmob.github.io/game/android.html"
-    }
-    </script>
-    
-    <!-- Breadcrumb Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://tikmob.github.io/game/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "GTA San Andreas Android Download",
-          "item": "https://tikmob.github.io/game/android.html"
-        }
-      ]
-    }
-    </script>
+   <!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Grand Theft Auto: San Andreas",
+  "description": "Download GTA San Andreas for Android. Enhanced graphics and performance improvements.",
+  "image": "https://tikmob.github.io/game/images/gta1.jpg",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Android",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Rockstar Games"
+  },
+  "downloadUrl": "https://optilinklock.com/1804505",
+  "softwareVersion": "Enhanced Edition",
+  "url": "https://tikmob.github.io/game/gta.html"
+}
+</script>
     
     <style>
         :root {
@@ -326,7 +299,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
         
-        /* Features Section -->
+        /* Features Section */
         .features {
             padding: 80px 0;
             background-color: var(--dark);
@@ -381,7 +354,7 @@
             font-size: 1.3rem;
         }
         
-        /* System Requirements -->
+        /* System Requirements */
         .system-requirements {
             padding: 80px 0;
             background-color: var(--darker);
@@ -427,7 +400,7 @@
             font-weight: 500;
         }
         
-        /* Footer -->
+        /* Footer */
         footer {
             background-color: #000;
             padding: 60px 0 20px;
@@ -480,7 +453,7 @@
             border-top: 1px solid var(--gray);
         }
         
-        /* Responsive Design -->
+        /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -523,7 +496,7 @@
             }
         }
         
-        /* Download Modal -->
+        /* Download Modal */
         .modal {
             display: none;
             position: fixed;
@@ -604,10 +577,10 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" itemprop="mainEntity" itemscope itemtype="https://schema.org/MobileApplication">
         <div class="hero-content">
-            <h2>Download GTA San Andreas</h2>
-            <p>Play the legendary open-world crime adventure on Android with optimized mobile performance, touch-friendly controls, fast loading, and smooth gameplay for all modern phones.</p>
+            <h2 itemprop="name">Download GTA San Andreas</h2>
+            <p itemprop="description">Play the legendary open-world crime adventure on Android with optimized mobile performance, touch-friendly controls, fast loading, and smooth gameplay for all modern phones.</p>
         </div>
     </section>
 
@@ -626,7 +599,7 @@
                     </div>
                     
                     <p class="product-description">
-                        Play the fully optimized mobile version of Grand Theft Auto: San Andreas on Android, featuring HD textures, smooth touch controls, fast loading, and the complete crime story of Carl "CJ" Johnson as you explore the massive open-world cities, gang territories, and action-packed missions rebuilt for modern smartphones.
+                        Play the fully optimized mobile version of Grand Theft Auto: San Andreas on Android, featuring HD textures, smooth touch controls, fast loading, and the complete crime story of Carl “CJ” Johnson as you explore the massive open-world cities, gang territories, and action-packed missions rebuilt for modern smartphones.
                     </p>
                     
                     <div class="file-details">
