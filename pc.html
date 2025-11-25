@@ -586,7 +586,7 @@
         <div class="hero-content">
             <h2 itemprop="name">Download GTA San Andreas</h2>
             <p itemprop="description">Experience the classic open-world action game with enhanced graphics and performance for PC.</p>
-            
+            <a href="www.google.com" class="btn">Download Now</a>
         </div>
     </section>
 
@@ -727,27 +727,37 @@
 
     <script>
         // Download function
-function startDownload() {
-    // افتح الرابط في تبويب جديد فوراً
-    window.open("https://www.google.com", "_blank");   // غيِّر الرابط إلى ما تريده
-
-    // اختياري: أظهر نافذة صغيرة تؤكد أن التنزيل بدأ
-    const modal        = document.getElementById('downloadModal');
-    const modalTitle   = document.getElementById('modalTitle');
-    const modalMessage = document.getElementById('modalMessage');
-    const progressBar  = document.getElementById('progressBar');
-
-    modalTitle.textContent   = "جارِ التحميل...";
-    modalMessage.textContent = "تم فتح صفحة التحميل في تبويب جديد.";
-    progressBar.style.width  = '100%';   // املأ الشريط مباشرة
-
-    modal.style.display = 'flex';
-
-    // أغلق النافذة تلقائياً بعد ثانيتين
-    setTimeout(closeModal, 2000);
-}
-    progressBar.style.width = `${progress}%`;
-}, 200);
+        function startDownload() {
+            // Show modal
+            const modal = document.getElementById('downloadModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const progressBar = document.getElementById('progressBar');
+            
+            modalTitle.textContent = "Downloading GTA San Andreas";
+            modalMessage.textContent = "Preparing GTA_San_Andreas_PC_Enhanced.exe (4.2 GB)...";
+            progressBar.style.width = '0%';
+            
+            modal.style.display = 'flex';
+            
+            // Simulate download progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    modalMessage.textContent = 'Download complete! Check your downloads folder.';
+                    
+                    // In a real implementation, this would trigger the actual download
+                    // Replace the URL below with your actual download link
+                    setTimeout(() => {
+                        // Uncomment the line below and replace with your actual download URL
+                        // window.location.href = "https://your-actual-download-link.com/gta-san-andreas.exe";
+                    }, 1000);
+                }
+                progressBar.style.width = `${progress}%`;
+            }, 200);
         }
         
         // Close modal
