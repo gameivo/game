@@ -3,77 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Complete guide to download and play Grand Theft Auto V (GTA 5) on Android devices. Step-by-step installation instructions and gameplay tips.">
-    <meta name="keywords" content="GTA 5 Android, Grand Theft Auto V mobile, GTA 5 download Android, GTA V APK">
-    <meta name="author" content="Gaming Guide">
-    <meta property="og:title" content="How to Download and Play GTA 5 on Android">
-    <meta property="og:description" content="Ultimate guide for playing Grand Theft Auto V on your Android device">
-    <meta property="og:type" content="article">
-    <title>How to Download and Play GTA 5 on Android - Complete Guide</title>
+    <meta name="description" content="Learn how to download and play Grand Theft Auto V on your Android device. Complete guide with step-by-step instructions.">
+    <meta name="keywords" content="GTA V Android, Grand Theft Auto V mobile, download GTA V, Android gaming, GTA V guide">
+    <title>How to Download and Play GTA V on Android - Complete Guide</title>
     <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
             line-height: 1.6;
-            min-height: 100vh;
         }
-
+        
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
-
+        
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 2rem 0;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        h1 {
-            font-size: 2.5em;
-            color: #2d3748;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
-
-        .subtitle {
-            font-size: 1.2em;
-            color: #667eea;
-            font-weight: 500;
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
-
-        .content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
+        
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+        
+        nav li {
+            margin: 0 1rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        main {
+            padding: 3rem 0;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
         .video-container {
             position: relative;
-            padding-bottom: 56.25%;
+            width: 100%;
             height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 2rem 0;
+            border-radius: 8px;
             overflow: hidden;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            background: #000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+        
         .video-container iframe {
             position: absolute;
             top: 0;
@@ -82,283 +131,280 @@
             height: 100%;
             border: none;
         }
-
-        h2 {
-            color: #2d3748;
-            font-size: 1.8em;
-            margin: 30px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
-
-        h3 {
-            color: #4a5568;
-            font-size: 1.4em;
-            margin: 25px 0 15px;
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
-
-        p {
-            margin-bottom: 15px;
-            color: #4a5568;
-            font-size: 1.05em;
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
         }
-
+        
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
         .steps {
             counter-reset: step-counter;
-            margin: 20px 0;
         }
-
+        
         .step {
-            counter-increment: step-counter;
-            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
+            margin-bottom: 2rem;
+            padding-left: 3rem;
             position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .step:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .step::before {
+        
+        .step:before {
+            counter-increment: step-counter;
             content: counter(step-counter);
             position: absolute;
-            left: -15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #667eea;
+            left: 0;
+            top: 0;
+            background-color: var(--accent);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 2rem;
+            height: 2rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2em;
-            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
         }
-
-        .warning {
-            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
-            border-left: 5px solid #fc8181;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 25px 0;
-        }
-
-        .warning h3 {
-            color: #c53030;
-            margin-top: 0;
-        }
-
-        .info-box {
-            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
-            border-left: 5px solid #38b2ac;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 25px 0;
-        }
-
+        
         .requirements {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
         }
-
-        .req-card {
-            background: linear-gradient(135deg, #faf5ff 0%, #e9d8fd 100%);
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid #9f7aea;
-            transition: transform 0.3s ease;
+        
+        .requirements ul {
+            margin-left: 1.5rem;
         }
-
-        .req-card:hover {
-            transform: translateY(-5px);
+        
+        .requirements li {
+            margin-bottom: 0.5rem;
         }
-
-        .req-card h4 {
-            color: #6b46c1;
-            margin-bottom: 10px;
+        
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
         }
-
+        
         .download-btn {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: var(--secondary);
             color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1em;
-            margin: 20px 0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            transition: background-color 0.3s;
+            margin-top: 1rem;
         }
-
+        
         .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+            background-color: #c0392b;
         }
-
+        
         footer {
-            text-align: center;
-            padding: 30px;
+            background-color: var(--dark);
             color: white;
-            font-size: 0.95em;
+            padding: 2rem 0;
+            text-align: center;
         }
-
+        
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+        
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
+            header h1 {
+                font-size: 2rem;
             }
-
-            h2 {
-                font-size: 1.4em;
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
             }
-
-            .container {
-                padding: 10px;
+            
+            nav li {
+                margin: 0.5rem 0;
             }
-
-            header, .content {
-                padding: 25px;
-            }
-
-            .step::before {
-                left: -10px;
-                width: 35px;
-                height: 35px;
-                font-size: 1em;
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎮 GTA 5 on Android</h1>
-            <p class="subtitle">Complete Guide to Download and Play Grand Theft Auto V</p>
-        </header>
-
-        <main class="content">
-            <article>
-                <section>
-                    <h2>Introduction</h2>
-                    <p>Grand Theft Auto V (GTA 5) is one of the most popular open-world action games ever created. While officially designed for PC and consoles, many Android users want to experience this incredible game on their mobile devices. This comprehensive guide will walk you through everything you need to know about downloading and playing GTA 5 on Android.</p>
-                </section>
-
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/QkkoHAzjnUs" allowfullscreen title="GTA 5 Android Gameplay"></iframe>
+    <header>
+        <div class="container">
+            <h1>How to Play GTA V on Android</h1>
+            <p>Complete Guide to Download and Install Grand Theft Auto V on Your Mobile Device</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#download">Download Guide</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#gameplay">Gameplay Tips</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <section id="overview">
+            <h2>GTA V on Android: What You Need to Know</h2>
+            <p>Grand Theft Auto V (GTA V) is one of the most popular open-world action-adventure games, originally released for consoles and PC. While Rockstar Games hasn't officially released GTA V for Android, there are ways to enjoy this incredible game on your mobile device through emulation and third-party applications.</p>
+            
+            <div class="video-container">
+                <!-- Placeholder for YouTube video embed -->
+                <iframe src="https://www.youtube.com/embed/QkkoHAzjnUs" title="GTA V Android Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <p>This guide will walk you through the process of downloading, installing, and playing GTA V on your Android device safely and effectively.</p>
+        </section>
+        
+        <section id="requirements">
+            <h2>System Requirements</h2>
+            <p>Before attempting to install GTA V on your Android device, make sure your device meets these minimum requirements:</p>
+            
+            <div class="requirements">
+                <h3>Minimum Requirements:</h3>
+                <ul>
+                    <li>Android 8.0 or higher</li>
+                    <li>4GB RAM (6GB recommended)</li>
+                    <li>64-bit processor</li>
+                    <li>At least 10GB free storage</li>
+                    <li>Vulkan API support</li>
+                </ul>
+                
+                <h3>Recommended Requirements:</h3>
+                <ul>
+                    <li>Android 10 or higher</li>
+                    <li>8GB RAM or more</li>
+                    <li>High-end Snapdragon or MediaTek processor</li>
+                    <li>15GB free storage</li>
+                    <li>Graphics: Adreno 640 or Mali-G77</li>
+                </ul>
+            </div>
+            
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="GTA V Android Gameplay 1">
                 </div>
-
-                <section>
-                    <h2>System Requirements</h2>
-                    <div class="requirements">
-                        <div class="req-card">
-                            <h4>📱 Operating System</h4>
-                            <p>Android 8.0 or higher</p>
-                        </div>
-                        <div class="req-card">
-                            <h4>💾 Storage Space</h4>
-                            <p>At least 4GB free space</p>
-                        </div>
-                        <div class="req-card">
-                            <h4>🧠 RAM</h4>
-                            <p>Minimum 3GB RAM</p>
-                        </div>
-                        <div class="req-card">
-                            <h4>🎯 Processor</h4>
-                            <p>Snapdragon 660 or equivalent</p>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="warning">
-                    <h3>⚠️ Important Notice</h3>
-                    <p>GTA 5 is not officially available for Android devices. Be extremely cautious of unofficial versions, as they may contain malware, violate copyright laws, or compromise your device security. Always verify sources and understand the legal implications before downloading any unofficial game files.</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="GTA V Android Gameplay 2">
                 </div>
-
-                <section>
-                    <h2>Download and Installation Steps</h2>
-                    <div class="steps">
-                        <div class="step">
-                            <h3>Verify Device Compatibility</h3>
-                            <p>Check that your Android device meets the minimum system requirements listed above. Ensure you have sufficient storage space and a stable internet connection for downloading files.</p>
-                        </div>
-
-                        <div class="step">
-                            <h3>Enable Unknown Sources</h3>
-                            <p>Go to Settings > Security > Unknown Sources and enable it. This allows installation of apps from sources other than the Google Play Store. Remember to disable this after installation for security purposes.</p>
-                        </div>
-
-                        <div class="step">
-                            <h3>Download Required Files</h3>
-                            <p>Download the APK file and OBB data files from a trusted source. Make sure to scan all downloaded files with antivirus software before proceeding with installation.</p>
-                        </div>
-
-                        <div class="step">
-                            <h3>Install the APK</h3>
-                            <p>Locate the downloaded APK file in your file manager and tap it to begin installation. Follow the on-screen prompts to complete the installation process.</p>
-                        </div>
-
-                        <div class="step">
-                            <h3>Extract OBB Files</h3>
-                            <p>Navigate to Internal Storage > Android > OBB and create a folder for the game if it doesn't exist. Extract the OBB files into this directory.</p>
-                        </div>
-
-                        <div class="step">
-                            <h3>Launch and Configure</h3>
-                            <p>Open the game and allow it to verify files. Configure graphics settings according to your device capabilities for optimal performance. Start with lower settings and gradually increase if your device handles them well.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Gameplay Tips</h2>
-                    <div class="info-box">
-                        <h3>🎯 Optimize Your Experience</h3>
-                        <p><strong>Graphics Settings:</strong> Start with medium or low graphics settings to ensure smooth gameplay. You can adjust these based on your device performance.</p>
-                        <p><strong>Controls:</strong> Spend time in the tutorial to familiarize yourself with touch controls. Consider using a Bluetooth controller for better precision.</p>
-                        <p><strong>Battery Life:</strong> GTA 5 is resource-intensive. Play while connected to power when possible, and close background apps to improve performance.</p>
-                        <p><strong>Storage Management:</strong> Regularly clear cache and unnecessary files to maintain optimal game performance.</p>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Troubleshooting Common Issues</h2>
-                    <h3>Game Crashes or Won't Start</h3>
-                    <p>Ensure all files are properly installed and your device meets minimum requirements. Try clearing app cache or reinstalling the game.</p>
-
-                    <h3>Low Frame Rate</h3>
-                    <p>Lower graphics settings, close background applications, and ensure your device isn't overheating. Consider using a game booster app.</p>
-
-                    <h3>Installation Errors</h3>
-                    <p>Verify you have enough storage space, check that Unknown Sources is enabled, and ensure the APK file isn't corrupted by re-downloading if necessary.</p>
-                </section>
-
-                <div class="warning">
-                    <h3>⚠️ Legal Disclaimer</h3>
-                    <p>This guide is for educational purposes only. Grand Theft Auto V is copyrighted by Rockstar Games. Downloading or distributing unauthorized copies may violate copyright laws in your jurisdiction. Always support game developers by purchasing official versions.</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="GTA V Android Gameplay 3">
                 </div>
-
-                <section>
-                    <h2>Conclusion</h2>
-                    <p>While playing GTA 5 on Android requires some technical steps and caution, it can provide an exciting mobile gaming experience. Always prioritize device security, respect copyright laws, and consider supporting official releases when available. The mobile gaming landscape is constantly evolving, so stay updated on official announcements from Rockstar Games regarding potential mobile releases.</p>
-                </section>
-            </article>
-        </main>
-
-        <footer>
-            <p>© 2024 Gaming Guide | For Educational Purposes Only</p>
-            <p>Grand Theft Auto and GTA are registered trademarks of Rockstar Games</p>
-        </footer>
-    </div>
+            </div>
+        </section>
+        
+        <section id="download">
+            <h2>How to Download GTA V for Android</h2>
+            <p>Follow these steps to download GTA V for your Android device:</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Enable Unknown Sources</h3>
+                    <p>Go to Settings > Security > Enable "Unknown Sources" to allow installation of apps from outside the Google Play Store.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 2: Download the APK File</h3>
+                    <p>Find a reliable source to download the GTA V APK file. Make sure to download from trusted websites to avoid malware.</p>
+                    <a href="#" class="download-btn">Download GTA V APK</a>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 3: Download Game Data</h3>
+                    <p>GTA V requires additional game data files (OBB files). Download these files separately and place them in the correct directory.</p>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <p><strong>Warning:</strong> Downloading games from unofficial sources may violate terms of service and could pose security risks. Only download from trusted sources and use antivirus software to scan files.</p>
+            </div>
+        </section>
+        
+        <section id="installation">
+            <h2>Installation Guide</h2>
+            <p>Once you have downloaded the necessary files, follow these installation steps:</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Install the APK</h3>
+                    <p>Locate the downloaded APK file in your file manager and tap on it to begin installation. Follow the on-screen prompts.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 2: Place OBB Files</h3>
+                    <p>Extract the OBB files and place them in the Android/obb/com.rockstargames.gtav directory on your device's internal storage.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 3: Launch the Game</h3>
+                    <p>Once installation is complete, launch the game from your app drawer. The first launch may take several minutes as it verifies game files.</p>
+                </div>
+            </div>
+            
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1616587226153-4c11a38d7b7c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="GTA V Installation Step 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544833364-64d6c024c5c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="GTA V Installation Step 2">
+                </div>
+            </div>
+        </section>
+        
+        <section id="gameplay">
+            <h2>Gameplay Tips for Android</h2>
+            <p>Playing GTA V on a mobile device requires some adjustments. Here are tips to enhance your gaming experience:</p>
+            
+            <h3>Optimize Controls</h3>
+            <p>Customize the on-screen controls to match your preferences. Adjust button size and placement for comfortable gameplay.</p>
+            
+            <h3>Use a Gamepad</h3>
+            <p>For the best experience, connect a Bluetooth gamepad to your Android device. This provides console-like controls.</p>
+            
+            <h3>Adjust Graphics Settings</h3>
+            <p>If you experience lag, lower the graphics settings in the game options. Start with resolution and shadow quality.</p>
+            
+            <h3>Save Your Progress</h3>
+            <p>Make sure to manually save your game progress regularly, as mobile versions may have different autosave features.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Disclaimer: This guide is for educational purposes only. Grand Theft Auto V is a trademark of Rockstar Games.</p>
+            <p>We are not affiliated with Rockstar Games. Always respect copyright laws and terms of service.</p>
+            <p>&copy; 2023 GTA V Android Guide. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
