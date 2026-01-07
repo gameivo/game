@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QXVWE2RXZV');
+  </script>
+  
+  <meta name="theme-color" content="#1a2a6c">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slither.io - Play Arcade Game Online | FreePlayHub</title>
+  <meta name="description" content="Play Slither.io for free on FreePlayHub - Play Slither.io online for free — one of the most iconic and addictive multiplayer snake io games on the web! In Slither.io you control a colorful snake av">
+  <meta name="keywords" content="Slither.io, Arcade, Multiplayer, Snake, IO Game, Action, free online game, HTML5 game, browser game">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Slither.io - FreePlayHub">
+  <meta property="og:description" content="Play Slither.io online for free — one of the most iconic and addictive multiplayer snake io games on the web! In Slither.io you control a colorful snake avatar, eat glowing pellets to grow bigger, out">
+  <meta property="og:image" content="https://gameivo.github.io/images/117.png">
+  <meta property="og:url" content="https://gameivo.github.io/slither-io.html">
+  <meta property="og:site_name" content="FreePlayHub">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Slither.io - FreePlayHub">
+  <meta name="twitter:description" content="Play Slither.io online for free — one of the most iconic and addictive multiplayer snake io games on the web! In Slither.io you control a colorful snake avatar, eat glowing pellets to grow bigger, out">
+  <meta name="twitter:image" content="https://gameivo.github.io/images/117.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://gameivo.github.io/slither-io.html">
+  
+  <!-- Game Schema للعبة الحالية -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Slither.io",
+    "url": "https://gameivo.github.io/slither-io.html",
+    "description": "Play Slither.io online for free — one of the most iconic and addictive multiplayer snake io games on the web! In Slither.io you control a colorful snake avatar, eat glowing pellets to grow bigger, out",
+    "playMode": "Browser",
+    "gamePlatform": "HTML5",
+    "applicationCategory": "Game",
+    "genre": ["Arcade","Multiplayer","Snake","IO Game","Action"],
+    "operatingSystem": "Any",
+    "author": {
+      "@type": "Organization",
+      "name": "FreePlayHub"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "image": "https://gameivo.github.io/images/117.png",
+    "datePublished": "2026-01-07"
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://gameivo.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Games",
+        "item": "https://gameivo.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Slither.io",
+        "item": "https://gameivo.github.io/slither-io.html"
+      }
+    ]
+  }
+  </script>
+  
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6}
+    .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .header-content{display:flex;justify-content:space-between;align-items:center}
+    .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
+    .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
+    .back-btn:hover{background:#a29bfe;transform:translateY(-2px)}
+    .game-container{padding:30px 0;text-align:center}
+    .game-frame{width:100%;max-width:800px;height:80vh;margin:0 auto;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5);background:#000;position:relative}
+    #game-iframe{width:100%;height:100%;border:none;display:none}
+    .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:#002B50}
+    .loading-spinner{width:50px;height:50px;border:5px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#3CF7DC;animation:spin 1s ease-in-out infinite;margin-bottom:20px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .game-info{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);padding:20px;border-radius:10px;max-width:800px;margin:20px auto 0}
+    .game-title{font-size:2rem;margin-bottom:10px;color:#ffd700}
+    .game-description{margin-bottom:15px;font-size:1.1rem}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin-top:20px}
+    .feature-item{background:rgba(255,255,255,.1);padding:15px;border-radius:8px;text-align:left}
+    .feature-item h3{color:#3CF7DC;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+    .seo-content{margin-top:40px;padding:25px;background:rgba(0,0,0,.3);border-radius:10px;text-align:left}
+    .seo-content h1{color:#ffd700;margin-bottom:15px;font-size:1.8rem}
+    .seo-content h2{color:#3CF7DC;margin:25px 0 15px;font-size:1.5rem}
+    .seo-content p{margin-bottom:15px}
+    .game-categories{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+    .category-tag{background:rgba(108,92,231,.7);padding:5px 12px;border-radius:20px;font-size:.9rem}
+    .related-links{margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);text-align:center}
+    .related-links a{color:#3CF7DC;text-decoration:none;margin:0 10px;transition:color .3s}
+    .related-links a:hover{color:#ffd700;text-decoration:underline}
+
+    /* زر التكبير */
+    .zoom-btn{position:absolute;right:12px;bottom:12px;z-index:9999;background:rgba(0,0,0,.6);color:#fff;border:none;width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;backdrop-filter:blur(4px);transition:transform .15s ease,background .15s ease;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+    .zoom-btn:hover{transform:translateY(-3px);background:rgba(0,0,0,.8)}
+    .game-frame.fullscreen-css{position:fixed;top:0;left:0;width:100vw!important;height:100vh!important;max-width:100%!important;border-radius:0!important;margin:0!important;padding:0!important;z-index:2147483647;background:#000}
+    .game-frame.fullscreen-css #game-iframe{display:block!important;width:100%!important;height:100%!important}
+    
+    /* قسم الألعاب المقترحة */
+    .suggested-games {
+      margin-top: 50px;
+      padding: 30px 0;
+      border-top: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .suggested-games h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #ffd700;
+    }
+    
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    
+    .game-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    }
+    
+    .game-card-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .game-card:hover .game-card-image img {
+      transform: scale(1.05);
+    }
+    
+    .game-card-content {
+      padding: 20px;
+    }
+    
+    .game-card-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #ffd700;
+    }
+    
+    .game-card-description {
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      opacity: 0.9;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .game-card-genre {
+      display: inline-block;
+      background: rgba(108,92,231,0.7);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    /* حالات التحميل والأخطاء */
+    .loading-state {
+      text-align: center;
+      padding: 40px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .error-state {
+      text-align: center;
+      padding: 40px;
+      background: rgba(255,0,0,0.1);
+      border-radius: 10px;
+      margin: 20px 0;
+      color: #ff6b6b;
+    }
+
+    /* أنماط الإعلانات - ستُحقن ديناميكياً */
+    .ad-banner {
+      background: rgba(0,0,0,0.7);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+      position: relative;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .ad-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    
+    .ad-close-btn {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(255,68,68,0.7);
+      color: white;
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    
+    .ad-close-btn:hover {
+      background: rgba(255,68,68,1);
+    }
+    
+    .ad-above-iframe {
+      margin-bottom: 20px;
+    }
+    
+    .ad-below-iframe {
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .ad-page-bottom {
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    
+    .ad-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+    
+    #interstitial-ad {
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* تصميم جديد للجوانب */
+    .page-layout {
+      display: flex;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .main-content {
+      flex: 3;
+    }
+    
+    .sidebar {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    @media (max-height:500px){.game-frame{height:400px}}
+    @media (max-width:768px){
+      .page-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        min-width: 100%;
+      }
+      .game-frame{height:70vh}
+      .features{grid-template-columns:1fr}
+      .games-grid{grid-template-columns:repeat(auto-fill, minmax(250px, 1fr))}
+      .ad-banner {
+        padding: 10px;
+      }
+      .ad-page-bottom img {
+        max-height: 150px !important;
+      }
+      .ad-sidebar {
+        position: static;
+        margin: 20px 0;
+      }
+    }
+    @media (max-width:480px){
+      .game-frame{height:60vh}
+      .header-content{flex-direction:column;gap:15px}
+      .game-title{font-size:1.5rem}
+      .seo-content h1{font-size:1.5rem}
+      .games-grid{grid-template-columns:1fr}
+      .ad-banner img {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+    }
+    @media (orientation:landscape){.game-frame.fullscreen-css .zoom-btn.exit{top:8px;right:8px}}
+  </style>
+</head>
+
+<body>
+  <!-- عناصر فارغة للإعلانات - ستُملأ ديناميكياً -->
+  <div id="interstitial-ad"></div>
+  
+  <header class="game-header">
+    <div class="container">
+      <div class="header-content">
+        <a href="https://gameivo.github.io" class="logo"><span>🎮</span><span>FreePlayHub</span></a>
+        <a href="https://gameivo.github.io" class="back-btn">← Back to All Games</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="page-layout">
+      <!-- الجانب الأيسر - المحتوى الرئيسي -->
+      <main class="main-content">
+        <div class="game-container">
+          <!-- مكان للإعلان فوق الـ iframe -->
+          <div id="ad-above-iframe"></div>
+          
+          <div class="game-frame">
+            <!-- مكان للإعلان عند التكبير - إعلان fullscreen موجود -->
+            <div id="fullscreen-ad"></div>
+            
+            <!-- شاشة التحميل -->
+            <div class="loading" id="loading">
+              <div class="loading-spinner"></div>
+              <div id="loading-text">Loading Slither.io...</div>
+            </div>
+
+            <!-- اللعبة -->
+            <iframe id="game-iframe" src="" allow="autoplay;fullscreen" scrolling="no" title="Slither.io - Free HTML5 Game on FreePlayHub"></iframe>
+            <!-- زر التكبير فقط (لا يوجد زر تصغير) -->
+            <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
+          </div>
+
+          <!-- مكان للإعلان تحت الـ iframe -->
+          <div id="ad-below-iframe"></div>
+          
+          <div class="game-info">
+            <h1 class="game-title">Slither.io</h1>
+            <p class="game-description">Play Slither.io online for free — one of the most iconic and addictive multiplayer snake io games on the web! In Slither.io you control a colorful snake avatar, eat glowing pellets to grow bigger, outmaneuver rival snakes, and avoid crashing into other players as you climb the global leaderboard. This fast-paced browser game delivers smooth controls, seamless multiplayer action, competitive arena snake battles, and endless hours of free online fun. With simple yet strategic gameplay, Slither.io is perfect for fans of io games, snake arcade games, unblocked browser games, casual action games, competitive online games, free multiplayer arcade fun, and addictive slithering challenges. No download required — dive in now, boost your speed, trap opponents, collect massive orbs, and become the longest snake alive in Slither.io!</p>
+            <div class="features">
+              <div class="feature-item"><h3>🚀 Instant Play</h3><p>No downloads or installations required. Play directly in your browser on any device.</p></div>
+              <div class="feature-item"><h3>🎯 Free & Accessible</h3><p>All games are completely free to play with no registration required.</p></div>
+              <div class="feature-item"><h3>📱 Cross-Platform</h3><p>Play on PC, tablet, or mobile - our HTML5 games work everywhere.</p></div>
+              <div class="feature-item"><h3>🌟 Premium Quality</h3><p>Experience the best HTML5 games with smooth performance and great graphics.</p></div>
+            </div>
+          </div>
+
+          <!-- قسم الألعاب المقترحة -->
+          <section class="suggested-games">
+            <h2>🎮 Suggested Games You Might Like</h2>
+            <div class="games-grid" id="suggested-games-grid">
+              <!-- سيتم ملؤه تلقائياً بالجافاسكريبت من games.json -->
+              <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Loading suggested games...</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="seo-content">
+            <h1>Play Slither.io & Other Free HTML5 Games on FreePlayHub</h1>
+            <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Enjoy Slither.io and many other exciting games.</p>
+            
+            <h2>About Slither.io</h2>
+            <p>Play Slither.io online for free — one of the most iconic and addictive multiplayer snake io games on the web! In Slither.io you control a colorful snake avatar, eat glowing pellets to grow bigger, outmaneuver rival snakes, and avoid crashing into other players as you climb the global leaderboard. This fast-paced browser game delivers smooth controls, seamless multiplayer action, competitive arena snake battles, and endless hours of free online fun. With simple yet strategic gameplay, Slither.io is perfect for fans of io games, snake arcade games, unblocked browser games, casual action games, competitive online games, free multiplayer arcade fun, and addictive slithering challenges. No download required — dive in now, boost your speed, trap opponents, collect massive orbs, and become the longest snake alive in Slither.io!</p>
+            <p>This arcade game is part of our carefully curated selection of HTML5 games that load quickly and run smoothly without any downloads.</p>
+            
+            <h2>Why Choose FreePlayHub?</h2>
+            <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025, including the top free browser games and unblocked fun games that you can play anytime, anywhere.</p>
+            
+            <div class="game-categories">
+              <span class="category-tag">Arcade</span>
+              <span class="category-tag">HTML5 Games</span>
+              <span class="category-tag">Browser Games</span>
+              <span class="category-tag">No Install Games</span>
+              <span class="category-tag">Free Games Online</span>
+            </div>
+            
+            <div class="related-links">
+              <a href="https://gameivo.github.io">All Games</a> • 
+              <a href="https://gameivo.github.io">Browse Collection</a>
+            </div>
+          </div>
+          
+          <!-- مكان للإعلان أسفل الصفحة -->
+          <div id="ad-page-bottom"></div>
+        </div>
+      </main>
+      
+      <!-- الجانب الأيمن - Sidebar -->
+      <aside class="sidebar">
+        <!-- مكان للإعلان الجانبي -->
+        <div id="ad-sidebar"></div>
+        
+        <!-- محتوى إضافي للـ SEO -->
+        <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:8px;margin-top:20px;backdrop-filter:blur(10px)">
+          <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">🎯 Popular Categories</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
+            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Action</span>
+            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Adventure</span>
+            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Puzzle</span>
+            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Racing</span>
+            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Sports</span>
+          </div>
+        </div>
+        
+        <!-- مكان لإعلان إضافي في الـ Sidebar -->
+        <div id="ad-sidebar-vertical" style="margin-top:20px;"></div>
+      </aside>
+    </div>
+  </div>
+
+<!-- تحميل نظام الإعلانات الذكي -->
+<script src="ads-manager.js" defer></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      // === فقط كود تحميل اللعبة والألعاب المقترحة ===
+      
+      const iframe = document.getElementById('game-iframe');
+      const loading = document.getElementById('loading');
+      
+      iframe.onload = function() {
+          loading.style.display = 'none';
+          iframe.style.display = 'block';
+      };
+      
+      setTimeout(() => {
+          iframe.src = "https://slithergame.io/slither-io.embed";
+      }, 500);
+      
+      // === زر التكبير (نفس الكود) ===
+      const zoomBtn = document.getElementById('zoom-btn');
+      const gameFrame = document.querySelector('.game-frame');
+      let isExpanded = false;
+      let usingBrowserFS = false;
+
+      function enterCssFullscreen() {
+          gameFrame.classList.add('fullscreen-css');
+          document.documentElement.style.overflow = 'hidden';
+          document.body.style.overflow = 'hidden';
+          isExpanded = true;
+          zoomBtn.style.display = 'none';
+      }
+
+      function exitCssFullscreen() {
+          gameFrame.classList.remove('fullscreen-css');
+          document.documentElement.style.overflow = '';
+          document.body.style.overflow = '';
+          isExpanded = false;
+          zoomBtn.style.display = 'flex';
+      }
+    
+      async function enterBrowserFullscreen() {
+          const el = gameFrame;
+          if (!el) return false;
+          const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+          if (!req) return false;
+          try {
+              await req.call(el);
+              usingBrowserFS = true;
+              isExpanded = true;
+              zoomBtn.style.display = 'none';
+              return true;
+          } catch {
+              return false;
+          }
+      }
+      
+      async function exitBrowserFullscreen() {
+          const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+          if (!exit) return false;
+          try {
+              await exit.call(document);
+              usingBrowserFS = false;
+              isExpanded = false;
+              zoomBtn.style.display = 'flex';
+              return true;
+          } catch {
+              return false;
+          }
+      }
+
+      function toggleExpand() {
+          if (!isExpanded) {
+              enterBrowserFullscreen().then(success => {
+                  if (!success) enterCssFullscreen();
+              });
+          } else {
+              if (usingBrowserFS) {
+                  exitBrowserFullscreen();
+              } else if (gameFrame.classList.contains('fullscreen-css')) {
+                  exitCssFullscreen();
+              }
+          }
+      }
+
+      function onFullscreenChange() {
+          const fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+          if (!fsEl) {
+              usingBrowserFS = false;
+              if (!gameFrame.classList.contains('fullscreen-css')) {
+                  isExpanded = false;
+                  zoomBtn.style.display = 'flex';
+              }
+          } else {
+              usingBrowserFS = true;
+              isExpanded = true;
+              zoomBtn.style.display = 'none';
+          }
+      }
+
+      zoomBtn.addEventListener('click', toggleExpand);
+      document.addEventListener('fullscreenchange', onFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+      document.addEventListener('msfullscreenchange', onFullscreenChange);
+
+      document.addEventListener('keydown', e => {
+          if (e.key === 'Escape' && gameFrame.classList.contains('fullscreen-css')) {
+              exitCssFullscreen();
+          }
+      });
+      
+      // === تحميل الألعاب المقترحة ===
+      async function loadSuggestedGames() {
+          const gamesGrid = document.getElementById('suggested-games-grid');
+          const currentGameId = "slither-io";
+          
+          try {
+              const response = await fetch('games.json');
+              
+              if (!response.ok) {
+                  throw new Error('Failed to load games data');
+              }
+              
+              const gamesData = await response.json();
+              
+              let availableGames = gamesData.filter(game => game.id !== currentGameId);
+              
+              if (availableGames.length < 3) {
+                  availableGames = gamesData;
+              }
+              
+              const shuffledGames = [...availableGames].sort(() => 0.5 - Math.random());
+              const selectedGames = shuffledGames.slice(0, 4);
+              
+              let gamesHTML = '';
+              
+              selectedGames.forEach(game => {
+                  gamesHTML += `
+                      <a href="${game.id}.html" class="game-card">
+                          <div class="game-card-image">
+                              <img src="${game.thumbnail}" 
+                                   alt="Play ${game.title} - ${game.genre}" 
+                                   loading="lazy"
+                                   onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDI4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyODAiIGhlaWdodD0iMTgwIiBmaWxsPSIjNkM1Q0U3Ii8+Cjx0ZXh0IHg9IjE0MCIgeT0iOTAiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5GvPC90ZXh0Pgo8L3N2Zz4K';">
+                          </div>
+                          <div class="game-card-content">
+                              <h3 class="game-card-title">${game.title}</h3>
+                              <p class="game-card-description">${game.description.substring(0, 100)}${game.description.length > 100 ? '...' : ''}</p>
+                              <span class="game-card-genre">${game.genre.split(',')[0].trim()}</span>
+                          </div>
+                      </a>
+                  `;
+              });
+              
+              gamesGrid.innerHTML = gamesHTML;
+              
+          } catch (error) {
+              console.error('Error loading suggested games:', error);
+              
+              gamesGrid.innerHTML = `
+                  <div class="error-state" style="grid-column: 1 / -1;">
+                      <p>Unable to load suggested games. Please try again later.</p>
+                  </div>
+              `;
+          }
+      }
+      
+      // بدء تحميل الألعاب المقترحة
+      setTimeout(loadSuggestedGames, 1000);
+  });
+</script>
+
+</body>
+</html>
