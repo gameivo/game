@@ -926,4 +926,25 @@
 </script>
 
 </body>
+ </body>
+<script>
+// إخفاء رسائل فشل الإعلانات فور ظهورها
+const hideFallbackAds = () => {
+  document.querySelectorAll('.ad-banner, .ad-modern-wrapper').forEach(el => {
+    const text = el.textContent || '';
+    if (text.includes('Support our site by allowing ads') || text.includes('Ad failed to load')) {
+      el.style.display = 'none';
+      el.style.height = '0';
+      el.style.minHeight = '0';
+      el.style.overflow = 'hidden';
+    }
+  });
+};
+
+// تشغيل عند تحميل الصفحة ومراقبة التغييرات
+hideFallbackAds();
+const observer = new MutationObserver(hideFallbackAds);
+observer.observe(document.body, { childList: true, subtree: true });
+</script>
+</html>
 </html>
