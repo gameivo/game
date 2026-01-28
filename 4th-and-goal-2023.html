@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://www.highperformanceformat.com" crossorigin>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
   <script>
@@ -615,7 +616,14 @@
     }
   </style>
   
-  <script src="https://preferencenail.com/sfp.js"></script>
+  <script>
+  window.addEventListener('load', function() {
+    var script = document.createElement('script');
+    script.src = 'https://preferencenail.com/sfp.js';
+    script.async = true;
+    document.body.appendChild(script);
+  });
+</script>
 </head>
 
 <body>
