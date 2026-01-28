@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) - تم إضافة defer لتقليل تأثير JavaScript -->
-  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
+  <!-- Google Analytics - تأخير التحميل لتحسين الأداء -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-QXVWE2RXZV');
-  </script>
-  
-  <!-- Google Analytics 4 - تم إضافة defer -->
-  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-S0H9XGTQCD');
+    // تأجيل تحميل Google Analytics حتى يكتمل تحميل الصفحة
+    window.addEventListener('load', function() {
+      // Google Tag Manager
+      var script1 = document.createElement('script');
+      script1.async = true;
+      script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV';
+      document.head.appendChild(script1);
+      
+      // Google Analytics 4
+      var script2 = document.createElement('script');
+      script2.async = true;
+      script2.src = 'https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD';
+      document.head.appendChild(script2);
+      
+      // إعداد gtag
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QXVWE2RXZV');
+      gtag('config', 'G-S0H9XGTQCD');
+    });
   </script>
   
   <meta name="theme-color" content="#1a2a6c">
@@ -52,7 +59,7 @@
   <link rel="preconnect" href="https://www.googletagmanager.com">
   <link rel="preconnect" href="https://preferencenail.com">
   
-  <!-- Preload للصورة الرئيسية - إضافة fetchpriority=high -->
+  <!-- Preload للصورة الرئيسية مع fetchpriority -->
   <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image" fetchpriority="high">
   
   <!-- === نهاية التحسينات === -->
@@ -120,7 +127,7 @@
     *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px;min-height:50px}
     .header-content{display:flex;justify-content:space-between;align-items:center}
     .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
     .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
@@ -190,601 +197,376 @@
       display: block;
     }
     
-    .play-button-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 15px;
-      color: #ffd700;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
-      line-height: 1.2;
-    }
-    
-    .play-btn {
-      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    .play-button {
+      background: linear-gradient(145deg, #6c5ce7, #a29bfe);
       color: white;
-      border: none;
-      padding: 18px 45px;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
+      padding: 15px 50px;
+      border: none;
       border-radius: 50px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 12px;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
-      margin: 0 auto;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     
-    .play-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(108, 92, 231, 0.6);
+    .play-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(108, 92, 231, 0.6);
+      background: linear-gradient(145deg, #5f4fd1, #8f87e8);
     }
     
-    .loading{
-      display:none;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      height:100%;
-      background:#002B50;
-      z-index:2;
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-left: 20px solid white;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 5px;
     }
     
-    .loading-spinner{
-      width:50px;
-      height:50px;
-      border:5px solid rgba(255,255,255,.3);
-      border-radius:50%;
-      border-top-color:#3CF7DC;
-      animation:spin 1s ease-in-out infinite;
-      margin-bottom:20px;
+    #loading {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      z-index: 2;
     }
     
-    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-spinner {
+      width: 70px;
+      height: 70px;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #6c5ce7;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      margin-top: 25px;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
     
     #game-iframe {
       display: none;
       border: none;
       z-index: 1;
-      background: #000;
     }
     
-    /* زر التكبير */
     .zoom-btn {
       position: absolute;
-      right: 12px;
-      bottom: 12px;
-      z-index: 9999;
-      background: rgba(0,0,0,.6);
-      color: #fff;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(108, 92, 231, 0.9);
+      color: white;
       border: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
+      padding: 12px 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: transform .15s ease,background .15s ease;
-      box-shadow: 0 6px 18px rgba(0,0,0,.45);
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+      width: 50px;
+      height: 50px;
     }
     
     .zoom-btn:hover {
-      background: rgba(0,0,0,.8);
+      background: rgba(108, 92, 231, 1);
       transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(108, 92, 231, 0.5);
     }
     
-    .game-frame.fullscreen-css {
+    .fullscreen-css {
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
       width: 100vw !important;
       height: 100vh !important;
-      max-width: 100% !important;
+      max-width: 100vw !important;
+      z-index: 9999 !important;
       border-radius: 0 !important;
-      z-index: 2147483647 !important;
     }
     
-    /* محتوى الصفحة */
-    .game-info {
-      background: rgba(255,255,255,.1);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 800px;
-      margin: 0 auto 30px auto;
+    .game-info{background:rgba(0,0,0,.3);padding:30px;border-radius:10px;backdrop-filter:blur(10px);margin-bottom:30px;text-align:left}
+    .game-title{font-size:2.5rem;margin-bottom:15px;background:linear-gradient(to right,#ffd700,#ffed4e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .game-meta{display:flex;flex-wrap:wrap;gap:15px;margin-bottom:20px}
+    .meta-item{background:rgba(255,255,255,.1);padding:8px 15px;border-radius:5px;font-size:.9rem}
+    .game-description{line-height:1.8;color:rgba(255,255,255,.9);font-size:1rem}
+    .features-list{list-style:none;margin-top:20px}
+    .features-list li{padding:8px 0;padding-left:25px;position:relative}
+    .features-list li:before{content:'✓';position:absolute;left:0;color:#ffd700;font-weight:700}
+    .controls{background:rgba(0,0,0,.3);padding:20px;border-radius:10px;backdrop-filter:blur(10px);margin-bottom:30px}
+    .controls h3{color:#ffd700;margin-bottom:15px}
+    .controls p{line-height:1.8;color:rgba(255,255,255,.9)}
+    .suggested-games{margin:40px 0}
+    .suggested-games h2{text-align:center;font-size:2rem;margin-bottom:30px;background:linear-gradient(to right,#ffd700,#ffed4e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+    .game-card{background:rgba(0,0,0,.4);border-radius:10px;overflow:hidden;text-decoration:none;color:#fff;transition:all .3s;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}
+    .game-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(108,92,231,.4);border-color:rgba(108,92,231,.5)}
+    .game-card-image{width:100%;height:180px;overflow:hidden;position:relative}
+    .game-card-image img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .game-card:hover .game-card-image img{transform:scale(1.1)}
+    .game-card-content{padding:20px}
+    .game-card-title{font-size:1.2rem;margin-bottom:10px;color:#ffd700}
+    .game-card-description{font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:10px}
+    .game-card-genre{display:inline-block;background:rgba(108,92,231,.5);padding:5px 10px;border-radius:15px;font-size:.8rem}
+    .seo-content{background:rgba(0,0,0,.3);padding:30px;border-radius:10px;backdrop-filter:blur(10px);margin-top:30px;text-align:left}
+    .seo-content h2{color:#ffd700;margin-bottom:20px;font-size:1.8rem}
+    .seo-content h3{color:#ffd700;margin:20px 0 10px;font-size:1.3rem}
+    .seo-content p{line-height:1.8;color:rgba(255,255,255,.9);margin-bottom:15px}
+    .game-categories{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .category-tag{background:rgba(108,92,231,.5);padding:8px 15px;border-radius:20px;font-size:.9rem;transition:all .3s}
+    .category-tag:hover{background:rgba(108,92,231,.7);transform:translateY(-2px)}
+    .error-state{text-align:center;padding:40px;color:rgba(255,255,255,.8)}
+    .error-state button{background:#6c5ce7;color:#fff;border:none;padding:10px 30px;border-radius:5px;cursor:pointer;margin-top:15px;font-size:1rem;transition:all .3s}
+    .error-state button:hover{background:#5f4fd1;transform:translateY(-2px)}
+    
+    /* إعلانات */
+    .ad-container-wrapper{margin:20px auto;text-align:center}
+    .ad-container-wrapper.top{max-width:728px;min-height:90px;margin-bottom:30px}
+    .ad-container-wrapper.bottom{max-width:728px;min-height:90px;margin-top:30px}
+    .ad-container-wrapper.large{max-width:970px;min-height:90px}
+    .ad-container-wrapper.sidebar{max-width:300px;margin:20px auto}
+    .ad-banner{background:rgba(0,0,0,.2);border-radius:8px;padding:15px;backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.1);overflow:hidden}
+    .ad-label{font-size:.75rem;color:rgba(255,255,255,.5);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+    .ad-content-scaler{display:flex;align-items:center;justify-content:center;min-height:90px;width:100%}
+    .ad-sidebar{min-height:250px}
+    
+    /* Layout */
+    .page-wrapper{display:flex;max-width:1400px;margin:0 auto;gap:30px;padding:0 20px}
+    .main-content{flex:1;min-width:0}
+    .sidebar{width:320px;flex-shrink:0}
+    
+    @media(max-width:1024px){
+      .page-wrapper{flex-direction:column}
+      .sidebar{width:100%;max-width:728px;margin:0 auto}
+      .ad-container-wrapper.sidebar{max-width:728px}
     }
     
-    .game-title {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: #ffd700;
+    @media(max-width:768px){
+      .game-title{font-size:1.8rem}
+      .game-meta{flex-direction:column;gap:10px}
+      .games-grid{grid-template-columns:1fr}
+      .game-frame-container{height:400px}
+      .container{padding:0 15px}
+      .logo{font-size:1.2rem}
+      .back-btn{padding:8px 15px;font-size:12px}
+      .ad-container-wrapper.top,.ad-container-wrapper.bottom,.ad-container-wrapper.large{max-width:100%;min-height:50px}
+      .ad-content-scaler{min-height:50px}
     }
     
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-    
-    .feature-item h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-    
-    .seo-content {
-      margin-top: 40px;
-      padding: 25px;
-      background: rgba(0,0,0,.3);
-      border-radius: 10px;
-      text-align: left;
-    }
-    
-    .seo-content h2 {
-      color: #ffd700;
-      margin-bottom: 15px;
-    }
-    
-    .seo-content h3 {
-      color: #a29bfe;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
-    
-    .game-categories {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    
-    .category-tag {
-      background: rgba(108,92,231,0.5);
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-    }
-    
-    /* === حجز مساحة للإعلانات === */
-    .ad-container-wrapper {
-      min-height: 110px;
-      margin: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: visible !important;
-    }
-    
-    .ad-container-wrapper.large {
-      min-height: 270px;
-    }
-    
-    .ad-container-wrapper.sidebar {
-      min-height: 620px;
-    }
-    
-    /* قسم الألعاب المقترحة */
-    .suggested-games {
-      margin-top: 50px;
-      padding: 30px 0;
-      border-top: 2px solid rgba(255,255,255,0.2);
-    }
-    
-    .suggested-games h2 {
-      color: #ffd700;
-      margin-bottom: 20px;
-    }
-    
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
-      margin-top: 20px;
-    }
-    
-    .game-card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      color: white;
-    }
-    
-    .game-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    
-    .game-card-image {
-      width: 100%;
-      height: 180px;
-      overflow: hidden;
-    }
-    
-    .game-card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .game-card-content {
-      padding: 15px;
-    }
-    
-    .game-card-title {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-      color: #ffd700;
-    }
-    
-    .game-card-description {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 10px;
-    }
-    
-    .game-card-genre {
-      display: inline-block;
-      background: rgba(108,92,231,0.5);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-    }
-    
-    /* Layout Responsive */
-    .page-layout {
-      display: flex;
-      gap: 30px;
-      margin-top: 30px;
-    }
-    
-    .main-content {
-      flex: 3;
-    }
-    
-    .sidebar {
-      flex: 1;
-      min-width: 300px;
-    }
-    
-    /* Media Queries - تعديل حجم game-frame-container */
-    @media (max-width: 768px) {
-      .page-layout {
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        min-width: 100%;
-      }
-      
-      .game-frame-container {
-        height: 450px; /* تصغير الحجم على التابلت */
-      }
-      
-      .play-btn {
-        padding: 15px 35px;
-        font-size: 1.2rem;
-      }
-      
-      .play-button-title {
-        font-size: 2rem;
-      }
-      
-      .game-preview-image {
-        width: 160px;
-        height: 160px;
-      }
-      
-      .ad-container-wrapper.sidebar {
-        min-height: 320px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .game-frame-container {
-        height: 350px; /* تصغير أكثر على الموبايل */
-      }
-      
-      .header-content {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .play-button-title {
-        font-size: 1.8rem;
-      }
-      
-      .play-btn {
-        padding: 12px 30px;
-        font-size: 1.1rem;
-      }
-      
-      .game-preview-image {
-        width: 140px;
-        height: 140px;
-      }
-      
-      .ad-container-wrapper {
-        min-height: 70px;
-      }
-      
-      .ad-container-wrapper.large {
-        min-height: 170px;
-      }
-    }
-  </style>
-  
-  <style>
-    /* أنماط الإعلانات */
-    .ad-banner {
-      background: rgba(0,0,0,0.7);
-      border-radius: 8px;
-      padding: 15px;
-      position: relative;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
-      min-height: 90px;
-      overflow: visible !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      text-align: center !important;
-    }
-    
-    .ad-modern-wrapper {
-      width: 100% !important;
-      height: auto !important;
-    }
-    
-    .ad-content-scaler {
-      display: inline-block !important;
-      transition: all 0.3s ease !important;
-      max-width: 100% !important;
-      transform-origin: top center !important;
-      overflow: visible !important;
-      position: relative !important;
-    }
-    
-    .ad-banner:hover {
-      border-color: rgba(255,255,255,0.3);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    
-    .ad-label {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.6);
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      z-index: 10;
-    }
-    
-    .ad-sidebar {
-      position: sticky;
-      top: 100px;
-      margin-bottom: 20px;
-    }
-    
-    /* منع التمرير الأفقي */
-    html, body {
-      overflow-x: hidden !important;
-      max-width: 100% !important;
-    }
-    
-    /* تحسين العرض على الموبايل */
-    @media (max-width: 768px) {
-      .ad-banner {
-        padding: 10px !important;
-        margin: 10px 0 !important;
-      }
-      
-      .ad-sidebar {
-        position: static !important;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .ad-banner {
-        padding: 6px !important;
-        margin: 6px 0 !important;
-      }
-      
-      .ad-label {
-        font-size: 8px;
-        padding: 1px 4px;
-      }
-    }
-    
-    /* إخفاء الإعلانات الفاشلة */
-    [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
-    .ad-banner:not(:has(iframe)):not(:has(ins)),
-    ins.adsbygoogle[data-ad-status="unfilled"] {
-      display: none !important;
-      height: 0 !important;
-      min-height: 0 !important;
-      margin: 0 !important;
-      padding: 0 !important;
+    @media(max-width:480px){
+      .game-title{font-size:1.5rem}
+      .game-frame-container{height:300px}
+      .play-button{font-size:1rem;padding:12px 30px}
+      .game-preview-image{width:150px;height:150px}
     }
   </style>
 </head>
-
 <body>
-  <div id="interstitial-ad"></div>
-  
   <header class="game-header">
     <div class="container">
       <div class="header-content">
-        <a href="https://gameivo.github.io" class="logo"><span>🎮</span><span>FreePlayHub</span></a>
-        <a href="https://gameivo.github.io" class="back-btn">← Back to All Games</a>
+        <a href="/" class="logo">
+          🎮 FreePlayHub
+        </a>
+        <a href="/" class="back-btn">← Back to Games</a>
       </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="page-layout">
-      <!-- المحتوى الرئيسي -->
-      <main class="main-content">
-        <div class="game-container">
-          <!-- إعلان فوق الـ iframe -->
-          <div id="ad-above-iframe" class="ad-container-wrapper">
-            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-top-1">
-              <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
-                <script src="https://www.highperformanceformat.com/be0515e7240f249085cceca1f2dba7ed/invoke.js" async data-cfasync="false"></script>
-              </div>
+  <div class="page-wrapper">
+    <main class="main-content">
+      <div class="container">
+        <!-- إعلان أعلى الصفحة -->
+        <div id="ad-page-top" class="ad-container-wrapper top">
+          <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-top">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
+              <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
             </div>
           </div>
-          
-          <!-- === Container خارجي يحجز المساحة (الحل الجذري) === -->
+        </div>
+        
+        <div class="game-container">
+          <!-- Game Frame Container -->
           <div class="game-frame-container">
-            <!-- game-frame داخل container محجوز مسبقاً -->
-            <div class="game-frame" id="main-game-frame">
-              <!-- شاشة التشغيل -->
+            <div id="main-game-frame" class="game-frame">
+              <!-- شاشة Play -->
               <div id="play-screen" class="play-button-container">
-                <!-- تحسين LCP: إضافة fetchpriority=high وإزالة lazy loading -->
-                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" fetchpriority="high">
-                <h1 class="play-button-title">4th and Goal 2022</h1>
-                
-                <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
-                  <span class="play-btn-icon">▶</span>
-                  <span>PLAY NOW FOR FREE</span>
+                <img src="https://gameivo.github.io/images/171.webp" 
+                     alt="4th and Goal 2022 ▶ PLAY NOW FOR FREE" 
+                     class="game-preview-image"
+                     width="200"
+                     height="200"
+                     fetchpriority="high">
+                <button id="play-btn" class="play-button">
+                  <span>PLAY NOW</span>
+                  <div class="play-icon"></div>
                 </button>
               </div>
               
-              <!-- شاشة التحميل -->
-              <div class="loading" id="loading">
+              <!-- شاشة Loading -->
+              <div id="loading">
                 <div class="loading-spinner"></div>
-                <div id="loading-text">Loading 4th and Goal 2022...</div>
+                <p class="loading-text">Loading Game...</p>
               </div>
-
-              <!-- اللعبة -->
-              <iframe id="game-iframe" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
               
-              <!-- زر التكبير -->
-              <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
-            </div>
-          </div>
-
-          <!-- إعلان تحت الـ iframe -->
-          <div id="ad-below-iframe" class="ad-container-wrapper">
-            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-below">
-              <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
-                <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
-              </div>
-            </div>
-          </div>
-          
-          <!-- معلومات اللعبة -->
-          <div class="game-info">
-            <h2 class="game-title">4th and Goal 2022</h2>
-            <p class="game-description">Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory.</p>
-            <div class="features">
-              <div class="feature-item"><h3>🚀 Instant Play</h3><p>No downloads or installations required. Play directly in your browser on any device.</p></div>
-              <div class="feature-item"><h3>🎯 Free & Accessible</h3><p>All games are completely free to play with no registration required.</p></div>
-              <div class="feature-item"><h3>📱 Cross-Platform</h3><p>Play on PC, tablet, or mobile - our HTML5 games work everywhere.</p></div>
-              <div class="feature-item"><h3>🌟 Premium Quality</h3><p>Experience the best HTML5 games with smooth performance and great graphics.</p></div>
-            </div>
-          </div>
-          
-          <!-- إعلان في منتصف الصفحة -->
-          <div id="ad-page-middle" class="ad-container-wrapper">
-            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-300x250-middle">
-              <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;min-height:250px;">
-                <script src="https://www.highperformanceformat.com/c84b7f14ef2b488fb99e7411123accf1/invoke.js" async data-cfasync="false"></script>
-              </div>
-            </div>
-          </div>
-
-          <!-- قسم الألعاب المقترحة -->
-          <section class="suggested-games">
-            <h2>🎮 Suggested Games You Might Like</h2>
-            <div class="games-grid" id="suggested-games-grid"><p class="error-state">Loading...</p></div>
-          </section>
-
-          <div class="seo-content">
-            <h2>Play 4th and Goal 2022 & Other Free HTML5 Games on FreePlayHub</h2>
-            <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device.</p>
-            
-            <h3>About 4th and Goal 2022</h3>
-            <p>This sports game is part of our carefully curated selection of HTML5 games that load quickly and run smoothly without any downloads.</p>
-            
-            <h3>Why Choose FreePlayHub?</h3>
-            <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025.</p>
-            
-            <div class="game-categories">
-              <span class="category-tag">Sports</span>
-              <span class="category-tag">HTML5 Games</span>
-              <span class="category-tag">Browser Games</span>
-              <span class="category-tag">No Install Games</span>
-              <span class="category-tag">Free Games Online</span>
-            </div>
-          </div>
-          
-          <!-- إعلان أسفل الصفحة -->
-          <div id="ad-page-bottom" class="ad-container-wrapper large">
-            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-bottom">
-              <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
-                <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
-              </div>
+              <!-- Game iframe -->
+              <iframe id="game-iframe" 
+                      allow="fullscreen; autoplay; clipboard-write; geolocation"
+                      allowfullscreen
+                      title="4th and Goal 2022 Game">
+              </iframe>
+              
+              <!-- زر Fullscreen -->
+              <button id="zoom-btn" class="zoom-btn" title="Fullscreen">⛶</button>
             </div>
           </div>
         </div>
-      </main>
+        
+        <!-- معلومات اللعبة -->
+        <section class="game-info">
+          <h1 class="game-title">4th and Goal 2022</h1>
+          <div class="game-meta">
+            <span class="meta-item">🏈 Sports</span>
+            <span class="meta-item">🎮 American Football</span>
+            <span class="meta-item">🌐 Browser Game</span>
+            <span class="meta-item">⭐ Free to Play</span>
+          </div>
+          <p class="game-description">
+            Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team, outsmart opponents with clever tactics, and lead your squad to championship glory in this thrilling HTML5 football experience.
+          </p>
+          <ul class="features-list">
+            <li>Authentic American football gameplay with realistic mechanics</li>
+            <li>Strategic playcalling system - choose from dozens of offensive and defensive plays</li>
+            <li>Multiple game modes including Quick Match and Championship Season</li>
+            <li>Smooth HTML5 performance - no downloads required</li>
+            <li>Intuitive controls perfect for both casual fans and football enthusiasts</li>
+          </ul>
+        </section>
+
+        <!-- إعلان وسط الصفحة -->
+        <div id="ad-page-middle" class="ad-container-wrapper large">
+          <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-970x90-middle">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
+              <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <section class="controls">
+          <h3>🎮 How to Play</h3>
+          <p><strong>Mouse:</strong> Click to select plays and control players</p>
+          <p><strong>WASD/Arrow Keys:</strong> Move your player</p>
+          <p><strong>Spacebar:</strong> Snap the ball / Tackle</p>
+          <p><strong>Strategy Tips:</strong> Study your opponent's formations, mix up your playcalls, and time your moves perfectly to dominate the field!</p>
+        </section>
+
+        <!-- Suggested Games -->
+        <section class="suggested-games">
+          <h2>🎮 You May Also Like</h2>
+          <div id="suggested-games-grid" class="games-grid">
+            <div class="game-card" style="opacity:0.6">
+              <div class="game-card-image" style="background:#333;display:flex;align-items:center;justify-content:center">
+                <div style="color:#666">Loading...</div>
+              </div>
+              <div class="game-card-content">
+                <h3 class="game-card-title">Loading Games...</h3>
+                <p class="game-card-description">Please wait while we load similar games for you.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="seo-content">
+          <h2>Play 4th and Goal 2022 & Other Free HTML5 Games on FreePlayHub</h2>
+          <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device.</p>
+          
+          <h3>About 4th and Goal 2022</h3>
+          <p>This sports game is part of our carefully curated selection of HTML5 games that load quickly and run smoothly without any downloads.</p>
+          
+          <h3>Why Choose FreePlayHub?</h3>
+          <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025.</p>
+          
+          <div class="game-categories">
+            <span class="category-tag">Sports</span>
+            <span class="category-tag">HTML5 Games</span>
+            <span class="category-tag">Browser Games</span>
+            <span class="category-tag">No Install Games</span>
+            <span class="category-tag">Free Games Online</span>
+          </div>
+        </div>
+        
+        <!-- إعلان أسفل الصفحة -->
+        <div id="ad-page-bottom" class="ad-container-wrapper large">
+          <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-bottom">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
+              <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- إعلان جانبي -->
+      <div id="ad-sidebar" class="ad-container-wrapper sidebar">
+        <div class="ad-banner ad-sidebar ad-modern-wrapper" data-ad-id="sidebar-160x300-1">
+          <div class="ad-label">Advertisement</div>
+          <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
+            <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
+          </div>
+        </div>
+      </div>
       
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <!-- إعلان جانبي -->
-        <div id="ad-sidebar" class="ad-container-wrapper sidebar">
-          <div class="ad-banner ad-sidebar ad-modern-wrapper" data-ad-id="sidebar-160x300-1">
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
-              <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
-            </div>
+      <!-- إعلان جانبي إضافي -->
+      <div id="ad-sidebar-extra" class="ad-container-wrapper sidebar">
+        <div class="ad-banner ad-modern-wrapper" data-ad-id="sidebar-extra-160x300">
+          <div class="ad-label">Advertisement</div>
+          <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
+            <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
           </div>
         </div>
-        
-        <!-- إعلان جانبي إضافي -->
-        <div id="ad-sidebar-extra" class="ad-container-wrapper sidebar">
-          <div class="ad-banner ad-modern-wrapper" data-ad-id="sidebar-extra-160x300">
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
-              <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
-            </div>
-          </div>
+      </div>
+      
+      <!-- محتوى SEO -->
+      <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:8px;margin-top:20px;backdrop-filter:blur(10px)">
+        <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">🎯 Popular Categories</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
+          <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Action</span>
+          <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Adventure</span>
+          <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Puzzle</span>
+          <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Racing</span>
+          <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Sports</span>
         </div>
-        
-        <!-- محتوى SEO -->
-        <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:8px;margin-top:20px;backdrop-filter:blur(10px)">
-          <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">🎯 Popular Categories</h3>
-          <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
-            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Action</span>
-            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Adventure</span>
-            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Puzzle</span>
-            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Racing</span>
-            <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Sports</span>
-          </div>
-        </div>
-      </aside>
-    </div>
+      </div>
+    </aside>
   </div>
 
 <script>
