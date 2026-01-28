@@ -44,18 +44,16 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://gameivo.github.io/4th-and-goal-2022.html">
   
-  <!-- === تحسينات للأداء === -->
-  <!-- إضافة preconnect للأصول المهمة -->
+  <!-- Preconnect for critical resources -->
   <link rel="preconnect" href="https://gameivo.github.io">
   <link rel="preconnect" href="https://inkyedu118.github.io">
-  <link rel="preconnect" href="https://www.highperformanceformat.com">
-  <link rel="preconnect" href="https://www.googletagmanager.com">
+  
+  <!-- === FIX: Added Preconnect for Ad Domains (PageSpeed Recommendation) === -->
   <link rel="preconnect" href="https://preferencenail.com">
+  <link rel="preconnect" href="https://www.highperformanceformat.com">
+  <!-- ================================================================ -->
   
-  <!-- Preload للصورة الرئيسية -->
   <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image">
-  
-  <!-- === نهاية التحسينات === -->
   
   <!-- Game Schema للعبة الحالية -->
   <script type="application/ld+json">
@@ -622,6 +620,9 @@
       padding: 0 !important;
     }
   </style>
+  
+  <!-- REMOVED: <script src="https://preferencenail.com/sfp.js"></script> -->
+  <!-- MOVED TO BOTTOM OF BODY TO FIX RENDER BLOCKING -->
 </head>
 
 <body>
@@ -898,11 +899,12 @@
 })();
 </script>
 
-<!-- === تحسينات الأداء: تحميل scripts غير الحرجة بشكل متأخر === -->
 <script src="ads-manager.js" defer></script>
-<!-- نقل script preferencenail.com إلى نهاية body لتجنب render-blocking -->
-<script defer src="https://preferencenail.com/sfp.js"></script>
 <script src="https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js" async data-cfasync="false" id="social-bar-script"></script>
+
+<!-- === FIX: Render-blocking script moved to bottom to prevent delay === -->
+<script src="https://preferencenail.com/sfp.js"></script>
+<!-- ============================================================== -->
 
 </body>
 </html>
