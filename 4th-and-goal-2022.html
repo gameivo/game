@@ -100,6 +100,29 @@
   </script>
   
   <style>
+/* حجب رسائل الإعلانات الفاشلة */
+[id^="ad-"]:not(:has(iframe)):not(:has(ins)),
+.ad-banner:not(:has(iframe)):not(:has(ins)),
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+</style>
+
+<script>
+setInterval(() => {
+  document.querySelectorAll('[id^="ad-"]').forEach(el => {
+    const text = el.textContent.toLowerCase();
+    if ((text.includes('support') || text.includes('failed')) && !el.querySelector('iframe, ins')) {
+      el.style.cssText = 'display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important';
+    }
+  });
+}, 500);
+</script>
+    
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100}
@@ -927,24 +950,6 @@
 
 </body>
  </body>
-<script>
-// إخفاء رسائل فشل الإعلانات فور ظهورها
-const hideFallbackAds = () => {
-  document.querySelectorAll('.ad-banner, .ad-modern-wrapper').forEach(el => {
-    const text = el.textContent || '';
-    if (text.includes('Support our site by allowing ads') || text.includes('Ad failed to load')) {
-      el.style.display = 'none';
-      el.style.height = '0';
-      el.style.minHeight = '0';
-      el.style.overflow = 'hidden';
-    }
-  });
-};
 
-// تشغيل عند تحميل الصفحة ومراقبة التغييرات
-hideFallbackAds();
-const observer = new MutationObserver(hideFallbackAds);
-observer.observe(document.body, { childList: true, subtree: true });
-</script>
 </html>
 </html>
