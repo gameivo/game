@@ -62,12 +62,8 @@ class AdsManager {
     
     setInterval(() => this.scaleAllAds(), 2000);
     window.addEventListener('resize', () => this.scaleAllAds());
-  }
-
-    // === نظام حجب الإعلانات الفاشلة ===
-  startFailedAdMonitor() {
-    console.log('👁️ بدء مراقبة الإعلانات الفاشلة...');
-    
+  
+  // === إضافة: مراقبة وحجب الإعلانات الفاشلة ===
     setInterval(() => {
       document.querySelectorAll('[id^="ad-"]').forEach(el => {
         const text = el.textContent.toLowerCase();
@@ -76,8 +72,9 @@ class AdsManager {
         }
       });
     }, 500);
+    
+    console.log('✅ تم تفعيل نظام حجب الإعلانات الفاشلة');
   }
-
   // === 1. تحميل الإعدادات ===
   async init() {
     try {
@@ -110,7 +107,6 @@ class AdsManager {
       await this.loadAllAds();
       console.log('🎯 تم تفعيل جميع الإعلانات بنجاح');
       this.startAdScalingSystem();
-      this.startFailedAdMonitor();
       
     } catch (error) {
       console.error('❌ خطأ في تحميل الإعلانات:', error);
@@ -1565,7 +1561,27 @@ document.addEventListener('DOMContentLoaded', () => {
       max-width: 100% !important;
       overflow: hidden !important;
     }
+        /* إصلاح خاص لشركات الإعلانات الشائعة */
+    ins.adsbygoogle,
+    iframe[src*="ads"],
+    div[id*="ad"],
+    div[class*="ad"] {
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+
+    /* === حجب رسائل الإعلانات الفاشلة === */
+    [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
+    .ad-banner:not(:has(iframe)):not(:has(ins)),
+    ins.adsbygoogle[data-ad-status="unfilled"] {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
   `;
+ 
   document.head.appendChild(style);
   
   console.log('🎨 تم تحميل أنماط الإعلانات');
