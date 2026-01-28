@@ -110,19 +110,7 @@ ins.adsbygoogle[data-ad-status="unfilled"] {
   margin: 0 !important;
   padding: 0 !important;
 }
-</style>
 
-<script>
-setInterval(() => {
-  document.querySelectorAll('[id^="ad-"]').forEach(el => {
-    const text = el.textContent.toLowerCase();
-    if ((text.includes('support') || text.includes('failed')) && !el.querySelector('iframe, ins')) {
-      el.style.cssText = 'display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important';
-    }
-  });
-}, 500);
-</script>
-    
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100}
@@ -567,6 +555,18 @@ setInterval(() => {
     }
     /* ... باقي media queries ... */
   </style>
+  
+<script>
+setInterval(() => {
+  document.querySelectorAll('[id^="ad-"]').forEach(el => {
+    const text = el.textContent.toLowerCase();
+    if ((text.includes('support') || text.includes('failed')) && !el.querySelector('iframe, ins')) {
+      el.style.cssText = 'display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important';
+    }
+  });
+}, 500);
+</script>
+  
 </head>
 
 
