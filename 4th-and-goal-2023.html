@@ -105,98 +105,142 @@
   </script>
   
   <style>
-    /* تحسينات Layout Shift: إضافة CSS أولاً */
-    .cls-fixed {
-      display: block !important;
+    /* تحسينات Layout Shift: CSS أولاً بدون أي classes متغيرة */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* تأكد أن body مرئي دائمًا ولا يتغير */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      color: #fff;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
       visibility: visible !important;
       opacity: 1 !important;
+      display: block !important;
+      position: relative;
     }
     
-    .game-frame {
-      position: relative !important;
-      z-index: 1 !important;
-      transform: translateZ(0) !important;
-      backface-visibility: hidden !important;
-      -webkit-backface-visibility: hidden !important;
-      will-change: transform !important;
+    /* تأكد أن جميع العناصر الرئيسية مرئية */
+    .game-header,
+    .container,
+    .game-frame,
+    .game-info,
+    .seo-content {
+      visibility: visible !important;
+      opacity: 1 !important;
+      display: block !important;
     }
     
-    /* CSS Critical - يتحمّل أولاً */
-    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
-    .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
-    .header-content{display:flex;justify-content:space-between;align-items:center}
-    .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
-    .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
-    .game-container{padding:30px 0;text-align:center}
+    .game-header {
+      background: rgba(0,0,0,.8);
+      padding: 15px 0;
+      backdrop-filter: blur(10px);
+      top: 0;
+      z-index: 100;
+      position: sticky;
+      width: 100%;
+    }
     
-    /* إصلاح جذري لـ game-frame - إزالة التغيرات المفاجئة */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .back-btn {
+      background: #6c5ce7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all .3s;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+    }
+    
+    .back-btn:hover {
+      background: #a29bfe;
+      transform: translateY(-2px);
+    }
+    
+    .game-container {
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    /* إصلاح جذري لـ game-frame - لا يتغير أبدًا */
     .game-frame {
       width: 100%;
       max-width: 800px;
-      height: 600px !important; /* !important للتأكد من عدم التجاوز */
-      min-height: 600px !important;
+      height: 600px;
+      min-height: 600px;
       margin: 0 auto 30px auto;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,.5);
-      background: #000 !important;
+      background: #000;
       position: relative;
-      display: block;
-      visibility: visible;
-      opacity: 1;
-      transform: none;
-      transition: none !important;
-      animation: none !important;
-      contain: strict !important;
+      contain: strict;
       content-visibility: auto;
       contain-intrinsic-size: 600px;
-      grid-area: 1 / 1 / 2 / 2;
     }
     
-    /* تثبيت العناصر داخل game-frame */
-    #play-screen, #loading, #game-iframe {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      display: block;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    
-    /* زر PLAY - تصميم ثابت لا يتغير */
-    .play-button-container {
-      display: flex !important;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      background: #000 !important; /* خلفية ثابتة أولاً */
-      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://gameivo.github.io/images/171.webp') !important;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      text-align: center;
+    /* عناصر داخل game-frame - ثابتة تمامًا */
+    .play-button-container,
+    .loading,
+    #game-iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* زر PLAY - تصميم ثابت */
+    .play-button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://gameivo.github.io/images/171.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      text-align: center;
       z-index: 3;
-      contain: layout style paint;
-      overflow: hidden;
     }
     
     .game-preview-image {
-      width: 200px !important;
-      height: 200px !important;
-      min-width: 200px !important;
-      min-height: 200px !important;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
       border-radius: 20px;
       margin-bottom: 25px;
@@ -205,7 +249,6 @@
       display: block;
       aspect-ratio: 1 / 1;
       background: #6c5ce7;
-      transform: translateZ(0);
     }
     
     .play-button-title {
@@ -215,7 +258,6 @@
       color: #ffd700;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
       line-height: 1.2;
-      display: block;
     }
     
     .play-btn {
@@ -227,7 +269,7 @@
       font-weight: 700;
       border-radius: 50px;
       cursor: pointer;
-      display: flex !important;
+      display: flex;
       align-items: center;
       gap: 12px;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -235,14 +277,35 @@
       position: relative;
       overflow: hidden;
       margin: 0 auto;
-      min-width: 300px;
-      min-height: 60px;
-      contain: layout style;
     }
     
-    .loading{display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;background:#002B50;position:absolute;top:0;left:0;width:100%;z-index:2}
-    .loading-spinner{width:50px;height:50px;border:5px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#3CF7DC;animation:spin 1s ease-in-out infinite;margin-bottom:20px}
-    @keyframes spin{to{transform:rotate(360deg)}}
+    .play-btn:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(108, 92, 231, 0.6);
+    }
+    
+    .loading {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #002B50;
+      z-index: 2;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #3CF7DC;
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
     
     #game-iframe {
       display: none;
@@ -263,13 +326,12 @@
       width: 44px;
       height: 44px;
       border-radius: 8px;
-      display: none !important;
+      display: none;
       align-items: center;
       justify-content: center;
       font-size: 18px;
       cursor: pointer;
       backdrop-filter: blur(4px);
-      transition: transform .15s ease,background .15s ease;
       box-shadow: 0 6px 18px rgba(0,0,0,.45);
     }
     
@@ -287,7 +349,7 @@
       background: #000 !important;
     }
     
-    /* محتوى تحت game-frame - بعيد عن تأثيراته */
+    /* محتوى ثابت تحت game-frame */
     .game-info {
       background: rgba(255,255,255,.1);
       backdrop-filter: blur(10px);
@@ -295,9 +357,6 @@
       border-radius: 10px;
       max-width: 800px;
       margin: 0 auto 30px auto;
-      position: relative;
-      z-index: 0;
-      transform: translateZ(0);
     }
     
     .game-title {
@@ -313,27 +372,27 @@
       margin-top: 20px;
     }
     
+    .feature-item {
+      background: rgba(255,255,255,.1);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+    }
+    
     .seo-content {
       margin-top: 40px;
       padding: 25px;
       background: rgba(0,0,0,.3);
       border-radius: 10px;
       text-align: left;
-      position: relative;
-      z-index: 0;
     }
     
     /* حجز مساحة ثابتة للإعلانات */
     .ad-placeholder {
-      display: block !important;
-      visibility: visible !important;
       min-height: 90px;
       background: rgba(0,0,0,0.05);
       margin: 20px 0;
       border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-      contain: strict;
     }
     
     .ad-placeholder.large {
@@ -354,8 +413,6 @@
       padding: 30px 0;
       border-top: 2px solid rgba(255,255,255,0.2);
       min-height: 400px;
-      position: relative;
-      z-index: 0;
     }
     
     .games-grid {
@@ -383,22 +440,18 @@
     
     .main-content {
       flex: 3;
-      position: relative;
-      z-index: 0;
     }
     
     .sidebar {
       flex: 1;
       min-width: 300px;
-      position: relative;
-      z-index: 0;
     }
     
     /* Media Queries - تثبيت الأبعاد */
     @media (max-height: 500px) {
       .game-frame {
-        height: 400px !important;
-        min-height: 400px !important;
+        height: 400px;
+        min-height: 400px;
         contain-intrinsic-size: 400px;
       }
     }
@@ -411,12 +464,11 @@
         min-width: 100%;
       }
       .game-frame {
-        height: 450px !important;
-        min-height: 450px !important;
+        height: 450px;
+        min-height: 450px;
         contain-intrinsic-size: 450px;
       }
       .play-btn {
-        min-width: 250px;
         padding: 15px 35px;
         font-size: 1.2rem;
       }
@@ -424,10 +476,8 @@
         font-size: 2rem;
       }
       .game-preview-image {
-        width: 160px !important;
-        height: 160px !important;
-        min-width: 160px !important;
-        min-height: 160px !important;
+        width: 160px;
+        height: 160px;
       }
       .ad-placeholder.sidebar {
         min-height: 300px;
@@ -436,8 +486,8 @@
     
     @media (max-width: 480px) {
       .game-frame {
-        height: 350px !important;
-        min-height: 350px !important;
+        height: 350px;
+        min-height: 350px;
         contain-intrinsic-size: 350px;
       }
       .header-content {
@@ -448,16 +498,12 @@
         font-size: 1.8rem;
       }
       .play-btn {
-        min-width: 200px;
         padding: 12px 30px;
         font-size: 1.1rem;
-        min-height: 50px;
       }
       .game-preview-image {
-        width: 140px !important;
-        height: 140px !important;
-        min-width: 140px !important;
-        min-height: 140px !important;
+        width: 140px;
+        height: 140px;
       }
       .ad-placeholder {
         min-height: 50px;
@@ -467,22 +513,24 @@
       }
     }
     
-    /* Hide initially to prevent FOUC */
-    .js-hidden {
+    /* إخفاء العناصر باستخدام opacity بدلاً من display/visibility */
+    .hidden-by-opacity {
       opacity: 0;
-      visibility: hidden;
-    }
-    
-    .js-visible {
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.3s ease;
+      pointer-events: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
   </style>
 </head>
 
-<body class="js-hidden">
-  <!-- عناصر فارغة للإعلانات - مع class ثابت -->
+<body>
+  <!-- عناصر فارغة للإعلانات -->
   <div id="interstitial-ad" class="ad-placeholder large"></div>
   
   <header class="game-header">
@@ -504,7 +552,7 @@
           
           <!-- game-frame مع تصميم ثابت تماماً -->
           <div class="game-frame" id="main-game-frame">
-            <!-- شاشة التشغيل (اللعبة مخفية في البداية) -->
+            <!-- شاشة التشغيل -->
             <div id="play-screen" class="play-button-container">
               <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" 
                    width="200" height="200" loading="eager"
@@ -535,8 +583,8 @@
               </div>
             </div>
             
-            <!-- شاشة التحميل -->
-            <div class="loading" id="loading">
+            <!-- شاشة التحميل (مخفية باستخدام hidden-by-opacity) -->
+            <div class="loading hidden-by-opacity" id="loading">
               <div class="loading-spinner"></div>
               <div id="loading-text">Loading 4th and Goal 2022...</div>
             </div>
@@ -545,10 +593,11 @@
             <iframe id="game-iframe" src="" allow="autoplay;fullscreen" scrolling="no" 
                     title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" 
                     sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                    loading="lazy"></iframe>
+                    loading="lazy"
+                    class="hidden-by-opacity"></iframe>
             
             <!-- زر التكبير -->
-            <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
+            <button id="zoom-btn" class="zoom-btn hidden-by-opacity" aria-label="Toggle fullscreen">⤢</button>
           </div>
 
           <!-- مكان للإعلان تحت الـ iframe -->
@@ -626,33 +675,30 @@
   </div>
 
 <script>
-// ===== SCRIPT CRITICAL - يتحمّل مع الـ HTML =====
+// ===== SCRIPT محسّن لمنع Layout Shift =====
 (function() {
   'use strict';
   
-  // منع FOUC - إظهار الصفحة فوراً
-  document.body.classList.remove('js-hidden');
-  setTimeout(function() {
-    document.body.classList.add('js-visible');
-  }, 10);
+  // تأكد أن الصفحة مرئية دائمًا
+  document.body.style.visibility = 'visible';
+  document.body.style.opacity = '1';
   
-  // تحديد أبعاد ثابتة لجميع الصور
-  const images = document.querySelectorAll('img');
-  images.forEach(img => {
-    if (!img.hasAttribute('width')) img.setAttribute('width', '200');
-    if (!img.hasAttribute('height')) img.setAttribute('height', '200');
-    img.style.display = 'block';
-  });
+  // وظيفة لإخفاء العناصر بدون تأثير على Layout
+  function hideElementSafely(element) {
+    if (!element) return;
+    element.classList.add('hidden-by-opacity');
+  }
+  
+  function showElementSafely(element) {
+    if (!element) return;
+    element.classList.remove('hidden-by-opacity');
+  }
   
   // تأخير تحميل العناصر غير الحرجة
-  const lazyLoad = function() {
-    // تأخير تحميل iframe حتى النقر
-    const iframe = document.getElementById('game-iframe');
-    iframe.removeAttribute('src');
-    
-    // تأخير تحميل الألعاب المقترحة
-    setTimeout(loadSuggestedGames, 1500);
-  };
+  setTimeout(function() {
+    // تحميل الألعاب المقترحة
+    loadSuggestedGames();
+  }, 1000);
   
   // تحميل الألعاب المقترحة
   async function loadSuggestedGames() {
@@ -695,7 +741,7 @@
     }
   }
   
-  // زر PLAY - مع تأخير بسيط لتجنب CLS
+  // زر PLAY - بدون تغيير visibility أو opacity للـ body
   const playBtn = document.getElementById('play-btn');
   const playScreen = document.getElementById('play-screen');
   const loading = document.getElementById('loading');
@@ -704,41 +750,36 @@
   const gameFrame = document.getElementById('main-game-frame');
   
   playBtn.addEventListener('click', function() {
-    // تحضير العناصر قبل التغيير
-    requestAnimationFrame(() => {
-      // لا نغير display - نغير opacity فقط
-      playScreen.style.opacity = '0';
-      playScreen.style.pointerEvents = 'none';
+    // إخفاء زر PLAY باستخدام hidden-by-opacity
+    hideElementSafely(playScreen);
+    
+    // إظهار شاشة التحميل
+    showElementSafely(loading);
+    
+    // تتبع Analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'game_start', {
+        'game_title': "4th and Goal 2022"
+      });
+    }
+    
+    // تحميل اللعبة مع تأخير بسيط
+    setTimeout(() => {
+      iframe.src = "https://inkyedu118.github.io/g16/class-685/";
       
-      loading.style.display = 'flex';
-      loading.style.opacity = '1';
-      
-      // تتبع Analytics
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'game_start', {
-          'game_title': "4th and Goal 2022"
-        });
-      }
-      
-      // تحميل اللعبة مع تأخير بسيط
-      setTimeout(() => {
-        iframe.src = "https://inkyedu118.github.io/g16/class-685/";
-        iframe.onload = function() {
-          loading.style.opacity = '0';
-          setTimeout(() => {
-            loading.style.display = 'none';
-            iframe.style.display = 'block';
-            iframe.style.opacity = '1';
-            zoomBtn.style.display = 'flex';
-            zoomBtn.style.opacity = '1';
-          }, 300);
-        };
+      iframe.onload = function() {
+        // إخفاء شاشة التحميل
+        hideElementSafely(loading);
         
-        iframe.onerror = function() {
-          loading.innerHTML = '<div class="error-state"><p>Failed to load game. Please try again.</p><button onclick="location.reload()">Retry</button></div>';
-        };
-      }, 400);
-    });
+        // إظهار اللعبة وزر التكبير
+        showElementSafely(iframe);
+        showElementSafely(zoomBtn);
+      };
+      
+      iframe.onerror = function() {
+        loading.innerHTML = '<div class="error-state"><p>Failed to load game. Please try again.</p><button onclick="location.reload()">Retry</button></div>';
+      };
+    }, 300);
   });
   
   // Fullscreen Logic
@@ -753,7 +794,7 @@
         gameFrame.classList.add('fullscreen-css');
       }
       isExpanded = true;
-      zoomBtn.style.display = 'none';
+      hideElementSafely(zoomBtn);
     }
   });
   
@@ -761,21 +802,25 @@
     if (!document.fullscreenElement) {
       gameFrame.classList.remove('fullscreen-css');
       isExpanded = false;
-      zoomBtn.style.display = 'flex';
+      showElementSafely(zoomBtn);
     }
   });
   
-  // بدء التحميل المتأخر
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', lazyLoad);
-  } else {
-    lazyLoad();
-  }
-  
-  // حجز مساحة للخطوط لمنع FOIT
-  document.fonts.ready.then(() => {
-    document.body.style.visibility = 'visible';
+  // تأكد أن الصور لها أبعاد محددة
+  document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('img:not([width]):not([height])');
+    images.forEach(img => {
+      img.setAttribute('width', '200');
+      img.setAttribute('height', '200');
+    });
   });
+  
+  // حجز مساحة للخطوط
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() {
+      // لا تفعل شيئًا - فقط تأكد من تحميل الخطوط
+    });
+  }
 })();
 </script>
 
