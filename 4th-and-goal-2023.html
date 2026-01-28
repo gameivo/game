@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
+  <!-- Google tag (gtag.js) - تم إضافة defer لتقليل تأثير JavaScript -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -10,8 +10,8 @@
     gtag('config', 'G-QXVWE2RXZV');
   </script>
   
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD"></script>
+  <!-- Google Analytics 4 - تم إضافة defer -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -44,16 +44,18 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://gameivo.github.io/4th-and-goal-2022.html">
   
-  <!-- Preconnect for critical resources -->
+  <!-- === تحسينات للأداء === -->
+  <!-- إضافة preconnect للأصول المهمة -->
   <link rel="preconnect" href="https://gameivo.github.io">
   <link rel="preconnect" href="https://inkyedu118.github.io">
-  
-  <!-- === FIX: Added Preconnect for Ad Domains (PageSpeed Recommendation) === -->
-  <link rel="preconnect" href="https://preferencenail.com">
   <link rel="preconnect" href="https://www.highperformanceformat.com">
-  <!-- ================================================================ -->
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://preferencenail.com">
   
-  <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image">
+  <!-- Preload للصورة الرئيسية - إضافة fetchpriority=high -->
+  <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image" fetchpriority="high">
+  
+  <!-- === نهاية التحسينات === -->
   
   <!-- Game Schema للعبة الحالية -->
   <script type="application/ld+json">
@@ -620,9 +622,6 @@
       padding: 0 !important;
     }
   </style>
-  
-  <!-- REMOVED: <script src="https://preferencenail.com/sfp.js"></script> -->
-  <!-- MOVED TO BOTTOM OF BODY TO FIX RENDER BLOCKING -->
 </head>
 
 <body>
@@ -658,7 +657,8 @@
             <div class="game-frame" id="main-game-frame">
               <!-- شاشة التشغيل -->
               <div id="play-screen" class="play-button-container">
-                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager">
+                <!-- تحسين LCP: إضافة fetchpriority=high وإزالة lazy loading -->
+                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" fetchpriority="high">
                 <h1 class="play-button-title">4th and Goal 2022</h1>
                 
                 <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
@@ -899,12 +899,11 @@
 })();
 </script>
 
+<!-- === تحسينات الأداء: تحميل scripts غير الحرجة بشكل متأخر === -->
 <script src="ads-manager.js" defer></script>
+<!-- نقل script preferencenail.com إلى نهاية body لتجنب render-blocking -->
+<script defer src="https://preferencenail.com/sfp.js"></script>
 <script src="https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js" async data-cfasync="false" id="social-bar-script"></script>
-
-<!-- === FIX: Render-blocking script moved to bottom to prevent delay === -->
-<script src="https://preferencenail.com/sfp.js"></script>
-<!-- ============================================================== -->
 
 </body>
 </html>
