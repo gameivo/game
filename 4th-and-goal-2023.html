@@ -1,46 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) - استخدام التحميل الديناميكي لتجنب render-blocking -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
   <script>
-    // تحميل gtag بشكل ديناميكي بعد تحميل الصفحة
-    function loadGTag() {
-      var script1 = document.createElement('script');
-      script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV';
-      script1.async = true;
-      document.head.appendChild(script1);
-      
-      var script2 = document.createElement('script');
-      script2.innerHTML = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-QXVWE2RXZV');
-      `;
-      document.head.appendChild(script2);
-      
-      // تحميل Google Analytics 4
-      var script3 = document.createElement('script');
-      script3.src = 'https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD';
-      script3.async = true;
-      document.head.appendChild(script3);
-      
-      var script4 = document.createElement('script');
-      script4.innerHTML = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-S0H9XGTQCD');
-      `;
-      document.head.appendChild(script4);
-    }
-    
-    // تحميل gtag بعد تحميل الصفحة
-    if (window.requestIdleCallback) {
-      window.requestIdleCallback(loadGTag);
-    } else {
-      setTimeout(loadGTag, 1000);
-    }
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QXVWE2RXZV');
+  </script>
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-S0H9XGTQCD');
   </script>
   
   <meta name="theme-color" content="#1a2a6c">
@@ -68,18 +44,13 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://gameivo.github.io/4th-and-goal-2022.html">
   
-  <!-- === تحسينات للأداء === -->
-  <!-- إضافة preconnect للأصول المهمة -->
+  <!-- Preconnect for critical resources -->
   <link rel="preconnect" href="https://gameivo.github.io">
   <link rel="preconnect" href="https://inkyedu118.github.io">
-  <link rel="preconnect" href="https://www.highperformanceformat.com">
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="preconnect" href="https://preferencenail.com">
-  
-  <!-- Preload للصورة الرئيسية - إضافة fetchpriority=high -->
   <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image" fetchpriority="high">
   
-  <!-- === نهاية التحسينات === -->
+  <!-- إضافة preconnect للأصول المهمة الأخرى -->
+  <link rel="preconnect" href="https://www.highperformanceformat.com">
   
   <!-- Game Schema للعبة الحالية -->
   <script type="application/ld+json">
@@ -144,7 +115,7 @@
     *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
-    /* إصلاح مشكلة CLS: إضافة min-height للـ container */
+    /* إصلاح Layout Shift: إضافة min-height للـ container */
     .container{max-width:1200px;margin:0 auto;padding:0 20px;min-height:1px}
     .header-content{display:flex;justify-content:space-between;align-items:center}
     .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
@@ -647,6 +618,9 @@
       padding: 0 !important;
     }
   </style>
+  
+  <!-- تم إضافة defer لتجنب render-blocking -->
+  <script defer src="https://preferencenail.com/sfp.js"></script>
 </head>
 
 <body>
@@ -682,8 +656,8 @@
             <div class="game-frame" id="main-game-frame">
               <!-- شاشة التشغيل -->
               <div id="play-screen" class="play-button-container">
-                <!-- تحسين LCP: إضافة fetchpriority=high وإزالة lazy loading -->
-                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" fetchpriority="high">
+                <!-- إضافة fetchpriority=high للصورة الرئيسية لتحسين LCP -->
+                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager" fetchpriority="high">
                 <h1 class="play-button-title">4th and Goal 2022</h1>
                 
                 <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
@@ -873,9 +847,8 @@
     playScreen.style.display = 'none';
     loading.style.display = 'flex';
     
-    // استخدام gtag إذا كان موجوداً بعد التحميل
-    if (typeof window.gtag !== 'undefined') {
-      window.gtag('event', 'game_start', {'game_title': "4th and Goal 2022"});
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'game_start', {'game_title': "4th and Goal 2022"});
     }
     
     iframe.src = "https://inkyedu118.github.io/g16/class-685/";
@@ -922,10 +895,7 @@
 })();
 </script>
 
-<!-- === تحسينات الأداء: تحميل scripts غير الحرجة بشكل متأخر === -->
 <script src="ads-manager.js" defer></script>
-<!-- نقل script preferencenail.com إلى نهاية body لتجنب render-blocking -->
-<script defer src="https://preferencenail.com/sfp.js"></script>
 <script src="https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js" async data-cfasync="false" id="social-bar-script"></script>
 
 </body>
