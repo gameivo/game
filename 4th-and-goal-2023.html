@@ -135,7 +135,7 @@
     .game-frame {
       width: 100%;
       max-width: 800px;
-      height: 600px !important; /* !important للتأكد من عدم التجاوز */
+      height: 600px !important;
       min-height: 600px !important;
       margin: 0 auto 30px auto;
       border-radius: 10px;
@@ -152,7 +152,6 @@
       contain: strict !important;
       content-visibility: auto;
       contain-intrinsic-size: 600px;
-      grid-area: 1 / 1 / 2 / 2;
     }
     
     /* تثبيت العناصر داخل game-frame */
@@ -177,7 +176,7 @@
       align-items: center;
       justify-content: center;
       height: 100%;
-      background: #000 !important; /* خلفية ثابتة أولاً */
+      background: #000 !important;
       background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://gameivo.github.io/images/171.webp') !important;
       background-size: cover;
       background-position: center;
@@ -287,7 +286,7 @@
       background: #000 !important;
     }
     
-    /* محتوى تحت game-frame - بعيد عن تأثيراته */
+    /* محتوى تحت game-frame */
     .game-info {
       background: rgba(255,255,255,.1);
       backdrop-filter: blur(10px);
@@ -323,29 +322,23 @@
       z-index: 0;
     }
     
-    /* حجز مساحة ثابتة للإعلانات */
-    .ad-placeholder {
-      display: block !important;
-      visibility: visible !important;
-      min-height: 90px;
-      background: rgba(0,0,0,0.05);
+    /* === الحل المثالي: حجز مساحة ثابتة مع الإعلانات الفعلية === */
+    .ad-container-wrapper {
+      min-height: 110px; /* حجز مساحة ثابتة بارتفاع أكبر قليلاً من الإعلان */
       margin: 20px 0;
-      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
-      overflow: hidden;
-      contain: strict;
+      overflow: visible !important; /* السماح بظهور الإعلان كاملاً */
     }
     
-    .ad-placeholder.large {
-      min-height: 250px;
+    .ad-container-wrapper.large {
+      min-height: 270px;
     }
     
-    .ad-placeholder.sidebar {
-      min-height: 600px;
-    }
-    
-    .ad-placeholder.vertical {
-      min-height: 300px;
+    .ad-container-wrapper.sidebar {
+      min-height: 620px;
     }
     
     /* قسم الألعاب المقترحة */
@@ -394,7 +387,7 @@
       z-index: 0;
     }
     
-    /* Media Queries - تثبيت الأبعاد */
+    /* Media Queries */
     @media (max-height: 500px) {
       .game-frame {
         height: 400px !important;
@@ -429,8 +422,8 @@
         min-width: 160px !important;
         min-height: 160px !important;
       }
-      .ad-placeholder.sidebar {
-        min-height: 300px;
+      .ad-container-wrapper.sidebar {
+        min-height: 320px;
       }
     }
     
@@ -459,18 +452,12 @@
         min-width: 140px !important;
         min-height: 140px !important;
       }
-      .ad-placeholder {
-        min-height: 50px;
+      .ad-container-wrapper {
+        min-height: 70px;
       }
-      .ad-placeholder.large {
-        min-height: 150px;
+      .ad-container-wrapper.large {
+        min-height: 170px;
       }
-    }
-    
-    /* Hide initially to prevent FOUC */
-    .js-hidden {
-      opacity: 0;
-      visibility: hidden;
     }
     
     .js-visible {
@@ -479,11 +466,115 @@
       transition: opacity 0.3s ease;
     }
   </style>
+  
+  <style>
+    /* أنماط الإعلانات من الصفحة 1 */
+    .ad-banner {
+      background: rgba(0,0,0,0.7);
+      border-radius: 8px;
+      padding: 15px;
+      position: relative;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+      min-height: 90px; /* الحد الأدنى فقط */
+      overflow: visible !important; /* مهم جداً */
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+    
+    .ad-modern-wrapper {
+      width: 100% !important;
+      height: auto !important;
+    }
+    
+    .ad-content-scaler {
+      display: inline-block !important;
+      transition: all 0.3s ease !important;
+      max-width: 100% !important;
+      transform-origin: top center !important;
+      overflow: visible !important;
+      position: relative !important;
+    }
+    
+    .ad-banner:hover {
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .ad-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+    
+    .ad-sidebar {
+      position: sticky;
+      top: 100px;
+      margin-bottom: 20px;
+    }
+    
+    /* منع التمرير الأفقي */
+    html, body {
+      overflow-x: hidden !important;
+      max-width: 100% !important;
+    }
+    
+    /* تحسين العرض على الموبايل */
+    @media (max-width: 768px) {
+      .ad-banner {
+        padding: 10px !important;
+        margin: 10px 0 !important;
+      }
+      
+      .ad-sidebar {
+        position: static !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .ad-banner {
+        padding: 6px !important;
+        margin: 6px 0 !important;
+      }
+      
+      .ad-label {
+        font-size: 8px;
+        padding: 1px 4px;
+      }
+    }
+    
+    /* إخفاء الإعلانات الفاشلة */
+    [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
+    .ad-banner:not(:has(iframe)):not(:has(ins)),
+    ins.adsbygoogle[data-ad-status="unfilled"] {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  </style>
+  
+  <script src="https://preferencenail.com/sfp.js"></script>
 </head>
 
-<body class="js-hidden">
-  <!-- عناصر فارغة للإعلانات - مع class ثابت -->
-  <div id="interstitial-ad" class="ad-placeholder large"></div>
+<body class="js-visible">
+  <div id="interstitial-ad"></div>
   
   <header class="game-header">
     <div class="container">
@@ -496,43 +587,30 @@
 
   <div class="container">
     <div class="page-layout">
-      <!-- الجانب الأيسر - المحتوى الرئيسي -->
+      <!-- المحتوى الرئيسي -->
       <main class="main-content">
         <div class="game-container">
-          <!-- مكان للإعلان فوق الـ iframe -->
-          <div id="ad-above-iframe" class="ad-placeholder"></div>
+          <!-- إعلان فوق الـ iframe - مع حجز مساحة -->
+          <div id="ad-above-iframe" class="ad-container-wrapper">
+            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-top-1">
+              <div class="ad-label">Advertisement</div>
+              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
+                <script src="https://www.highperformanceformat.com/be0515e7240f249085cceca1f2dba7ed/invoke.js" async data-cfasync="false"></script>
+              </div>
+            </div>
+          </div>
           
-          <!-- game-frame مع تصميم ثابت تماماً -->
+          <!-- game-frame -->
           <div class="game-frame" id="main-game-frame">
-            <!-- شاشة التشغيل (اللعبة مخفية في البداية) -->
+            <!-- شاشة التشغيل -->
             <div id="play-screen" class="play-button-container">
-              <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" 
-                   width="200" height="200" loading="eager"
-                   onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNkM1Q0U3Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjM1ZW0iPj5fPC90ZXh0Pgo8L3N2Zz4K';">
+              <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager">
               <h1 class="play-button-title">4th and Goal 2022</h1>
               
               <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
                 <span class="play-btn-icon">▶</span>
                 <span>PLAY NOW FOR FREE</span>
               </button>
-              <div class="play-features">
-                <div class="play-feature">
-                  <span>🎮</span>
-                  <span>No Download</span>
-                </div>
-                <div class="play-feature">
-                  <span>🚀</span>
-                  <span>Instant Play</span>
-                </div>
-                <div class="play-feature">
-                  <span>📱</span>
-                  <span>Mobile Friendly</span>
-                </div>
-                <div class="play-feature">
-                  <span>🎯</span>
-                  <span>HTML5 Game</span>
-                </div>
-              </div>
             </div>
             
             <!-- شاشة التحميل -->
@@ -542,22 +620,26 @@
             </div>
 
             <!-- اللعبة -->
-            <iframe id="game-iframe" src="" allow="autoplay;fullscreen" scrolling="no" 
-                    title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" 
-                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                    loading="lazy"></iframe>
+            <iframe id="game-iframe" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
             
             <!-- زر التكبير -->
             <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
           </div>
 
-          <!-- مكان للإعلان تحت الـ iframe -->
-          <div id="ad-below-iframe" class="ad-placeholder"></div>
+          <!-- إعلان تحت الـ iframe - مع حجز مساحة -->
+          <div id="ad-below-iframe" class="ad-container-wrapper">
+            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-below">
+              <div class="ad-label">Advertisement</div>
+              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
+                <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
+              </div>
+            </div>
+          </div>
           
-          <!-- محتوى ثابت تحت game-frame -->
+          <!-- معلومات اللعبة -->
           <div class="game-info">
             <h2 class="game-title">4th and Goal 2022</h2>
-            <p class="game-description">Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory. With smooth gameplay, responsive controls, classic football mechanics, vibrant stadium environments, and high-stakes moments, 4th and Goal 2022 delivers a free online sports experience perfect for fans of American football games, sports simulators, strategy sports titles, free browser games, and competitive athletic action. Customize your playbook, compete against challenging AI opponents, improve your team's stats, and aim for high scores and record-breaking seasons. No download required — join the gridiron, master passing routes and running plays, dominate the fourth down, and become the ultimate football champion in 4th and Goal 2022!</p>
+            <p class="game-description">Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory.</p>
             <div class="features">
               <div class="feature-item"><h3>🚀 Instant Play</h3><p>No downloads or installations required. Play directly in your browser on any device.</p></div>
               <div class="feature-item"><h3>🎯 Free & Accessible</h3><p>All games are completely free to play with no registration required.</p></div>
@@ -565,49 +647,75 @@
               <div class="feature-item"><h3>🌟 Premium Quality</h3><p>Experience the best HTML5 games with smooth performance and great graphics.</p></div>
             </div>
           </div>
+          
+          <!-- إعلان في منتصف الصفحة -->
+          <div id="ad-page-middle" class="ad-container-wrapper">
+            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-300x250-middle">
+              <div class="ad-label">Advertisement</div>
+              <div class="ad-content-scaler" style="text-align:center;min-height:250px;">
+                <script src="https://www.highperformanceformat.com/c84b7f14ef2b488fb99e7411123accf1/invoke.js" async data-cfasync="false"></script>
+              </div>
+            </div>
+          </div>
 
           <!-- قسم الألعاب المقترحة -->
           <section class="suggested-games">
             <h2>🎮 Suggested Games You Might Like</h2>
-            <div class="games-grid" id="suggested-games-grid">
-              <div class="loading-state">
-                <div class="loading-spinner"></div>
-                <p>Loading suggested games...</p>
-              </div>
-            </div>
+            <div class="games-grid" id="suggested-games-grid"><p class="error-state">Loading...</p></div>
           </section>
 
           <div class="seo-content">
             <h2>Play 4th and Goal 2022 & Other Free HTML5 Games on FreePlayHub</h2>
-            <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Enjoy 4th and Goal 2022 and many other exciting games.</p>
+            <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device.</p>
             
             <h3>About 4th and Goal 2022</h3>
-            <p>Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory. With smooth gameplay, responsive controls, classic football mechanics, vibrant stadium environments, and high-stakes moments, 4th and Goal 2022 delivers a free online sports experience perfect for fans of American football games, sports simulators, strategy sports titles, free browser games, and competitive athletic action. Customize your playbook, compete against challenging AI opponents, improve your team's stats, and aim for high scores and record-breaking seasons. No download required — join the gridiron, master passing routes and running plays, dominate the fourth down, and become the ultimate football champion in 4th and Goal 2022!</p>
             <p>This sports game is part of our carefully curated selection of HTML5 games that load quickly and run smoothly without any downloads.</p>
             
             <h3>Why Choose FreePlayHub?</h3>
-            <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025, including the top free browser games and unblocked fun games that you can play anytime, anywhere.</p>
+            <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025.</p>
             
             <div class="game-categories">
               <span class="category-tag">Sports</span>
               <span class="category-tag">HTML5 Games</span>
               <span class="category-tag">Browser Games</span>
-              <span class="category-tag">No Install Games</span>
-              <span class="category-tag">Free Games Online</span>
             </div>
           </div>
           
-          <!-- مكان للإعلان أسفل الصفحة -->
-          <div id="ad-page-bottom" class="ad-placeholder large"></div>
+          <!-- إعلان أسفل الصفحة -->
+          <div id="ad-page-bottom" class="ad-container-wrapper large">
+            <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-bottom">
+              <div class="ad-label">Advertisement</div>
+              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
+                <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
       
-      <!-- الجانب الأيمن - Sidebar -->
+      <!-- Sidebar -->
       <aside class="sidebar">
-        <!-- مكان للإعلان الجانبي -->
-        <div id="ad-sidebar" class="ad-placeholder sidebar"></div>
+        <!-- إعلان جانبي -->
+        <div id="ad-sidebar" class="ad-container-wrapper sidebar">
+          <div class="ad-banner ad-sidebar ad-modern-wrapper" data-ad-id="sidebar-160x300-1">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
+              <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
+            </div>
+          </div>
+        </div>
         
-        <!-- محتوى إضافي للـ SEO -->
+        <!-- إعلان جانبي إضافي -->
+        <div id="ad-sidebar-extra" class="ad-container-wrapper sidebar">
+          <div class="ad-banner ad-modern-wrapper" data-ad-id="sidebar-extra-160x300">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
+              <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
+            </div>
+          </div>
+        </div>
+        
+        <!-- محتوى SEO -->
         <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:8px;margin-top:20px;backdrop-filter:blur(10px)">
           <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">🎯 Popular Categories</h3>
           <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
@@ -618,25 +726,16 @@
             <span style="background:rgba(108,92,231,0.5);padding:5px 10px;border-radius:15px;font-size:0.8rem">Sports</span>
           </div>
         </div>
-        
-        <!-- مكان لإعلان إضافي في الـ Sidebar -->
-        <div id="ad-sidebar-vertical" class="ad-placeholder vertical"></div>
       </aside>
     </div>
   </div>
 
 <script>
-// ===== SCRIPT CRITICAL - يتحمّل مع الـ HTML =====
 (function() {
   'use strict';
   
-  // منع FOUC - إظهار الصفحة فوراً
-  document.body.classList.remove('js-hidden');
-  setTimeout(function() {
-    document.body.classList.add('js-visible');
-  }, 10);
+  document.body.classList.add('js-visible');
   
-  // تحديد أبعاد ثابتة لجميع الصور
   const images = document.querySelectorAll('img');
   images.forEach(img => {
     if (!img.hasAttribute('width')) img.setAttribute('width', '200');
@@ -644,17 +743,12 @@
     img.style.display = 'block';
   });
   
-  // تأخير تحميل العناصر غير الحرجة
   const lazyLoad = function() {
-    // تأخير تحميل iframe حتى النقر
     const iframe = document.getElementById('game-iframe');
     iframe.removeAttribute('src');
-    
-    // تأخير تحميل الألعاب المقترحة
     setTimeout(loadSuggestedGames, 1500);
   };
   
-  // تحميل الألعاب المقترحة
   async function loadSuggestedGames() {
     const gamesGrid = document.getElementById('suggested-games-grid');
     if (!gamesGrid) return;
@@ -675,10 +769,7 @@
         gamesHTML += `
           <a href="${game.id}.html" class="game-card">
             <div class="game-card-image">
-              <img src="${game.thumbnail}" 
-                   alt="Play ${game.title}" 
-                   width="280" height="180" loading="lazy"
-                   onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDI4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyODAiIGhlaWdodD0iMTgwIiBmaWxsPSIjNkM1Q0U3Ii8+Cjx0ZXh0IHg9IjE0MCIgeT0iOTAiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj48J+RrzwvdGV4dD4KPC9zdmc+';">
+              <img src="${game.thumbnail}" alt="Play ${game.title}" width="280" height="180" loading="lazy">
             </div>
             <div class="game-card-content">
               <h3 class="game-card-title">${game.title}</h3>
@@ -695,7 +786,6 @@
     }
   }
   
-  // زر PLAY - مع تأخير بسيط لتجنب CLS
   const playBtn = document.getElementById('play-btn');
   const playScreen = document.getElementById('play-screen');
   const loading = document.getElementById('loading');
@@ -704,23 +794,17 @@
   const gameFrame = document.getElementById('main-game-frame');
   
   playBtn.addEventListener('click', function() {
-    // تحضير العناصر قبل التغيير
     requestAnimationFrame(() => {
-      // لا نغير display - نغير opacity فقط
       playScreen.style.opacity = '0';
       playScreen.style.pointerEvents = 'none';
       
       loading.style.display = 'flex';
       loading.style.opacity = '1';
       
-      // تتبع Analytics
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'game_start', {
-          'game_title': "4th and Goal 2022"
-        });
+        gtag('event', 'game_start', {'game_title': "4th and Goal 2022"});
       }
       
-      // تحميل اللعبة مع تأخير بسيط
       setTimeout(() => {
         iframe.src = "https://inkyedu118.github.io/g16/class-685/";
         iframe.onload = function() {
@@ -741,7 +825,6 @@
     });
   });
   
-  // Fullscreen Logic
   let isExpanded = false;
   zoomBtn.addEventListener('click', function() {
     if (!isExpanded) {
@@ -765,23 +848,20 @@
     }
   });
   
-  // بدء التحميل المتأخر
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', lazyLoad);
   } else {
     lazyLoad();
   }
   
-  // حجز مساحة للخطوط لمنع FOIT
   document.fonts.ready.then(() => {
     document.body.style.visibility = 'visible';
   });
 })();
 </script>
 
-<!-- تحميل نظام الإعلانات الذكي بعد كل شيء -->
 <script src="ads-manager.js" defer></script>
+<script src="https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js" async data-cfasync="false" id="social-bar-script"></script>
 
 </body>
 </html>
-
