@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
+  <!-- Google Tag Manager & Analytics - Optimized Loading -->
   <script>
+    // تحميل GTM بشكل مؤجل
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','G-QXVWE2RXZV');
+    
+    // تهيئة دالة gtag الأساسية
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-QXVWE2RXZV');
-  </script>
-  
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-S0H9XGTQCD');
   </script>
   
   <meta name="theme-color" content="#1a2a6c">
@@ -116,7 +114,7 @@
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
     /* إصلاح Layout Shift: إضافة min-height للـ container */
-    .container{max-width:1200px;margin:0 auto;padding:0 20px;min-height:1px}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px;min-height:100vh}
     .header-content{display:flex;justify-content:space-between;align-items:center}
     .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
     .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
@@ -184,6 +182,7 @@
       border: 5px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       display: block;
+      aspect-ratio: 1/1;
     }
     
     .play-button-title {
@@ -618,9 +617,6 @@
       padding: 0 !important;
     }
   </style>
-  
-  <!-- تم إضافة defer لتجنب render-blocking -->
-  <script defer src="https://preferencenail.com/sfp.js"></script>
 </head>
 
 <body>
@@ -895,8 +891,53 @@
 })();
 </script>
 
-<script src="ads-manager.js" defer></script>
-<script src="https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js" async data-cfasync="false" id="social-bar-script"></script>
+<script>
+// تحميل GA4 بشكل مشروط بعد تحميل الصفحة
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD';
+    script.async = true;
+    document.head.appendChild(script);
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-S0H9XGTQCD', {
+      'transport_type': 'beacon',
+      'anonymize_ip': true
+    });
+  }, 3500);
+  
+  // تحميل scripts غير الحرجة بعد تحميل الصفحة
+  setTimeout(function() {
+    // Social bar script
+    var socialScript = document.createElement('script');
+    socialScript.src = 'https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js';
+    socialScript.async = true;
+    socialScript.setAttribute('data-cfasync', 'false');
+    socialScript.id = 'social-bar-script';
+    document.body.appendChild(socialScript);
+    
+    // sfp.js script
+    var sfpScript = document.createElement('script');
+    sfpScript.src = 'https://preferencenail.com/sfp.js';
+    sfpScript.defer = true;
+    document.head.appendChild(sfpScript);
+    
+    // ads-manager.js (مشروط بتفاعل المستخدم)
+    document.addEventListener('click', function loadAdsManager() {
+      setTimeout(function() {
+        var adsScript = document.createElement('script');
+        adsScript.src = 'ads-manager.js';
+        adsScript.defer = true;
+        document.body.appendChild(adsScript);
+      }, 500);
+      document.removeEventListener('click', loadAdsManager);
+    }, { once: true });
+  }, 2000);
+});
+</script>
 
 </body>
 </html>
