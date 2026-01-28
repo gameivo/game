@@ -250,38 +250,78 @@
       background: #000 !important;
     }
     
-    /* ========== تعديلات الإعلانات ========== */
-    /* الحفاظ على شكل الإعلانات الكبير من الصفحة 1 */
-    .ad-banner {
-      background: rgba(0,0,0,0.7);
-      border-radius: 8px;
-      padding: 15px;
-      margin: 20px 0;
-      position: relative;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,255,255,0.1);
-      text-align: center;
-      min-height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+    /* ========== إصلاح مشكلة الإعلانات المقطوعة ========== */
+    /* الزيادة في الطول للبانرات الأفقية */
+    .ad-banner.ad-modern-wrapper {
+      background: rgba(0,0,0,0.7) !important;
+      border-radius: 8px !important;
+      padding: 15px !important;
+      margin: 20px 0 !important;
+      position: relative !important;
+      backdrop-filter: blur(5px) !important;
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      text-align: center !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
     }
     
-    /* إعلانات كبيرة بالحجم المناسب */
-    .ad-banner.banner-728x90 {
-      min-height: 90px;
-      height: 90px;
+    /* زيادة الطول للبانرات الأفقية 728x90 */
+    #ad-wrapper-banner-728x90-top,
+    #ad-wrapper-banner-728x90-below,
+    #ad-wrapper-banner-728x90-bottom,
+    .ad-banner[data-ad-id*="728x90"] {
+      min-height: 120px !important; /* زيادة من 90px إلى 120px */
+      height: auto !important;
+      padding: 20px 15px !important;
     }
     
-    .ad-banner.banner-300x250 {
-      min-height: 250px;
-      height: 250px;
+    /* زيادة الطول لمحتوى الإعلان */
+    .ad-content-scaler {
+      min-height: 120px !important; /* زيادة من 90px إلى 120px */
+      height: auto !important;
+      background: transparent !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
     }
     
-    .ad-banner.banner-160x600 {
-      min-height: 600px;
-      height: 600px;
+    /* زيادة حجم الإفريم داخل الإعلان */
+    .ad-content-scaler iframe,
+    .ad-content-scaler ins {
+      min-height: 100px !important; /* زيادة الارتفاع */
+      height: 100px !important;
+      width: 100% !important;
+      max-width: 728px !important;
+      display: block !important;
+      margin: 0 auto !important;
+    }
+    
+    /* إعلانات 300x250 - زيادة الطول */
+    .ad-banner[data-ad-id*="300x250"],
+    #ad-wrapper-banner-300x250-middle {
+      min-height: 280px !important; /* زيادة من 250px إلى 280px */
+      height: auto !important;
+      padding: 25px 15px !important;
+    }
+    
+    .ad-content-scaler[style*="min-height:250px"] {
+      min-height: 280px !important;
+      height: auto !important;
+    }
+    
+    /* إعلانات 160x600 - زيادة الطول */
+    .ad-banner[data-ad-id*="160x300"],
+    .ad-banner[data-ad-id*="sidebar-160x300"] {
+      min-height: 320px !important; /* زيادة من 300px إلى 320px */
+      height: auto !important;
+      padding: 30px 15px !important;
     }
     
     .ad-label {
@@ -295,6 +335,8 @@
       border-radius: 3px;
       font-weight: bold;
       letter-spacing: 0.5px;
+      text-transform: uppercase;
+      z-index: 10;
     }
     
     /* الحفاظ على مكان الإعلانات مع حجز مساحة كبيرة */
@@ -307,26 +349,32 @@
       margin: 20px 0;
     }
     
-    /* المساحات الكبيرة للإعلانات (مثل الصفحة 1) */
+    /* المساحات الكبيرة للإعلانات */
     #ad-above-iframe,
     #ad-below-iframe {
-      min-height: 110px; /* أكبر من 90px لاستيعاب الإعلان الكامل */
-      height: auto;
+      min-height: 140px !important; /* زيادة للاستيعاب */
+      height: auto !important;
     }
     
     #ad-page-bottom {
-      min-height: 120px;
-      height: auto;
+      min-height: 140px !important;
+      height: auto !important;
     }
     
     #ad-sidebar {
-      min-height: 650px; /* مكان للإعلان الطويل */
-      height: auto;
+      min-height: 650px !important;
+      height: auto !important;
     }
     
     #ad-sidebar-vertical {
-      min-height: 350px;
-      height: auto;
+      min-height: 350px !important;
+      height: auto !important;
+    }
+    
+    /* منع التمرير الأفقي */
+    .ad-banner * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
     }
     
     /* محتوى الصفحة */
@@ -422,12 +470,18 @@
         height: 160px !important;
       }
       /* تعديلات الإعلانات على الموبايل */
-      .ad-banner {
-        min-height: 70px !important;
-        padding: 10px !important;
+      #ad-wrapper-banner-728x90-top,
+      #ad-wrapper-banner-728x90-below,
+      #ad-wrapper-banner-728x90-bottom {
+        min-height: 100px !important;
+        padding: 15px 10px !important;
+      }
+      .ad-content-scaler iframe {
+        min-height: 80px !important;
+        height: 80px !important;
       }
       #ad-sidebar {
-        min-height: 300px;
+        min-height: 350px !important;
       }
     }
     
@@ -453,10 +507,27 @@
         height: 140px !important;
       }
       /* إعلانات أصغر على الشاشات الصغيرة */
-      .ad-banner {
-        min-height: 50px !important;
-        padding: 8px !important;
+      #ad-wrapper-banner-728x90-top,
+      #ad-wrapper-banner-728x90-below,
+      #ad-wrapper-banner-728x90-bottom {
+        min-height: 90px !important;
+        padding: 12px 8px !important;
       }
+      .ad-content-scaler iframe {
+        min-height: 70px !important;
+        height: 70px !important;
+      }
+    }
+    
+    /* CSS لضبط الإعلانات ديناميكياً */
+    .ad-fixed-height {
+      height: auto !important;
+      min-height: 120px !important;
+    }
+    
+    .ad-content-expanded {
+      min-height: 110px !important;
+      padding-bottom: 10px !important;
     }
   </style>
 </head>
@@ -481,10 +552,7 @@
         <div class="game-container">
           <!-- مكان للإعلان فوق الـ iframe -->
           <div id="ad-above-iframe" class="ad-placeholder">
-            <div class="ad-banner banner-728x90">
-              <div class="ad-label">Advertisement</div>
-              <!-- ستحقن الإعلانات هنا ديناميكياً -->
-            </div>
+            <!-- ستحقن الإعلانات هنا ديناميكياً -->
           </div>
           
           <!-- game-frame -->
@@ -538,9 +606,7 @@
 
           <!-- مكان للإعلان تحت الـ iframe -->
           <div id="ad-below-iframe" class="ad-placeholder">
-            <div class="ad-banner banner-728x90">
-              <div class="ad-label">Advertisement</div>
-            </div>
+            <!-- ستحقن الإعلانات هنا ديناميكياً -->
           </div>
           
           <!-- محتوى الصفحة -->
@@ -587,9 +653,7 @@
           
           <!-- مكان للإعلان أسفل الصفحة -->
           <div id="ad-page-bottom" class="ad-placeholder">
-            <div class="ad-banner banner-728x90">
-              <div class="ad-label">Advertisement</div>
-            </div>
+            <!-- ستحقن الإعلانات هنا ديناميكياً -->
           </div>
         </div>
       </main>
@@ -598,9 +662,7 @@
       <aside class="sidebar">
         <!-- مكان للإعلان الجانبي -->
         <div id="ad-sidebar" class="ad-placeholder">
-          <div class="ad-banner banner-160x600">
-            <div class="ad-label">Advertisement</div>
-          </div>
+          <!-- ستحقن الإعلانات هنا ديناميكياً -->
         </div>
         
         <!-- محتوى إضافي -->
@@ -617,9 +679,7 @@
         
         <!-- مكان لإعلان إضافي في الـ Sidebar -->
         <div id="ad-sidebar-vertical" class="ad-placeholder">
-          <div class="ad-banner banner-300x250">
-            <div class="ad-label">Advertisement</div>
-          </div>
+          <!-- ستحقن الإعلانات هنا ديناميكياً -->
         </div>
       </aside>
     </div>
@@ -646,6 +706,9 @@
     
     // تأخير تحميل الألعاب المقترحة
     setTimeout(loadSuggestedGames, 1500);
+    
+    // ===== إصلاح ارتفاع الإعلانات بعد تحميلها =====
+    setTimeout(fixAdHeights, 2000);
   };
   
   // تحميل الألعاب المقترحة
@@ -687,6 +750,53 @@
     } catch (error) {
       gamesGrid.innerHTML = '<p class="error-state">Unable to load suggested games.</p>';
     }
+  }
+  
+  // ===== دالة لإصلاح ارتفاع الإعلانات =====
+  function fixAdHeights() {
+    // زيادة ارتفاع جميع حاويات الإعلانات
+    const adWrappers = document.querySelectorAll('.ad-modern-wrapper');
+    adWrappers.forEach(wrapper => {
+      // إضافة كلاس لزيادة الارتفاع
+      wrapper.classList.add('ad-fixed-height');
+      
+      // البحث عن عنصر ad-content-scaler داخله
+      const contentScaler = wrapper.querySelector('.ad-content-scaler');
+      if (contentScaler) {
+        contentScaler.classList.add('ad-content-expanded');
+        
+        // زيادة الارتفاع المباشر
+        if (contentScaler.style.minHeight) {
+          const currentHeight = parseInt(contentScaler.style.minHeight);
+          if (currentHeight < 120) {
+            contentScaler.style.minHeight = '120px';
+          }
+        }
+      }
+      
+      // زيادة حجم الإفريم إذا وجد
+      const iframes = wrapper.querySelectorAll('iframe');
+      iframes.forEach(iframe => {
+        if (iframe.height && parseInt(iframe.height) < 100) {
+          iframe.style.minHeight = '100px';
+          iframe.style.height = '100px';
+        }
+      });
+    });
+    
+    // ضبط الارتفاع للعناصر المحددة
+    const specificAds = [
+      '#ad-above-iframe',
+      '#ad-below-iframe', 
+      '#ad-page-bottom'
+    ];
+    
+    specificAds.forEach(selector => {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.style.minHeight = '140px';
+      }
+    });
   }
   
   // زر PLAY
@@ -764,6 +874,30 @@
   } else {
     lazyLoad();
   }
+  
+  // ===== مراقبة الإعلانات وإصلاح ارتفاعها =====
+  // مراقبة ظهور الإعلانات الجديدة
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.addedNodes.length) {
+        setTimeout(fixAdHeights, 500);
+      }
+    });
+  });
+  
+  // مراقبة حاويات الإعلانات
+  const adContainers = [
+    document.getElementById('ad-above-iframe'),
+    document.getElementById('ad-below-iframe'),
+    document.getElementById('ad-page-bottom'),
+    document.getElementById('ad-sidebar')
+  ];
+  
+  adContainers.forEach(container => {
+    if (container) {
+      observer.observe(container, { childList: true, subtree: true });
+    }
+  });
 })();
 </script>
 
