@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preload" 
+        as="image" 
+        href="https://gameivo.github.io/images/171.webp" 
+        fetchpriority="high">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
   <script>
@@ -597,9 +601,15 @@ setInterval(() => {
             
             <!-- شاشة التشغيل (اللعبة مخفية في البداية) -->
             <div id="play-screen" class="play-button-container">
-              <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" 
-                   id="game-preview-image" width="200" height="200" loading="eager"
-                   onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNkM1Q0U3Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjM1ZW0iPj5fPC90ZXh0Pgo8L3N2Zz4K';">
+              <img src="https://gameivo.github.io/images/171.webp" 
+     alt="4th and Goal 2022" 
+     class="game-preview-image" 
+     id="game-preview-image" 
+     width="200" 
+     height="200" 
+     fetchpriority="high"
+     decoding="async"
+     onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNkM1Q0U3Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjM1ZW0iPj5fPC90ZXh0Pgo8L3N2Zz4K';">
               <h1 class="play-button-title">4th and Goal 2022</h1>
               
               <button id="play-btn" class="play-btn">
@@ -722,21 +732,7 @@ setInterval(() => {
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-      // === دالة تحميل الصور مسبقاً - نفس الحل ===
-      function preloadImage(url) {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.src = url;
-          img.onload = () => resolve(img);
-          img.onerror = reject;
-        });
-      }
-      
-      // تحميل الصورة الرئيسية مسبقاً لمنع Layout Shift
-      preloadImage("https://gameivo.github.io/images/171.webp").catch(() => {
-          console.log("Image preload failed, but continuing...");
-      });
-      
+     
       // === كود زر PLAY ===
       const playBtn = document.getElementById('play-btn');
       const playScreen = document.getElementById('play-screen');
