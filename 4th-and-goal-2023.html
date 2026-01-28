@@ -44,6 +44,11 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://gameivo.github.io/4th-and-goal-2022.html">
   
+  <!-- Preconnect for critical resources -->
+  <link rel="preconnect" href="https://gameivo.github.io">
+  <link rel="preconnect" href="https://inkyedu118.github.io">
+  <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image">
+  
   <!-- Game Schema للعبة الحالية -->
   <script type="application/ld+json">
   {
@@ -100,8 +105,24 @@
   </script>
   
   <style>
-    /* حلول Layout Shift من الصفحة 2 */
-    *{margin:0;padding:0;box-sizing:border-box}
+    /* تحسينات Layout Shift: إضافة CSS أولاً */
+    .cls-fixed {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
+    .game-frame {
+      position: relative !important;
+      z-index: 1 !important;
+      transform: translateZ(0) !important;
+      backface-visibility: hidden !important;
+      -webkit-backface-visibility: hidden !important;
+      will-change: transform !important;
+    }
+    
+    /* CSS Critical - يتحمّل أولاً */
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
     .container{max-width:1200px;margin:0 auto;padding:0 20px}
@@ -110,11 +131,11 @@
     .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
     .game-container{padding:30px 0;text-align:center}
     
-    /* إصلاح جذري لـ game-frame - مثل الصفحة 2 */
+    /* إصلاح جذري لـ game-frame - إزالة التغيرات المفاجئة */
     .game-frame {
       width: 100%;
       max-width: 800px;
-      height: 600px !important;
+      height: 600px !important; /* !important للتأكد من عدم التجاوز */
       min-height: 600px !important;
       margin: 0 auto 30px auto;
       border-radius: 10px;
@@ -123,9 +144,15 @@
       background: #000 !important;
       position: relative;
       display: block;
-      contain: strict;
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition: none !important;
+      animation: none !important;
+      contain: strict !important;
       content-visibility: auto;
       contain-intrinsic-size: 600px;
+      grid-area: 1 / 1 / 2 / 2;
     }
     
     /* تثبيت العناصر داخل game-frame */
@@ -137,16 +164,21 @@
       height: 100% !important;
       margin: 0 !important;
       padding: 0 !important;
+      display: block;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     
-    /* زر PLAY - تصميم ثابت */
+    /* زر PLAY - تصميم ثابت لا يتغير */
     .play-button-container {
       display: flex !important;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
-      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://gameivo.github.io/images/171.webp');
+      background: #000 !important; /* خلفية ثابتة أولاً */
+      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://gameivo.github.io/images/171.webp') !important;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -157,6 +189,7 @@
       width: 100%;
       z-index: 3;
       contain: layout style paint;
+      overflow: hidden;
     }
     
     .game-preview-image {
@@ -172,6 +205,7 @@
       display: block;
       aspect-ratio: 1 / 1;
       background: #6c5ce7;
+      transform: translateZ(0);
     }
     
     .play-button-title {
@@ -181,6 +215,7 @@
       color: #ffd700;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
       line-height: 1.2;
+      display: block;
     }
     
     .play-btn {
@@ -202,6 +237,7 @@
       margin: 0 auto;
       min-width: 300px;
       min-height: 60px;
+      contain: layout style;
     }
     
     .loading{display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;background:#002B50;position:absolute;top:0;left:0;width:100%;z-index:2}
@@ -233,6 +269,7 @@
       font-size: 18px;
       cursor: pointer;
       backdrop-filter: blur(4px);
+      transition: transform .15s ease,background .15s ease;
       box-shadow: 0 6px 18px rgba(0,0,0,.45);
     }
     
@@ -250,134 +287,7 @@
       background: #000 !important;
     }
     
-    /* ========== إصلاح مشكلة الإعلانات المقطوعة ========== */
-    /* الزيادة في الطول للبانرات الأفقية */
-    .ad-banner.ad-modern-wrapper {
-      background: rgba(0,0,0,0.7) !important;
-      border-radius: 8px !important;
-      padding: 15px !important;
-      margin: 20px 0 !important;
-      position: relative !important;
-      backdrop-filter: blur(5px) !important;
-      border: 1px solid rgba(255,255,255,0.1) !important;
-      text-align: center !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      overflow: hidden !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    
-    /* زيادة الطول للبانرات الأفقية 728x90 */
-    #ad-wrapper-banner-728x90-top,
-    #ad-wrapper-banner-728x90-below,
-    #ad-wrapper-banner-728x90-bottom,
-    .ad-banner[data-ad-id*="728x90"] {
-      min-height: 120px !important; /* زيادة من 90px إلى 120px */
-      height: auto !important;
-      padding: 20px 15px !important;
-    }
-    
-    /* زيادة الطول لمحتوى الإعلان */
-    .ad-content-scaler {
-      min-height: 120px !important; /* زيادة من 90px إلى 120px */
-      height: auto !important;
-      background: transparent !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 100% !important;
-    }
-    
-    /* زيادة حجم الإفريم داخل الإعلان */
-    .ad-content-scaler iframe,
-    .ad-content-scaler ins {
-      min-height: 100px !important; /* زيادة الارتفاع */
-      height: 100px !important;
-      width: 100% !important;
-      max-width: 728px !important;
-      display: block !important;
-      margin: 0 auto !important;
-    }
-    
-    /* إعلانات 300x250 - زيادة الطول */
-    .ad-banner[data-ad-id*="300x250"],
-    #ad-wrapper-banner-300x250-middle {
-      min-height: 280px !important; /* زيادة من 250px إلى 280px */
-      height: auto !important;
-      padding: 25px 15px !important;
-    }
-    
-    .ad-content-scaler[style*="min-height:250px"] {
-      min-height: 280px !important;
-      height: auto !important;
-    }
-    
-    /* إعلانات 160x600 - زيادة الطول */
-    .ad-banner[data-ad-id*="160x300"],
-    .ad-banner[data-ad-id*="sidebar-160x300"] {
-      min-height: 320px !important; /* زيادة من 300px إلى 320px */
-      height: auto !important;
-      padding: 30px 15px !important;
-    }
-    
-    .ad-label {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.6);
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      z-index: 10;
-    }
-    
-    /* الحفاظ على مكان الإعلانات مع حجز مساحة كبيرة */
-    .ad-placeholder {
-      display: block !important;
-      visibility: visible !important;
-      position: relative;
-      overflow: hidden;
-      contain: strict;
-      margin: 20px 0;
-    }
-    
-    /* المساحات الكبيرة للإعلانات */
-    #ad-above-iframe,
-    #ad-below-iframe {
-      min-height: 140px !important; /* زيادة للاستيعاب */
-      height: auto !important;
-    }
-    
-    #ad-page-bottom {
-      min-height: 140px !important;
-      height: auto !important;
-    }
-    
-    #ad-sidebar {
-      min-height: 650px !important;
-      height: auto !important;
-    }
-    
-    #ad-sidebar-vertical {
-      min-height: 350px !important;
-      height: auto !important;
-    }
-    
-    /* منع التمرير الأفقي */
-    .ad-banner * {
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    
-    /* محتوى الصفحة */
+    /* محتوى تحت game-frame - بعيد عن تأثيراته */
     .game-info {
       background: rgba(255,255,255,.1);
       backdrop-filter: blur(10px);
@@ -385,6 +295,9 @@
       border-radius: 10px;
       max-width: 800px;
       margin: 0 auto 30px auto;
+      position: relative;
+      z-index: 0;
+      transform: translateZ(0);
     }
     
     .game-title {
@@ -406,6 +319,33 @@
       background: rgba(0,0,0,.3);
       border-radius: 10px;
       text-align: left;
+      position: relative;
+      z-index: 0;
+    }
+    
+    /* حجز مساحة ثابتة للإعلانات */
+    .ad-placeholder {
+      display: block !important;
+      visibility: visible !important;
+      min-height: 90px;
+      background: rgba(0,0,0,0.05);
+      margin: 20px 0;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      contain: strict;
+    }
+    
+    .ad-placeholder.large {
+      min-height: 250px;
+    }
+    
+    .ad-placeholder.sidebar {
+      min-height: 600px;
+    }
+    
+    .ad-placeholder.vertical {
+      min-height: 300px;
     }
     
     /* قسم الألعاب المقترحة */
@@ -413,6 +353,9 @@
       margin-top: 50px;
       padding: 30px 0;
       border-top: 2px solid rgba(255,255,255,0.2);
+      min-height: 400px;
+      position: relative;
+      z-index: 0;
     }
     
     .games-grid {
@@ -422,7 +365,16 @@
       margin-top: 20px;
     }
     
-    /* Layout */
+    .game-card-image img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      aspect-ratio: 16 / 9;
+      background: #6c5ce7;
+      display: block;
+    }
+    
+    /* Layout Responsive */
     .page-layout {
       display: flex;
       gap: 30px;
@@ -431,18 +383,23 @@
     
     .main-content {
       flex: 3;
+      position: relative;
+      z-index: 0;
     }
     
     .sidebar {
       flex: 1;
       min-width: 300px;
+      position: relative;
+      z-index: 0;
     }
     
-    /* Media Queries - الحفاظ على التناسق */
+    /* Media Queries - تثبيت الأبعاد */
     @media (max-height: 500px) {
       .game-frame {
         height: 400px !important;
         min-height: 400px !important;
+        contain-intrinsic-size: 400px;
       }
     }
     
@@ -456,6 +413,7 @@
       .game-frame {
         height: 450px !important;
         min-height: 450px !important;
+        contain-intrinsic-size: 450px;
       }
       .play-btn {
         min-width: 250px;
@@ -468,20 +426,11 @@
       .game-preview-image {
         width: 160px !important;
         height: 160px !important;
+        min-width: 160px !important;
+        min-height: 160px !important;
       }
-      /* تعديلات الإعلانات على الموبايل */
-      #ad-wrapper-banner-728x90-top,
-      #ad-wrapper-banner-728x90-below,
-      #ad-wrapper-banner-728x90-bottom {
-        min-height: 100px !important;
-        padding: 15px 10px !important;
-      }
-      .ad-content-scaler iframe {
-        min-height: 80px !important;
-        height: 80px !important;
-      }
-      #ad-sidebar {
-        min-height: 350px !important;
+      .ad-placeholder.sidebar {
+        min-height: 300px;
       }
     }
     
@@ -489,6 +438,7 @@
       .game-frame {
         height: 350px !important;
         min-height: 350px !important;
+        contain-intrinsic-size: 350px;
       }
       .header-content {
         flex-direction: column;
@@ -501,40 +451,39 @@
         min-width: 200px;
         padding: 12px 30px;
         font-size: 1.1rem;
+        min-height: 50px;
       }
       .game-preview-image {
         width: 140px !important;
         height: 140px !important;
+        min-width: 140px !important;
+        min-height: 140px !important;
       }
-      /* إعلانات أصغر على الشاشات الصغيرة */
-      #ad-wrapper-banner-728x90-top,
-      #ad-wrapper-banner-728x90-below,
-      #ad-wrapper-banner-728x90-bottom {
-        min-height: 90px !important;
-        padding: 12px 8px !important;
+      .ad-placeholder {
+        min-height: 50px;
       }
-      .ad-content-scaler iframe {
-        min-height: 70px !important;
-        height: 70px !important;
+      .ad-placeholder.large {
+        min-height: 150px;
       }
     }
     
-    /* CSS لضبط الإعلانات ديناميكياً */
-    .ad-fixed-height {
-      height: auto !important;
-      min-height: 120px !important;
+    /* Hide initially to prevent FOUC */
+    .js-hidden {
+      opacity: 0;
+      visibility: hidden;
     }
     
-    .ad-content-expanded {
-      min-height: 110px !important;
-      padding-bottom: 10px !important;
+    .js-visible {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s ease;
     }
   </style>
 </head>
 
-<body>
-  <!-- عناصر الإعلانات -->
-  <div id="interstitial-ad" class="ad-placeholder"></div>
+<body class="js-hidden">
+  <!-- عناصر فارغة للإعلانات - مع class ثابت -->
+  <div id="interstitial-ad" class="ad-placeholder large"></div>
   
   <header class="game-header">
     <div class="container">
@@ -551,13 +500,11 @@
       <main class="main-content">
         <div class="game-container">
           <!-- مكان للإعلان فوق الـ iframe -->
-          <div id="ad-above-iframe" class="ad-placeholder">
-            <!-- ستحقن الإعلانات هنا ديناميكياً -->
-          </div>
+          <div id="ad-above-iframe" class="ad-placeholder"></div>
           
-          <!-- game-frame -->
+          <!-- game-frame مع تصميم ثابت تماماً -->
           <div class="game-frame" id="main-game-frame">
-            <!-- شاشة التشغيل -->
+            <!-- شاشة التشغيل (اللعبة مخفية في البداية) -->
             <div id="play-screen" class="play-button-container">
               <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" 
                    width="200" height="200" loading="eager"
@@ -605,11 +552,9 @@
           </div>
 
           <!-- مكان للإعلان تحت الـ iframe -->
-          <div id="ad-below-iframe" class="ad-placeholder">
-            <!-- ستحقن الإعلانات هنا ديناميكياً -->
-          </div>
+          <div id="ad-below-iframe" class="ad-placeholder"></div>
           
-          <!-- محتوى الصفحة -->
+          <!-- محتوى ثابت تحت game-frame -->
           <div class="game-info">
             <h2 class="game-title">4th and Goal 2022</h2>
             <p class="game-description">Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory. With smooth gameplay, responsive controls, classic football mechanics, vibrant stadium environments, and high-stakes moments, 4th and Goal 2022 delivers a free online sports experience perfect for fans of American football games, sports simulators, strategy sports titles, free browser games, and competitive athletic action. Customize your playbook, compete against challenging AI opponents, improve your team's stats, and aim for high scores and record-breaking seasons. No download required — join the gridiron, master passing routes and running plays, dominate the fourth down, and become the ultimate football champion in 4th and Goal 2022!</p>
@@ -637,6 +582,7 @@
             <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Enjoy 4th and Goal 2022 and many other exciting games.</p>
             
             <h3>About 4th and Goal 2022</h3>
+            <p>Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory. With smooth gameplay, responsive controls, classic football mechanics, vibrant stadium environments, and high-stakes moments, 4th and Goal 2022 delivers a free online sports experience perfect for fans of American football games, sports simulators, strategy sports titles, free browser games, and competitive athletic action. Customize your playbook, compete against challenging AI opponents, improve your team's stats, and aim for high scores and record-breaking seasons. No download required — join the gridiron, master passing routes and running plays, dominate the fourth down, and become the ultimate football champion in 4th and Goal 2022!</p>
             <p>This sports game is part of our carefully curated selection of HTML5 games that load quickly and run smoothly without any downloads.</p>
             
             <h3>Why Choose FreePlayHub?</h3>
@@ -652,20 +598,16 @@
           </div>
           
           <!-- مكان للإعلان أسفل الصفحة -->
-          <div id="ad-page-bottom" class="ad-placeholder">
-            <!-- ستحقن الإعلانات هنا ديناميكياً -->
-          </div>
+          <div id="ad-page-bottom" class="ad-placeholder large"></div>
         </div>
       </main>
       
       <!-- الجانب الأيمن - Sidebar -->
       <aside class="sidebar">
         <!-- مكان للإعلان الجانبي -->
-        <div id="ad-sidebar" class="ad-placeholder">
-          <!-- ستحقن الإعلانات هنا ديناميكياً -->
-        </div>
+        <div id="ad-sidebar" class="ad-placeholder sidebar"></div>
         
-        <!-- محتوى إضافي -->
+        <!-- محتوى إضافي للـ SEO -->
         <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:8px;margin-top:20px;backdrop-filter:blur(10px)">
           <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">🎯 Popular Categories</h3>
           <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
@@ -678,17 +620,21 @@
         </div>
         
         <!-- مكان لإعلان إضافي في الـ Sidebar -->
-        <div id="ad-sidebar-vertical" class="ad-placeholder">
-          <!-- ستحقن الإعلانات هنا ديناميكياً -->
-        </div>
+        <div id="ad-sidebar-vertical" class="ad-placeholder vertical"></div>
       </aside>
     </div>
   </div>
 
 <script>
-// ===== حلول Layout Shift من الصفحة 2 =====
+// ===== SCRIPT CRITICAL - يتحمّل مع الـ HTML =====
 (function() {
   'use strict';
+  
+  // منع FOUC - إظهار الصفحة فوراً
+  document.body.classList.remove('js-hidden');
+  setTimeout(function() {
+    document.body.classList.add('js-visible');
+  }, 10);
   
   // تحديد أبعاد ثابتة لجميع الصور
   const images = document.querySelectorAll('img');
@@ -706,9 +652,6 @@
     
     // تأخير تحميل الألعاب المقترحة
     setTimeout(loadSuggestedGames, 1500);
-    
-    // ===== إصلاح ارتفاع الإعلانات بعد تحميلها =====
-    setTimeout(fixAdHeights, 2000);
   };
   
   // تحميل الألعاب المقترحة
@@ -752,54 +695,7 @@
     }
   }
   
-  // ===== دالة لإصلاح ارتفاع الإعلانات =====
-  function fixAdHeights() {
-    // زيادة ارتفاع جميع حاويات الإعلانات
-    const adWrappers = document.querySelectorAll('.ad-modern-wrapper');
-    adWrappers.forEach(wrapper => {
-      // إضافة كلاس لزيادة الارتفاع
-      wrapper.classList.add('ad-fixed-height');
-      
-      // البحث عن عنصر ad-content-scaler داخله
-      const contentScaler = wrapper.querySelector('.ad-content-scaler');
-      if (contentScaler) {
-        contentScaler.classList.add('ad-content-expanded');
-        
-        // زيادة الارتفاع المباشر
-        if (contentScaler.style.minHeight) {
-          const currentHeight = parseInt(contentScaler.style.minHeight);
-          if (currentHeight < 120) {
-            contentScaler.style.minHeight = '120px';
-          }
-        }
-      }
-      
-      // زيادة حجم الإفريم إذا وجد
-      const iframes = wrapper.querySelectorAll('iframe');
-      iframes.forEach(iframe => {
-        if (iframe.height && parseInt(iframe.height) < 100) {
-          iframe.style.minHeight = '100px';
-          iframe.style.height = '100px';
-        }
-      });
-    });
-    
-    // ضبط الارتفاع للعناصر المحددة
-    const specificAds = [
-      '#ad-above-iframe',
-      '#ad-below-iframe', 
-      '#ad-page-bottom'
-    ];
-    
-    specificAds.forEach(selector => {
-      const element = document.querySelector(selector);
-      if (element) {
-        element.style.minHeight = '140px';
-      }
-    });
-  }
-  
-  // زر PLAY
+  // زر PLAY - مع تأخير بسيط لتجنب CLS
   const playBtn = document.getElementById('play-btn');
   const playScreen = document.getElementById('play-screen');
   const loading = document.getElementById('loading');
@@ -808,8 +704,9 @@
   const gameFrame = document.getElementById('main-game-frame');
   
   playBtn.addEventListener('click', function() {
-    // استخدام requestAnimationFrame لمنع Layout Shift
+    // تحضير العناصر قبل التغيير
     requestAnimationFrame(() => {
+      // لا نغير display - نغير opacity فقط
       playScreen.style.opacity = '0';
       playScreen.style.pointerEvents = 'none';
       
@@ -875,34 +772,16 @@
     lazyLoad();
   }
   
-  // ===== مراقبة الإعلانات وإصلاح ارتفاعها =====
-  // مراقبة ظهور الإعلانات الجديدة
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.addedNodes.length) {
-        setTimeout(fixAdHeights, 500);
-      }
-    });
-  });
-  
-  // مراقبة حاويات الإعلانات
-  const adContainers = [
-    document.getElementById('ad-above-iframe'),
-    document.getElementById('ad-below-iframe'),
-    document.getElementById('ad-page-bottom'),
-    document.getElementById('ad-sidebar')
-  ];
-  
-  adContainers.forEach(container => {
-    if (container) {
-      observer.observe(container, { childList: true, subtree: true });
-    }
+  // حجز مساحة للخطوط لمنع FOIT
+  document.fonts.ready.then(() => {
+    document.body.style.visibility = 'visible';
   });
 })();
 </script>
 
-<!-- تحميل نظام الإعلانات الذكي -->
+<!-- تحميل نظام الإعلانات الذكي بعد كل شيء -->
 <script src="ads-manager.js" defer></script>
 
 </body>
 </html>
+
