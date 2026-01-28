@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Preconnect للمواقع الحرجة - قبل كل شيء -->
+  <link rel="preconnect" href="https://www.highperformanceformat.com" crossorigin>
+  <link rel="preconnect" href="https://preferencenail.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://inkyedu118.github.io">
+  
+  <!-- Google tag (gtag.js) - async بدون blocking -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -44,9 +50,8 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://gameivo.github.io/4th-and-goal-2022.html">
   
-  <!-- Preconnect for critical resources -->
+  <!-- Preconnect و Preload للموارد الحرجة -->
   <link rel="preconnect" href="https://gameivo.github.io">
-  <link rel="preconnect" href="https://inkyedu118.github.io">
   <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image">
   
   <!-- Game Schema للعبة الحالية -->
@@ -105,10 +110,7 @@
   </script>
   
   <style>
-    /* === الحل الجذري لـ Layout Shift === */
-    /* تحديد الأبعاد مباشرة في HTML بدون انتظار CSS */
-    
-    /* CSS Critical */
+    /* === CSS Critical Inline === */
     *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
@@ -118,20 +120,17 @@
     .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
     .game-container{padding:30px 0;text-align:center}
     
-    /* === الحل النهائي لـ game-frame - بدون أي تغيير في الحجم === */
+    /* === الحل الجذري لـ Layout Shift === */
     .game-frame-container {
-      /* Container خارجي يحجز المساحة */
       width: 100%;
       max-width: 800px;
-      height: 600px; /* ارتفاع ثابت محدد مسبقاً */
+      height: 600px;
       margin: 0 auto 30px auto;
       position: relative;
       display: block;
-      /* هذا يمنع أي Layout Shift */
     }
     
     .game-frame {
-      /* العنصر الداخلي يملأ المساحة المحجوزة */
       width: 100%;
       height: 100%;
       border-radius: 10px;
@@ -141,10 +140,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      /* لا توجد تغييرات في الأبعاد - كل شيء محدد مسبقاً */
     }
     
-    /* تثبيت العناصر داخل game-frame */
     #play-screen, #loading, #game-iframe {
       position: absolute;
       top: 0;
@@ -155,7 +152,6 @@
       padding: 0;
     }
     
-    /* زر PLAY - تصميم ثابت */
     .play-button-container {
       display: flex;
       flex-direction: column;
@@ -242,7 +238,6 @@
       background: #000;
     }
     
-    /* زر التكبير */
     .zoom-btn {
       position: absolute;
       right: 12px;
@@ -280,7 +275,6 @@
       z-index: 2147483647 !important;
     }
     
-    /* محتوى الصفحة */
     .game-info {
       background: rgba(255,255,255,.1);
       backdrop-filter: blur(10px);
@@ -360,7 +354,6 @@
       min-height: 620px;
     }
     
-    /* قسم الألعاب المقترحة */
     .suggested-games {
       margin-top: 50px;
       padding: 30px 0;
@@ -429,7 +422,6 @@
       font-size: 0.75rem;
     }
     
-    /* Layout Responsive */
     .page-layout {
       display: flex;
       gap: 30px;
@@ -445,7 +437,7 @@
       min-width: 300px;
     }
     
-    /* Media Queries - تعديل حجم game-frame-container */
+    /* Media Queries */
     @media (max-width: 768px) {
       .page-layout {
         flex-direction: column;
@@ -456,7 +448,7 @@
       }
       
       .game-frame-container {
-        height: 450px; /* تصغير الحجم على التابلت */
+        height: 450px;
       }
       
       .play-btn {
@@ -480,7 +472,7 @@
     
     @media (max-width: 480px) {
       .game-frame-container {
-        height: 350px; /* تصغير أكثر على الموبايل */
+        height: 350px;
       }
       
       .header-content {
@@ -573,13 +565,11 @@
       margin-bottom: 20px;
     }
     
-    /* منع التمرير الأفقي */
     html, body {
       overflow-x: hidden !important;
       max-width: 100% !important;
     }
     
-    /* تحسين العرض على الموبايل */
     @media (max-width: 768px) {
       .ad-banner {
         padding: 10px !important;
@@ -603,7 +593,6 @@
       }
     }
     
-    /* إخفاء الإعلانات الفاشلة */
     [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
     .ad-banner:not(:has(iframe)):not(:has(ins)),
     ins.adsbygoogle[data-ad-status="unfilled"] {
@@ -614,8 +603,6 @@
       padding: 0 !important;
     }
   </style>
-  
-  <script src="https://preferencenail.com/sfp.js"></script>
 </head>
 
 <body>
@@ -632,10 +619,9 @@
 
   <div class="container">
     <div class="page-layout">
-      <!-- المحتوى الرئيسي -->
       <main class="main-content">
         <div class="game-container">
-          <!-- إعلان فوق الـ iframe -->
+          <!-- إعلان فوق iframe -->
           <div id="ad-above-iframe" class="ad-container-wrapper">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-top-1">
               <div class="ad-label">Advertisement</div>
@@ -645,11 +631,9 @@
             </div>
           </div>
           
-          <!-- === Container خارجي يحجز المساحة (الحل الجذري) === -->
+          <!-- Container خارجي يحجز المساحة -->
           <div class="game-frame-container">
-            <!-- game-frame داخل container محجوز مسبقاً -->
             <div class="game-frame" id="main-game-frame">
-              <!-- شاشة التشغيل -->
               <div id="play-screen" class="play-button-container">
                 <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager">
                 <h1 class="play-button-title">4th and Goal 2022</h1>
@@ -660,21 +644,18 @@
                 </button>
               </div>
               
-              <!-- شاشة التحميل -->
               <div class="loading" id="loading">
                 <div class="loading-spinner"></div>
                 <div id="loading-text">Loading 4th and Goal 2022...</div>
               </div>
 
-              <!-- اللعبة -->
               <iframe id="game-iframe" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
               
-              <!-- زر التكبير -->
               <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
             </div>
           </div>
 
-          <!-- إعلان تحت الـ iframe -->
+          <!-- إعلان تحت iframe -->
           <div id="ad-below-iframe" class="ad-container-wrapper">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-below">
               <div class="ad-label">Advertisement</div>
@@ -684,10 +665,9 @@
             </div>
           </div>
           
-          <!-- معلومات اللعبة -->
           <div class="game-info">
             <h2 class="game-title">4th and Goal 2022</h2>
-            <p class="game-description">Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory.</p>
+            <p class="game-description">Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen!</p>
             <div class="features">
               <div class="feature-item"><h3>🚀 Instant Play</h3><p>No downloads or installations required. Play directly in your browser on any device.</p></div>
               <div class="feature-item"><h3>🎯 Free & Accessible</h3><p>All games are completely free to play with no registration required.</p></div>
@@ -696,7 +676,6 @@
             </div>
           </div>
           
-          <!-- إعلان في منتصف الصفحة -->
           <div id="ad-page-middle" class="ad-container-wrapper">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-300x250-middle">
               <div class="ad-label">Advertisement</div>
@@ -706,7 +685,6 @@
             </div>
           </div>
 
-          <!-- قسم الألعاب المقترحة -->
           <section class="suggested-games">
             <h2>🎮 Suggested Games You Might Like</h2>
             <div class="games-grid" id="suggested-games-grid"><p class="error-state">Loading...</p></div>
@@ -714,13 +692,13 @@
 
           <div class="seo-content">
             <h2>Play 4th and Goal 2022 & Other Free HTML5 Games on FreePlayHub</h2>
-            <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device.</p>
+            <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games!</p>
             
             <h3>About 4th and Goal 2022</h3>
             <p>This sports game is part of our carefully curated selection of HTML5 games that load quickly and run smoothly without any downloads.</p>
             
             <h3>Why Choose FreePlayHub?</h3>
-            <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025.</p>
+            <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads.</p>
             
             <div class="game-categories">
               <span class="category-tag">Sports</span>
@@ -731,7 +709,6 @@
             </div>
           </div>
           
-          <!-- إعلان أسفل الصفحة -->
           <div id="ad-page-bottom" class="ad-container-wrapper large">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-bottom">
               <div class="ad-label">Advertisement</div>
@@ -743,9 +720,7 @@
         </div>
       </main>
       
-      <!-- Sidebar -->
       <aside class="sidebar">
-        <!-- إعلان جانبي -->
         <div id="ad-sidebar" class="ad-container-wrapper sidebar">
           <div class="ad-banner ad-sidebar ad-modern-wrapper" data-ad-id="sidebar-160x300-1">
             <div class="ad-label">Advertisement</div>
@@ -755,7 +730,6 @@
           </div>
         </div>
         
-        <!-- إعلان جانبي إضافي -->
         <div id="ad-sidebar-extra" class="ad-container-wrapper sidebar">
           <div class="ad-banner ad-modern-wrapper" data-ad-id="sidebar-extra-160x300">
             <div class="ad-label">Advertisement</div>
@@ -765,7 +739,6 @@
           </div>
         </div>
         
-        <!-- محتوى SEO -->
         <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:8px;margin-top:20px;backdrop-filter:blur(10px)">
           <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">🎯 Popular Categories</h3>
           <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
@@ -892,8 +865,34 @@
 })();
 </script>
 
-<script src="ads-manager.js" defer></script>
-<script src="https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js" async data-cfasync="false" id="social-bar-script"></script>
+<!-- تحميل ads-manager بعد تحميل الصفحة -->
+<script>
+  window.addEventListener('load', function() {
+    var adsScript = document.createElement('script');
+    adsScript.src = 'ads-manager.js';
+    adsScript.defer = true;
+    document.body.appendChild(adsScript);
+  });
+</script>
+
+<!-- تحميل السكريبتات غير الحرجة بعد load -->
+<script>
+  window.addEventListener('load', function() {
+    // تحميل sfp.js بعد تحميل الصفحة
+    var sfpScript = document.createElement('script');
+    sfpScript.src = 'https://preferencenail.com/sfp.js';
+    sfpScript.async = true;
+    document.body.appendChild(sfpScript);
+    
+    // تحميل social bar بعد تحميل الصفحة
+    var socialScript = document.createElement('script');
+    socialScript.src = 'https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js';
+    socialScript.async = true;
+    socialScript.setAttribute('data-cfasync', 'false');
+    socialScript.id = 'social-bar-script';
+    document.body.appendChild(socialScript);
+  });
+</script>
 
 </body>
 </html>
