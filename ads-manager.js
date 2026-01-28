@@ -64,6 +64,20 @@ class AdsManager {
     window.addEventListener('resize', () => this.scaleAllAds());
   }
 
+    // === نظام حجب الإعلانات الفاشلة ===
+  startFailedAdMonitor() {
+    console.log('👁️ بدء مراقبة الإعلانات الفاشلة...');
+    
+    setInterval(() => {
+      document.querySelectorAll('[id^="ad-"]').forEach(el => {
+        const text = el.textContent.toLowerCase();
+        if ((text.includes('support') || text.includes('failed')) && !el.querySelector('iframe, ins')) {
+          el.style.cssText = 'display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important';
+        }
+      });
+    }, 500);
+  }
+
   // === 1. تحميل الإعدادات ===
   async init() {
     try {
@@ -96,6 +110,7 @@ class AdsManager {
       await this.loadAllAds();
       console.log('🎯 تم تفعيل جميع الإعلانات بنجاح');
       this.startAdScalingSystem();
+      this.startFailedAdMonitor();
       
     } catch (error) {
       console.error('❌ خطأ في تحميل الإعلانات:', error);
