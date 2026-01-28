@@ -1,0 +1,280 @@
+{
+  "antiAdblock": {
+    "enabled": false,
+    "showWarning": true,
+    "warningPosition": "bottom-right",
+    "warningDuration": 10000
+  },
+  
+  "popunder": {
+    "enabled": false,
+    "frequency": "once_per_session",
+    "maxPerSession": 1,
+    "delay": 8000,
+    "scripts": [
+      "https://pl28434861.effectivegatecpm.com/32/d4/9f/32d49f1b6a1e48f0897909667f379a52.js"
+    ]
+  },
+  
+  "socialBar": {
+    "enabled": true,
+    "delay": 5000,
+    "script": "https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js"
+  },
+  
+  "nativeBanner": {
+    "enabled": false,
+    "script": "https://pl28434879.effectivegatecpm.com/7b2b9b89487b3dfaf080703b2e99b18b/invoke.js",
+    "html": "<div id='container-7b2b9b89487b3dfaf080703b2e99b18b'></div>"
+  },
+  
+  "banners": {
+    "aboveIframe": {
+      "enabled": true,
+      "rotation": false,
+      "rotationInterval": 30000,
+      "ads": [
+        {
+          "id": "banner-728x90-top-1",
+          "script": "https://www.highperformanceformat.com/be0515e7240f249085cceca1f2dba7ed/invoke.js",
+          "config": {
+            "key": "be0515e7240f249085cceca1f2dba7ed",
+            "format": "iframe",
+            "height": 90,
+            "width": 728,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        },
+        {
+          "id": "banner-468x60-top",
+          "script": "https://www.highperformanceformat.com/3991d606bc816a1ffa67472290af625a/invoke.js",
+          "config": {
+            "key": "3991d606bc816a1ffa67472290af625a",
+            "format": "iframe",
+            "height": 60,
+            "width": 468,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        }
+      ]
+    },
+    
+    "belowIframe": {
+      "enabled": true,
+      "rotation": false,
+      "rotationInterval": 25000,
+      "ads": [
+        {
+          "id": "banner-728x90-below",
+          "script": "https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js",
+          "config": {
+            "key": "a29bc677676d4759eafbbf48bff57ae3",
+            "format": "iframe",
+            "height": 90,
+            "width": 728,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        },
+        {
+          "id": "banner-320x50-below",
+          "script": "https://www.highperformanceformat.com/a81f0bc2fbb1834bb417ecd0aef2ce0d/invoke.js",
+          "config": {
+            "key": "a81f0bc2fbb1834bb417ecd0aef2ce0d",
+            "format": "iframe",
+            "height": 50,
+            "width": 320,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        }
+      ]
+    },
+    
+    "pageBottom": {
+      "enabled": true,
+      "rotation": false,
+      "rotationInterval": 35000,
+      "ads": [
+        {
+          "id": "banner-728x90-bottom",
+          "script": "https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js",
+          "config": {
+            "key": "a29bc677676d4759eafbbf48bff57ae3",
+            "format": "iframe",
+            "height": 90,
+            "width": 728,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        },
+        {
+          "id": "banner-300x250-bottom",
+          "script": "https://www.highperformanceformat.com/a8f556dcb4e1e2d1e6cd7fc35c2ef8cd/invoke.js",
+          "config": {
+            "key": "a8f556dcb4e1e2d1e6cd7fc35c2ef8cd",
+            "format": "iframe",
+            "height": 250,
+            "width": 300,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        }
+      ]
+    },
+    
+    "pageMiddle": {
+      "enabled": true,
+      "rotation": false,
+      "rotationInterval": 40000,
+      "ads": [
+        {
+          "id": "banner-300x250-middle",
+          "script": "https://www.highperformanceformat.com/c84b7f14ef2b488fb99e7411123accf1/invoke.js",
+          "config": {
+            "key": "c84b7f14ef2b488fb99e7411123accf1",
+            "format": "iframe",
+            "height": 250,
+            "width": 300,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        },
+        {
+          "id": "banner-468x60-middle",
+          "script": "https://www.highperformanceformat.com/3991d606bc816a1ffa67472290af625a/invoke.js",
+          "config": {
+            "key": "3991d606bc816a1ffa67472290af625a",
+            "format": "iframe",
+            "height": 60,
+            "width": 468,
+            "params": {
+              "domain": "gameivo.github.io",
+              "source": "highperformanceformat"
+            }
+          }
+        }
+      ]
+    }
+  },
+  
+  "sidebarAd": {
+    "enabled": true,
+    "rotation": false,
+    "rotationInterval": 45000,
+    "ads": [
+      {
+        "id": "sidebar-160x300-1",
+        "script": "https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js",
+        "config": {
+          "key": "fadc54b280a9c5e2003ed5d0d7f6f940",
+          "format": "iframe",
+          "height": 300,
+          "width": 160,
+          "params": {
+            "domain": "gameivo.github.io",
+            "source": "highperformanceformat"
+          }
+        }
+      },
+      {
+        "id": "sidebar-160x600",
+        "script": "https://www.highperformanceformat.com/2d10e17d6ae60873d4799c1f212b1de1/invoke.js",
+        "config": {
+          "key": "2d10e17d6ae60873d4799c1f212b1de1",
+          "format": "iframe",
+          "height": 600,
+          "width": 160,
+          "params": {
+            "domain": "gameivo.github.io",
+            "source": "highperformanceformat"
+          }
+        }
+      },
+      {
+        "id": "sidebar-300x250",
+        "script": "https://www.highperformanceformat.com/c84b7f14ef2b488fb99e7411123accf1/invoke.js",
+        "config": {
+          "key": "c84b7f14ef2b488fb99e7411123accf1",
+          "format": "iframe",
+          "height": 250,
+          "width": 300,
+          "params": {
+            "domain": "gameivo.github.io",
+            "source": "highperformanceformat"
+          }
+        }
+      }
+    ]
+  },
+  
+  "sidebarAdExtra": {
+    "enabled": true,
+    "rotation": false,
+    "rotationInterval": 50000,
+    "ads": [
+      {
+        "id": "sidebar-extra-160x300",
+        "script": "https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js",
+        "config": {
+          "key": "fadc54b280a9c5e2003ed5d0d7f6f940",
+          "format": "iframe",
+          "height": 300,
+          "width": 160,
+          "params": {
+            "domain": "gameivo.github.io",
+            "source": "highperformanceformat"
+          }
+        }
+      },
+      {
+        "id": "sidebar-extra-300x250",
+        "script": "https://www.highperformanceformat.com/c84b7f14ef2b488fb99e7411123accf1/invoke.js",
+        "config": {
+          "key": "c84b7f14ef2b488fb99e7411123accf1",
+          "format": "iframe",
+          "height": 250,
+          "width": 300,
+          "params": {
+            "domain": "gameivo.github.io",
+            "source": "highperformanceformat"
+          }
+        }
+      }
+    ]
+  },
+
+  "vignetteBanner": {
+    "enabled": false,
+    "delay": 1000,
+    "zone": "10480837",
+    "script": "https://gizokraijaw.net/vignette.min.js",
+    "repeatInterval": 300000,
+    "maxShowsPerSession": 10
+  },
+  
+  "smartlink": {
+    "enabled": false,
+    "url": "https://www.effectivegatecpm.com/juirxbme?key=10bf57330ed7a86975a587aa5e69f302",
+    "mode": "popunder",
+    "triggerOnClick": true,
+    "minIntervalBetweenShows": 21600000,
+    "maxShowsPerSession": 1
+  }
+}
