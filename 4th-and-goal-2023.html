@@ -617,6 +617,15 @@
       margin: 0 !important;
       padding: 0 !important;
     }
+
+    .game-preview-image {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.game-preview-image.loaded {
+  opacity: 1;
+}
   </style>
   
   <!-- تم إضافة defer لتجنب render-blocking -->
