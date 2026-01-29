@@ -627,7 +627,12 @@
   <div id="interstitial-ad"></div>
   
   <header class="game-header">
-    
+    <div class="container">
+      <div class="header-content">
+        <a href="https://gameivo.github.io" class="logo"><span>🎮</span><span>FreePlayHub</span></a>
+        <a href="https://gameivo.github.io" class="back-btn">← Back to All Games</a>
+      </div>
+    </div>
   </header>
 
   <div class="container">
@@ -645,7 +650,22 @@
             </div>
           </div>
           
-          
+          <!-- === Container خارجي يحجز المساحة (الحل الجذري) === -->
+          <div class="game-frame-container">
+            <!-- game-frame داخل container محجوز مسبقاً -->
+            <div class="game-frame" id="main-game-frame">
+              <!-- شاشة التشغيل -->
+              <div id="play-screen" class="play-button-container">
+                <!-- إضافة fetchpriority=high للصورة الرئيسية لتحسين LCP -->
+                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager" fetchpriority="high">
+                <h1 class="play-button-title">4th and Goal 2022</h1>
+                
+                <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
+                  <span class="play-btn-icon">▶</span>
+                  <span>PLAY NOW FOR FREE</span>
+                </button>
+              </div>
+              
               <!-- شاشة التحميل -->
               <div class="loading" id="loading">
                 <div class="loading-spinner"></div>
