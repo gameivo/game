@@ -347,22 +347,21 @@
     
     /* === حجز مساحة للإعلانات === */
     .ad-container-wrapper {
-      height: 110px; /* ثابت بدلاً من min-height */
+      min-height: 110px;
       margin: 20px 0;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden !important;
-      box-sizing: border-box;
+      overflow: visible !important;
     }
     
     .ad-container-wrapper.large {
-      height: 270px; /* ثابت */
+      min-height: 270px;
     }
     
     .ad-container-wrapper.sidebar {
-      height: 620px; /* ثابت */
+      min-height: 620px;
     }
     
     /* قسم الألعاب المقترحة */
@@ -478,16 +477,8 @@
         height: 160px;
       }
       
-      .ad-container-wrapper {
-        height: 90px !important;
-      }
-      
-      .ad-container-wrapper.large {
-        height: 200px !important;
-      }
-      
       .ad-container-wrapper.sidebar {
-        height: 320px !important;
+        min-height: 320px;
       }
     }
     
@@ -516,15 +507,11 @@
       }
       
       .ad-container-wrapper {
-        height: 70px !important;
+        min-height: 70px;
       }
       
       .ad-container-wrapper.large {
-        height: 170px !important;
-      }
-      
-      .ad-container-wrapper.sidebar {
-        height: 250px !important;
+        min-height: 170px;
       }
     }
   </style>
@@ -539,9 +526,9 @@
       backdrop-filter: blur(5px);
       border: 1px solid rgba(255,255,255,0.1);
       transition: all 0.3s ease;
-      height: 100% !important; /* يأخذ الارتفاع الثابت */
-      width: 100% !important;
-      overflow: hidden !important;
+      min-height: 90px;
+      overflow: visible !important;
+      max-width: 100% !important;
       box-sizing: border-box !important;
       display: flex !important;
       flex-direction: column !important;
@@ -552,18 +539,16 @@
     
     .ad-modern-wrapper {
       width: 100% !important;
-      height: 100% !important;
+      height: auto !important;
     }
     
     .ad-content-scaler {
       display: inline-block !important;
       transition: all 0.3s ease !important;
       max-width: 100% !important;
-      height: 100% !important; /* جديد */
       transform-origin: top center !important;
-      overflow: hidden !important;
+      overflow: visible !important;
       position: relative !important;
-      box-sizing: border-box !important;
     }
     
     .ad-banner:hover {
@@ -622,16 +607,15 @@
       }
     }
     
-    /* إخفاء الإعلانات الفاشلة بدون CLS */
+    /* إخفاء الإعلانات الفاشلة */
     [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
     .ad-banner:not(:has(iframe)):not(:has(ins)),
     ins.adsbygoogle[data-ad-status="unfilled"] {
-      visibility: hidden !important; /* بدلاً من display:none */
+      display: none !important;
       height: 0 !important;
       min-height: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
-      border: none !important;
     }
   </style>
   
@@ -660,7 +644,7 @@
           <div id="ad-above-iframe" class="ad-container-wrapper">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-top-1">
               <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;">
+              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
                 <script src="https://www.highperformanceformat.com/be0515e7240f249085cceca1f2dba7ed/invoke.js" async data-cfasync="false"></script>
               </div>
             </div>
@@ -700,7 +684,7 @@
           <div id="ad-below-iframe" class="ad-container-wrapper">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-below">
               <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;">
+              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
                 <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
               </div>
             </div>
@@ -722,7 +706,7 @@
           <div id="ad-page-middle" class="ad-container-wrapper">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-300x250-middle">
               <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;">
+              <div class="ad-content-scaler" style="text-align:center;min-height:250px;">
                 <script src="https://www.highperformanceformat.com/c84b7f14ef2b488fb99e7411123accf1/invoke.js" async data-cfasync="false"></script>
               </div>
             </div>
@@ -757,7 +741,7 @@
           <div id="ad-page-bottom" class="ad-container-wrapper large">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-bottom">
               <div class="ad-label">Advertisement</div>
-              <div class="ad-content-scaler" style="text-align:center;">
+              <div class="ad-content-scaler" style="text-align:center;min-height:90px;">
                 <script src="https://www.highperformanceformat.com/a29bc677676d4759eafbbf48bff57ae3/invoke.js" async data-cfasync="false"></script>
               </div>
             </div>
@@ -771,7 +755,7 @@
         <div id="ad-sidebar" class="ad-container-wrapper sidebar">
           <div class="ad-banner ad-sidebar ad-modern-wrapper" data-ad-id="sidebar-160x300-1">
             <div class="ad-label">Advertisement</div>
-            <div class="ad-content-scaler" style="text-align:center;">
+            <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
               <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
             </div>
           </div>
@@ -781,7 +765,7 @@
         <div id="ad-sidebar-extra" class="ad-container-wrapper sidebar">
           <div class="ad-banner ad-modern-wrapper" data-ad-id="sidebar-extra-160x300">
             <div class="ad-label">Advertisement</div>
-            <div class="ad-content-scaler" style="text-align:center;">
+            <div class="ad-content-scaler" style="text-align:center;min-height:300px;">
               <script src="https://www.highperformanceformat.com/fadc54b280a9c5e2003ed5d0d7f6f940/invoke.js" async data-cfasync="false"></script>
             </div>
           </div>
