@@ -108,6 +108,22 @@
   </script>
   
   <style>
+
+    .layer {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+  z-index:2;
+}
+
+.layer.active {
+  opacity:1;
+  pointer-events:auto;
+  z-index:3;
+}
+
     /* === الحل الجذري لـ Layout Shift === */
     /* تحديد الأبعاد مباشرة في HTML بدون انتظار CSS */
     
@@ -853,17 +869,7 @@
   const gameFrame = document.getElementById('main-game-frame');
   
   playBtn.addEventListener('click', function() {
-    .layer {
-  position:absolute;
-  inset:0;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease;
-}
-.layer.active {
-  opacity:1;
-  pointer-events:auto;
-}
+    
 
     
     if (typeof gtag !== 'undefined') {
