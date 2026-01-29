@@ -655,31 +655,34 @@
             <!-- game-frame داخل container محجوز مسبقاً -->
             <div class="game-frame" id="main-game-frame">
               <!-- شاشة التشغيل -->
-              <div id="play-screen" class="play-button-container">
-                <img src="https://gameivo.github.io/images/171.webp"
-                     alt="4th and Goal 2022"
-                     class="game-preview-image"
-                     width="200" height="200"
-                     loading="eager" fetchpriority="high">
+              <!-- layers system بدون CLS -->
+<div id="play-screen" class="play-button-container layer active">
+  <img src="https://gameivo.github.io/images/171.webp"
+       alt="4th and Goal 2022"
+       class="game-preview-image"
+       width="200" height="200"
+       loading="eager" fetchpriority="high">
 
-                <h1 class="play-button-title">4th and Goal 2022</h1>
+  <h1 class="play-button-title">4th and Goal 2022</h1>
 
-                <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
-                  <span class="play-btn-icon">▶</span>
-                  <span>PLAY NOW FOR FREE</span>
-                </button>
-              </div>
+  <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
+    <span class="play-btn-icon">▶</span>
+    <span>PLAY NOW FOR FREE</span>
+  </button>
+</div>
 
-              <div id="loading" class="loading">
-                <div class="loading-spinner"></div>
-                <div id="loading-text">Loading 4th and Goal 2022...</div>
-              </div>
+<div id="loading" class="loading layer">
+  <div class="loading-spinner"></div>
+  <div id="loading-text">Loading 4th and Goal 2022...</div>
+</div>
 
-              <iframe id="game-iframe"
-                      src="about:blank"
-                      allow="autoplay;fullscreen"
-                      sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
-              </iframe>
+<iframe id="game-iframe"
+        class="layer"
+        src="about:blank"
+        allow="autoplay;fullscreen"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
+</iframe>
+
               
               <!-- زر التكبير -->
               <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
@@ -796,7 +799,12 @@
 (function() {
   'use strict';
   
+  // إزالة الكود الذي يسبب forced reflow (إضافة width/height للصور)
+  // هذا الكود كان يسبب 42ms من forced reflow
+  
   const lazyLoad = function() {
+    const iframe = document.getElementById('game-iframe');
+    
     setTimeout(loadSuggestedGames, 1500);
   };
   
@@ -837,68 +845,72 @@
     }
   }
   
-  // استدعاء الدوال عند التحميل
-  document.addEventListener('DOMContentLoaded', function() {
-    lazyLoad();
+  const playBtn = document.getElementById('play-btn');
+  const playScreen = document.getElementById('play-screen');
+  const loading = document.getElementById('loading');
+  const iframe = document.getElementById('game-iframe');
+  const zoomBtn = document.getElementById('zoom-btn');
+  const gameFrame = document.getElementById('main-game-frame');
+  
+  playBtn.addEventListener('click', function() {
+    .layer {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.layer.active {
+  opacity:1;
+  pointer-events:auto;
+}
+
     
-    const playBtn = document.getElementById('play-btn');
-    const playScreen = document.getElementById('play-screen');
-    const loading = document.getElementById('loading');
-    const iframe = document.getElementById('game-iframe');
-    const zoomBtn = document.getElementById('zoom-btn');
-    const gameFrame = document.getElementById('main-game-frame');
-    
-    if (playBtn) {
-      playBtn.addEventListener('click', function() {
-        // إخفاء شاشة التشغيل وإظهار شاشة التحميل
-        playScreen.style.display = 'none';
-        loading.style.display = 'flex';
-        
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'game_start', {'game_title': "4th and Goal 2022"});
-        }
-        
-        iframe.src = "https://inkyedu118.github.io/g16/class-685/";
-        
-        iframe.onload = function() {
-          loading.style.display = 'none';
-          iframe.style.display = 'block';
-          zoomBtn.style.display = 'flex';
-        };
-        
-        iframe.onerror = function() {
-          loading.style.display = 'none';
-          loading.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;"><p style="margin-bottom:15px;color:#fff;">Failed to load game. Please try again.</p><button onclick="location.reload()" style="background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">Retry</button></div>';
-          loading.style.display = 'flex';
-        };
-      });
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'game_start', {'game_title': "4th and Goal 2022"});
     }
     
-    let isExpanded = false;
-    if (zoomBtn) {
-      zoomBtn.addEventListener('click', function() {
-        if (!isExpanded) {
-          if (gameFrame.requestFullscreen) {
-            gameFrame.requestFullscreen();
-          } else if (gameFrame.webkitRequestFullscreen) {
-            gameFrame.webkitRequestFullscreen();
-          } else {
-            gameFrame.classList.add('fullscreen-css');
-          }
-          isExpanded = true;
-          zoomBtn.style.display = 'none';
-        }
-      });
-    }
+    iframe.src = "https://inkyedu118.github.io/g16/class-685/";
     
-    document.addEventListener('fullscreenchange', function() {
-      if (!document.fullscreenElement) {
-        gameFrame.classList.remove('fullscreen-css');
-        isExpanded = false;
-        if (zoomBtn) zoomBtn.style.display = 'flex';
-      }
-    });
+    iframe.onload = function() {
+      loading.style.display = 'none';
+      iframe.style.display = 'block';
+      zoomBtn.style.display = 'flex';
+    };
+    
+    iframe.onerror = function() {
+      loading.innerHTML = '<div class="error-state"><p>Failed to load game. Please try again.</p><button onclick="location.reload()">Retry</button></div>';
+    };
   });
+  
+  let isExpanded = false;
+  zoomBtn.addEventListener('click', function() {
+    if (!isExpanded) {
+      if (gameFrame.requestFullscreen) {
+        gameFrame.requestFullscreen();
+      } else if (gameFrame.webkitRequestFullscreen) {
+        gameFrame.webkitRequestFullscreen();
+      } else {
+        gameFrame.classList.add('fullscreen-css');
+      }
+      isExpanded = true;
+      zoomBtn.style.display = 'none';
+    }
+  });
+  
+  document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement) {
+      gameFrame.classList.remove('fullscreen-css');
+      isExpanded = false;
+      zoomBtn.style.display = 'flex';
+    }
+  });
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', lazyLoad);
+  } else {
+    lazyLoad();
+  }
 })();
 </script>
 
