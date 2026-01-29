@@ -1,7 +1,7 @@
 {
   "antiAdblock": {
     "enabled": false,
-    "showWarning": true,
+    "showWarning": false,
     "warningPosition": "bottom-right",
     "warningDuration": 10000
   },
@@ -17,7 +17,7 @@
   },
   
   "socialBar": {
-    "enabled": true,
+    "enabled": false,
     "delay": 5000,
     "script": "https://pl28434871.effectivegatecpm.com/8e/c0/1d/8ec01d013b8bf12745ff310c43b869db.js"
   },
@@ -30,7 +30,7 @@
   
   "banners": {
     "aboveIframe": {
-      "enabled": true,
+      "enabled": false,
       "rotation": false,
       "rotationInterval": 30000,
       "ads": [
@@ -66,7 +66,7 @@
     },
     
     "belowIframe": {
-      "enabled": true,
+      "enabled": false,
       "rotation": false,
       "rotationInterval": 25000,
       "ads": [
@@ -102,7 +102,7 @@
     },
     
     "pageBottom": {
-      "enabled": true,
+      "enabled": false,
       "rotation": false,
       "rotationInterval": 35000,
       "ads": [
@@ -138,7 +138,7 @@
     },
     
     "pageMiddle": {
-      "enabled": true,
+      "enabled": false,
       "rotation": false,
       "rotationInterval": 40000,
       "ads": [
@@ -175,7 +175,7 @@
   },
   
   "sidebarAd": {
-    "enabled": true,
+    "enabled": false,
     "rotation": false,
     "rotationInterval": 45000,
     "ads": [
@@ -225,7 +225,7 @@
   },
   
   "sidebarAdExtra": {
-    "enabled": true,
+    "enabled": false,
     "rotation": false,
     "rotationInterval": 50000,
     "ads": [
@@ -273,7 +273,7 @@
     "enabled": false,
     "url": "https://www.effectivegatecpm.com/juirxbme?key=10bf57330ed7a86975a587aa5e69f302",
     "mode": "popunder",
-    "triggerOnClick": true,
+    "triggerOnClick": false,
     "minIntervalBetweenShows": 21600000,
     "maxShowsPerSession": 1
   }
