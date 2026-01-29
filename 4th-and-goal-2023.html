@@ -363,12 +363,6 @@
     .ad-container-wrapper.sidebar {
       min-height: 620px;
     }
-
-    /* تثبيت ارتفاع الحاويتين فوق وتحت iframe اللعبة لمنع أي تمدد مفاجئ */
-#ad-above-iframe,
-#ad-below-iframe {
-  min-height: 110px !important;  /* نفس قيمة .ad-container-wrapper */
-}
     
     /* قسم الألعاب المقترحة */
     .suggested-games {
@@ -613,22 +607,16 @@
       }
     }
     
-   /* إخفاء الإعلانات الفاشلة فقط في المناطق البعيدة عن الجزء المرئي الأول (تحت / جانب اللعبة) */
-/* هذا يمنع تغيّر ارتفاع ما فوق اللعبة، وبالتالي يمنع تحرك .game-frame */
-
-#ad-page-middle:not(:has(iframe)):not(:has(ins)),
-#ad-page-bottom:not(:has(iframe)):not(:has(ins)),
-#ad-sidebar:not(:has(iframe)):not(:has(ins)),
-#ad-sidebar-extra:not(:has(iframe)):not(:has(ins)) {
-  display: none !important;
-  height: 0 !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* لا نلمس #ad-above-iframe و #ad-below-iframe نهائياً
-   حتى لو لم يحمَّل إعلان داخلها، تظل الحاويات موجودة وتحجز نفس الارتفاع من البداية */
+    /* إخفاء الإعلانات الفاشلة */
+    [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
+    .ad-banner:not(:has(iframe)):not(:has(ins)),
+    ins.adsbygoogle[data-ad-status="unfilled"] {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
   </style>
   
   <!-- تم إضافة defer لتجنب render-blocking -->
