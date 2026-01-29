@@ -650,24 +650,49 @@
             </div>
           </div>
           
+        <!-- === Container خارجي يحجز المساحة (الحل الجذري) === -->
+<div class="game-frame-container" style="width:100%;max-width:800px;height:600px;margin:0 auto 30px auto;position:relative;display:block;">
+  <!-- game-frame داخل container محجوز مسبقاً -->
+  <div class="game-frame" id="main-game-frame" style="width:100%;height:100%;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5);background:#000;position:absolute;top:0;left:0;">
+    
+    <!-- شاشة التشغيل -->
+    <div id="play-screen" class="play-button-container" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:#000;background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.9)),url('https://gameivo.github.io/images/171.webp');background-size:cover;background-position:center;background-repeat:no-repeat;text-align:center;z-index:3;">
+      
+      <!-- إضافة aspect-ratio للحفاظ على النسبة -->
+      <div style="position:relative;width:200px;height:200px;margin-bottom:25px;">
+        <img 
+          src="https://gameivo.github.io/images/171.webp" 
+          alt="4th and Goal 2022" 
+          class="game-preview-image"
+          style="width:100%;height:100%;object-fit:cover;border-radius:20px;border:5px solid rgba(255,255,255,0.2);box-shadow:0 15px 35px rgba(0,0,0,0.5);display:block;"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          onload="this.style.opacity='1'"
+        >
+      </div>
+      
+      <h1 class="play-button-title" style="font-size:2.5rem;font-weight:800;margin-bottom:15px;color:#ffd700;text-shadow:0 4px 12px rgba(0,0,0,0.7);line-height:1.2;">4th and Goal 2022</h1>
+      
+      <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022" style="background:linear-gradient(135deg,#6c5ce7 0%,#a29bfe 100%);color:white;border:none;padding:18px 45px;font-size:1.4rem;font-weight:700;border-radius:50px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);box-shadow:0 10px 25px rgba(108,92,231,0.4);margin:0 auto;">
+        <span class="play-btn-icon">▶</span>
+        <span>PLAY NOW FOR FREE</span>
+      </button>
+    </div>
+    
+    <!-- شاشة التحميل -->
+    <div class="loading" id="loading" style="display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;background:#002B50;z-index:2;">
+      <div class="loading-spinner" style="width:50px;height:50px;border:5px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#3CF7DC;animation:spin 1s ease-in-out infinite;margin-bottom:20px;"></div>
+      <div id="loading-text">Loading 4th and Goal 2022...</div>
+    </div>
 
-
-
-          
-              
-              <!-- شاشة التحميل -->
-              <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
-                <div id="loading-text">Loading 4th and Goal 2022...</div>
-              </div>
-
-              <!-- اللعبة -->
-              <iframe id="game-iframe" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
-              
-              <!-- زر التكبير -->
-              <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
-            </div>
-          </div>
+    <!-- اللعبة -->
+    <iframe id="game-iframe" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy" style="display:none;border:none;z-index:1;background:#000;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;padding:0;"></iframe>
+    
+    <!-- زر التكبير -->
+    <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen" style="position:absolute;right:12px;bottom:12px;z-index:9999;background:rgba(0,0,0,.6);color:#fff;border:none;width:44px;height:44px;border-radius:8px;display:none;align-items:center;justify-content:center;font-size:18px;cursor:pointer;backdrop-filter:blur(4px);transition:transform .15s ease,background .15s ease;box-shadow:0 6px 18px rgba(0,0,0,.45);">⤢</button>
+  </div>
+</div>
 
           <!-- إعلان تحت الـ iframe -->
           <div id="ad-below-iframe" class="ad-container-wrapper">
