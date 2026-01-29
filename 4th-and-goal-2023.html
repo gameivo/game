@@ -47,6 +47,7 @@
   <!-- Preconnect for critical resources -->
   <link rel="preconnect" href="https://gameivo.github.io">
   <link rel="preconnect" href="https://inkyedu118.github.io">
+  <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image" fetchpriority="high">
   
   <!-- إضافة preconnect للأصول المهمة الأخرى -->
   <link rel="preconnect" href="https://www.highperformanceformat.com">
@@ -110,22 +111,12 @@
     /* === الحل الجذري لـ Layout Shift === */
     /* تحديد الأبعاد مباشرة في HTML بدون انتظار CSS */
     
-    /* CSS Critical - تحسينات للـ CLS */
+    /* CSS Critical */
     *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
-    
-    /* إصلاح CLS: إضافة أبعاد ثابتة للـ container لمنع التغيرات */
-    .container{
-      max-width:1200px;
-      margin:0 auto;
-      padding:0 20px;
-      min-height:1px;
-      width: 100%; /* إضافة عرض ثابت */
-      height: auto; /* السماح بالارتفاع التلقائي */
-      overflow: hidden; /* منع التمدد غير المتوقع */
-    }
-    
+    /* إصلاح Layout Shift: إضافة min-height للـ container */
+    .container{max-width:1200px;margin:0 auto;padding:0 20px;min-height:1px}
     .header-content{display:flex;justify-content:space-between;align-items:center}
     .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
     .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
@@ -140,10 +131,6 @@
       margin: 0 auto 30px auto;
       position: relative;
       display: block;
-      background: #000; /* إضافة لون خلفية ثابت أثناء التحميل */
-      border-radius: 10px; /* إضافة border-radius ثابت */
-      overflow: hidden; /* منع أي عناصر من الخروج */
-      box-shadow: 0 10px 30px rgba(0,0,0,.5); /* إضافة الظل مسبقاً */
       /* هذا يمنع أي Layout Shift */
     }
     
@@ -197,8 +184,6 @@
       border: 5px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       display: block;
-      /* إضافة aspect-ratio لمنع CLS */
-      aspect-ratio: 1 / 1;
     }
     
     .play-button-title {
@@ -208,11 +193,6 @@
       color: #ffd700;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
       line-height: 1.2;
-      /* إضافة ارتفاع محدد لمنع التغير */
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     
     .play-btn {
@@ -230,8 +210,6 @@
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
       margin: 0 auto;
-      /* إضافة min-height لمنع تغيرات الحجم */
-      min-height: 60px;
     }
     
     .play-btn:hover {
@@ -314,18 +292,12 @@
       border-radius: 10px;
       max-width: 800px;
       margin: 0 auto 30px auto;
-      /* إضافة min-height لمنع CLS */
-      min-height: 300px;
     }
     
     .game-title {
       font-size: 2rem;
       margin-bottom: 10px;
       color: #ffd700;
-      /* إضافة min-height لمنع التغيرات */
-      min-height: 40px;
-      display: flex;
-      align-items: center;
     }
     
     .features {
@@ -333,16 +305,11 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 15px;
       margin-top: 20px;
-      /* إضافة min-height لمنع CLS */
-      min-height: 200px;
     }
     
     .feature-item h3 {
       font-size: 1.2rem;
       margin-bottom: 8px;
-      min-height: 30px;
-      display: flex;
-      align-items: center;
     }
     
     .seo-content {
@@ -351,25 +318,17 @@
       background: rgba(0,0,0,.3);
       border-radius: 10px;
       text-align: left;
-      /* إضافة min-height لمنع CLS */
-      min-height: 400px;
     }
     
     .seo-content h2 {
       color: #ffd700;
       margin-bottom: 15px;
-      min-height: 40px;
-      display: flex;
-      align-items: center;
     }
     
     .seo-content h3 {
       color: #a29bfe;
       margin-top: 20px;
       margin-bottom: 10px;
-      min-height: 30px;
-      display: flex;
-      align-items: center;
     }
     
     .game-categories {
@@ -377,8 +336,6 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 20px;
-      /* إضافة min-height لمنع CLS */
-      min-height: 40px;
     }
     
     .category-tag {
@@ -386,10 +343,6 @@
       padding: 5px 15px;
       border-radius: 20px;
       font-size: 0.9rem;
-      /* إضافة min-height لمنع التغيرات */
-      min-height: 30px;
-      display: inline-flex;
-      align-items: center;
     }
     
     /* === حجز مساحة للإعلانات === */
@@ -401,9 +354,6 @@
       justify-content: center;
       position: relative;
       overflow: visible !important;
-      /* إضافة خلفية placeholder أثناء التحميل */
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
     }
     
     .ad-container-wrapper.large {
@@ -419,17 +369,11 @@
       margin-top: 50px;
       padding: 30px 0;
       border-top: 2px solid rgba(255,255,255,0.2);
-      /* إضافة min-height لمنع CLS */
-      min-height: 400px;
     }
     
     .suggested-games h2 {
       color: #ffd700;
       margin-bottom: 20px;
-      min-height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     
     .games-grid {
@@ -437,8 +381,6 @@
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 25px;
       margin-top: 20px;
-      /* إضافة min-height لمنع CLS */
-      min-height: 250px;
     }
     
     .game-card {
@@ -448,8 +390,6 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-decoration: none;
       color: white;
-      /* إضافة min-height لمنع التغيرات */
-      min-height: 300px;
     }
     
     .game-card:hover {
@@ -461,38 +401,28 @@
       width: 100%;
       height: 180px;
       overflow: hidden;
-      /* إضافة aspect-ratio لمنع CLS */
-      aspect-ratio: 280 / 180;
     }
     
     .game-card-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* إضافة aspect-ratio لمنع CLS */
-      aspect-ratio: 280 / 180;
     }
     
     .game-card-content {
       padding: 15px;
-      /* إضافة min-height لمنع CLS */
-      min-height: 120px;
     }
     
     .game-card-title {
       font-size: 1.2rem;
       margin-bottom: 8px;
       color: #ffd700;
-      min-height: 30px;
-      display: flex;
-      align-items: center;
     }
     
     .game-card-description {
       font-size: 0.9rem;
       color: rgba(255,255,255,0.8);
       margin-bottom: 10px;
-      min-height: 40px;
     }
     
     .game-card-genre {
@@ -501,9 +431,6 @@
       padding: 4px 10px;
       border-radius: 12px;
       font-size: 0.75rem;
-      min-height: 25px;
-      display: inline-flex;
-      align-items: center;
     }
     
     /* Layout Responsive */
@@ -511,21 +438,15 @@
       display: flex;
       gap: 30px;
       margin-top: 30px;
-      /* إضافة min-height لمنع CLS */
-      min-height: 800px;
     }
     
     .main-content {
       flex: 3;
-      /* إضافة min-height لمنع CLS */
-      min-height: 800px;
     }
     
     .sidebar {
       flex: 1;
       min-width: 300px;
-      /* إضافة min-height لمنع CLS */
-      min-height: 800px;
     }
     
     /* Media Queries - تعديل حجم game-frame-container */
@@ -628,7 +549,6 @@
       transform-origin: top center !important;
       overflow: visible !important;
       position: relative !important;
-      min-height: inherit !important;
     }
     
     .ad-banner:hover {
@@ -869,6 +789,9 @@
 <script>
 (function() {
   'use strict';
+  
+  // إزالة الكود الذي يسبب forced reflow (إضافة width/height للصور)
+  // هذا الكود كان يسبب 42ms من forced reflow
   
   const lazyLoad = function() {
     const iframe = document.getElementById('game-iframe');
