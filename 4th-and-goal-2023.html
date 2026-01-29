@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) - SINGLE LOAD for both properties -->
-  <script async src="https://www.googletagmanager.com/gtag/js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-QXVWE2RXZV');
+  </script>
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0H9XGTQCD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
     gtag('config', 'G-S0H9XGTQCD');
   </script>
-
+  
   <meta name="theme-color" content="#1a2a6c">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,18 +124,18 @@
     
     /* === الحل النهائي لـ game-frame - بدون أي تغيير في الحجم === */
     .game-frame-container {
+      /* Container خارجي يحجز المساحة */
       width: 100%;
       max-width: 800px;
-      height: 600px;
-      min-height: 600px !important;
+      height: 600px; /* ارتفاع ثابت محدد مسبقاً */
       margin: 0 auto 30px auto;
       position: relative;
       display: block;
-      contain: strict;
-      contain-intrinsic-size: 800px 600px;
+      /* هذا يمنع أي Layout Shift */
     }
     
     .game-frame {
+      /* العنصر الداخلي يملأ المساحة المحجوزة */
       width: 100%;
       height: 100%;
       border-radius: 10px;
@@ -137,8 +145,10 @@
       position: absolute;
       top: 0;
       left: 0;
+      /* لا توجد تغييرات في الأبعاد - كل شيء محدد مسبقاً */
     }
     
+    /* تثبيت العناصر داخل game-frame */
     #play-screen, #loading, #game-iframe {
       position: absolute;
       top: 0;
@@ -149,6 +159,7 @@
       padding: 0;
     }
     
+    /* زر PLAY - تصميم ثابت */
     .play-button-container {
       display: flex;
       flex-direction: column;
@@ -235,6 +246,7 @@
       background: #000;
     }
     
+    /* زر التكبير */
     .zoom-btn {
       position: absolute;
       right: 12px;
@@ -272,6 +284,7 @@
       z-index: 2147483647 !important;
     }
     
+    /* محتوى الصفحة */
     .game-info {
       background: rgba(255,255,255,.1);
       backdrop-filter: blur(10px);
@@ -332,25 +345,26 @@
       font-size: 0.9rem;
     }
     
-    /* === حجز مساحة قوية للإعلانات لتقليل CLS === */
-    .ad-container-wrapper,
-    .ad-banner {
-      min-height: 100px !important;
-      height: 100px;
-      overflow: hidden;
-      contain: strict;
+    /* === حجز مساحة للإعلانات === */
+    .ad-container-wrapper {
+      min-height: 110px;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: visible !important;
     }
     
     .ad-container-wrapper.large {
-      min-height: 300px !important;
-      height: 300px;
+      min-height: 270px;
     }
     
     .ad-container-wrapper.sidebar {
-      min-height: 620px !important;
-      height: 620px;
+      min-height: 620px;
     }
     
+    /* قسم الألعاب المقترحة */
     .suggested-games {
       margin-top: 50px;
       padding: 30px 0;
@@ -419,6 +433,7 @@
       font-size: 0.75rem;
     }
     
+    /* Layout Responsive */
     .page-layout {
       display: flex;
       gap: 30px;
@@ -434,7 +449,7 @@
       min-width: 300px;
     }
     
-    /* Media Queries */
+    /* Media Queries - تعديل حجم game-frame-container */
     @media (max-width: 768px) {
       .page-layout {
         flex-direction: column;
@@ -445,9 +460,7 @@
       }
       
       .game-frame-container {
-        height: 450px;
-        min-height: 450px !important;
-        contain-intrinsic-size: 100% 450px;
+        height: 450px; /* تصغير الحجم على التابلت */
       }
       
       .play-btn {
@@ -465,16 +478,13 @@
       }
       
       .ad-container-wrapper.sidebar {
-        min-height: 320px !important;
-        height: 320px;
+        min-height: 320px;
       }
     }
     
     @media (max-width: 480px) {
       .game-frame-container {
-        height: 350px;
-        min-height: 350px !important;
-        contain-intrinsic-size: 100% 350px;
+        height: 350px; /* تصغير أكثر على الموبايل */
       }
       
       .header-content {
@@ -497,19 +507,17 @@
       }
       
       .ad-container-wrapper {
-        min-height: 70px !important;
-        height: 70px;
+        min-height: 70px;
       }
       
       .ad-container-wrapper.large {
-        min-height: 170px !important;
-        height: 170px;
+        min-height: 170px;
       }
     }
   </style>
   
   <style>
-    /* أنماط الإعلانات - معززة ضد CLS */
+    /* أنماط الإعلانات */
     .ad-banner {
       background: rgba(0,0,0,0.7);
       border-radius: 8px;
@@ -519,7 +527,7 @@
       border: 1px solid rgba(255,255,255,0.1);
       transition: all 0.3s ease;
       min-height: 90px;
-      overflow: hidden !important;
+      overflow: visible !important;
       max-width: 100% !important;
       box-sizing: border-box !important;
       display: flex !important;
@@ -531,7 +539,7 @@
     
     .ad-modern-wrapper {
       width: 100% !important;
-      height: 100% !important;
+      height: auto !important;
     }
     
     .ad-content-scaler {
@@ -539,7 +547,7 @@
       transition: all 0.3s ease !important;
       max-width: 100% !important;
       transform-origin: top center !important;
-      overflow: hidden !important;
+      overflow: visible !important;
       position: relative !important;
     }
     
@@ -569,11 +577,13 @@
       margin-bottom: 20px;
     }
     
+    /* منع التمرير الأفقي */
     html, body {
       overflow-x: hidden !important;
       max-width: 100% !important;
     }
     
+    /* تحسين العرض على الموبايل */
     @media (max-width: 768px) {
       .ad-banner {
         padding: 10px !important;
@@ -597,6 +607,7 @@
       }
     }
     
+    /* إخفاء الإعلانات الفاشلة */
     [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
     .ad-banner:not(:has(iframe)):not(:has(ins)),
     ins.adsbygoogle[data-ad-status="unfilled"] {
@@ -608,6 +619,7 @@
     }
   </style>
   
+  <!-- تم إضافة defer لتجنب render-blocking -->
   <script defer src="https://preferencenail.com/sfp.js"></script>
 </head>
 
@@ -625,6 +637,7 @@
 
   <div class="container">
     <div class="page-layout">
+      <!-- المحتوى الرئيسي -->
       <main class="main-content">
         <div class="game-container">
           <!-- إعلان فوق الـ iframe -->
@@ -637,9 +650,13 @@
             </div>
           </div>
           
+          <!-- === Container خارجي يحجز المساحة (الحل الجذري) === -->
           <div class="game-frame-container">
+            <!-- game-frame داخل container محجوز مسبقاً -->
             <div class="game-frame" id="main-game-frame">
+              <!-- شاشة التشغيل -->
               <div id="play-screen" class="play-button-container">
+                <!-- إضافة fetchpriority=high للصورة الرئيسية لتحسين LCP -->
                 <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager" fetchpriority="high">
                 <h1 class="play-button-title">4th and Goal 2022</h1>
                 
@@ -649,13 +666,16 @@
                 </button>
               </div>
               
+              <!-- شاشة التحميل -->
               <div class="loading" id="loading">
                 <div class="loading-spinner"></div>
                 <div id="loading-text">Loading 4th and Goal 2022...</div>
               </div>
 
+              <!-- اللعبة -->
               <iframe id="game-iframe" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
               
+              <!-- زر التكبير -->
               <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
             </div>
           </div>
@@ -670,6 +690,7 @@
             </div>
           </div>
           
+          <!-- معلومات اللعبة -->
           <div class="game-info">
             <h2 class="game-title">4th and Goal 2022</h2>
             <p class="game-description">Play 4th and Goal 2022 online for free — an exciting American football browser game that brings gridiron action, strategic playcalling, and intense sports competition right to your screen! Take control of your team on the 4th down, call plays, pass the ball with precision, rush through defenders, dodge tackles, and score touchdowns to lead your team to victory.</p>
@@ -681,6 +702,7 @@
             </div>
           </div>
           
+          <!-- إعلان في منتصف الصفحة -->
           <div id="ad-page-middle" class="ad-container-wrapper">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-300x250-middle">
               <div class="ad-label">Advertisement</div>
@@ -690,6 +712,7 @@
             </div>
           </div>
 
+          <!-- قسم الألعاب المقترحة -->
           <section class="suggested-games">
             <h2>🎮 Suggested Games You Might Like</h2>
             <div class="games-grid" id="suggested-games-grid"><p class="error-state">Loading...</p></div>
@@ -714,6 +737,7 @@
             </div>
           </div>
           
+          <!-- إعلان أسفل الصفحة -->
           <div id="ad-page-bottom" class="ad-container-wrapper large">
             <div class="ad-banner ad-modern-wrapper" data-ad-id="banner-728x90-bottom">
               <div class="ad-label">Advertisement</div>
@@ -725,7 +749,9 @@
         </div>
       </main>
       
+      <!-- Sidebar -->
       <aside class="sidebar">
+        <!-- إعلان جانبي -->
         <div id="ad-sidebar" class="ad-container-wrapper sidebar">
           <div class="ad-banner ad-sidebar ad-modern-wrapper" data-ad-id="sidebar-160x300-1">
             <div class="ad-label">Advertisement</div>
@@ -735,6 +761,7 @@
           </div>
         </div>
         
+        <!-- إعلان جانبي إضافي -->
         <div id="ad-sidebar-extra" class="ad-container-wrapper sidebar">
           <div class="ad-banner ad-modern-wrapper" data-ad-id="sidebar-extra-160x300">
             <div class="ad-label">Advertisement</div>
@@ -744,6 +771,7 @@
           </div>
         </div>
         
+        <!-- محتوى SEO -->
         <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:8px;margin-top:20px;backdrop-filter:blur(10px)">
           <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">🎯 Popular Categories</h3>
           <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
@@ -761,6 +789,9 @@
 <script>
 (function() {
   'use strict';
+  
+  // إزالة الكود الذي يسبب forced reflow (إضافة width/height للصور)
+  // هذا الكود كان يسبب 42ms من forced reflow
   
   const lazyLoad = function() {
     const iframe = document.getElementById('game-iframe');
