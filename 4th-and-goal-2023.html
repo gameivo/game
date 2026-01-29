@@ -363,6 +363,11 @@
     .ad-container-wrapper.sidebar {
       min-height: 620px;
     }
+
+    /* حجز ارتفاع ثابت لإعلان منتصف الصفحة */
+#ad-page-middle {
+  min-height: 270px;
+}
     
     /* قسم الألعاب المقترحة */
     .suggested-games {
@@ -513,24 +518,7 @@
       .ad-container-wrapper.large {
         min-height: 170px;
       }
-      
     }
-
-    /* منع أي Layout Shift في شاشة البداية */
-.play-button-container {
-  min-height: 100%;     /* يثبت الارتفاع قبل تحميل الخلفية */
-}
-
-/* تثبيت ارتفاع العنوان حتى قبل تحميل الخط */
-.play-button-title {
-  min-height: 3.2em;    /* يحجز مساحة للنص قبل تحميل الخط */
-}
-
-/* تثبيت مساحة صورة المعاينة قبل تحميلها */
-.game-preview-image {
-  display:block;
-}
-
   </style>
   
   <style>
@@ -624,16 +612,18 @@
       }
     }
     
-    /* إخفاء الإعلانات الفاشلة */
-    [id^="ad-"]:not(:has(iframe)):not(:has(ins)),
-    .ad-banner:not(:has(iframe)):not(:has(ins)),
-    ins.adsbygoogle[data-ad-status="unfilled"] {
-      display: none !important;
-      height: 0 !important;
-      min-height: 0 !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
+    /* إخفاء الإعلانات الفاشلة بدون التسبب في Layout Shift */
+/* نبقي الحاويات بحجمها في التخطيط، لكن نخفي محتواها بصرياً فقط */
+
+[id^="ad-"]:not(:has(iframe)):not(:has(ins)),
+.ad-banner:not(:has(iframe)):not(:has(ins)) {
+  visibility: hidden !important;  /* لا نستخدم display:none حتى لا يتغيّر الارتفاع */
+}
+
+/* إعلان أدسنس فقط عندما يكون غير مملوء */
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}
   </style>
   
   <!-- تم إضافة defer لتجنب render-blocking -->
