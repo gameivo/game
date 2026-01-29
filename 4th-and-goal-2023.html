@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXVWE2RXZV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -655,25 +655,34 @@
             <!-- game-frame داخل container محجوز مسبقاً -->
             <div class="game-frame" id="main-game-frame">
               <!-- شاشة التشغيل -->
-              <div id="play-screen" class="play-button-container">
-                <!-- إضافة fetchpriority=high للصورة الرئيسية لتحسين LCP -->
-                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager" fetchpriority="high">
-                <h1 class="play-button-title">4th and Goal 2022</h1>
-                
-                <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
-                  <span class="play-btn-icon">▶</span>
-                  <span>PLAY NOW FOR FREE</span>
-                </button>
-              </div>
-              
-              <!-- شاشة التحميل -->
-              <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
-                <div id="loading-text">Loading 4th and Goal 2022...</div>
-              </div>
+              <!-- layers system بدون CLS -->
+<div id="play-screen" class="play-button-container layer active">
+  <img src="https://gameivo.github.io/images/171.webp"
+       alt="4th and Goal 2022"
+       class="game-preview-image"
+       width="200" height="200"
+       loading="eager" fetchpriority="high">
 
-              <!-- اللعبة -->
-              <iframe id="game-iframe" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
+  <h1 class="play-button-title">4th and Goal 2022</h1>
+
+  <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
+    <span class="play-btn-icon">▶</span>
+    <span>PLAY NOW FOR FREE</span>
+  </button>
+</div>
+
+<div id="loading" class="loading layer">
+  <div class="loading-spinner"></div>
+  <div id="loading-text">Loading 4th and Goal 2022...</div>
+</div>
+
+<iframe id="game-iframe"
+        class="layer"
+        src="about:blank"
+        allow="autoplay;fullscreen"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
+</iframe>
+
               
               <!-- زر التكبير -->
               <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
@@ -795,7 +804,7 @@
   
   const lazyLoad = function() {
     const iframe = document.getElementById('game-iframe');
-    iframe.removeAttribute('src');
+    
     setTimeout(loadSuggestedGames, 1500);
   };
   
@@ -844,8 +853,18 @@
   const gameFrame = document.getElementById('main-game-frame');
   
   playBtn.addEventListener('click', function() {
-    playScreen.style.display = 'none';
-    loading.style.display = 'flex';
+    .layer {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.layer.active {
+  opacity:1;
+  pointer-events:auto;
+}
+
     
     if (typeof gtag !== 'undefined') {
       gtag('event', 'game_start', {'game_title': "4th and Goal 2022"});
