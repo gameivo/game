@@ -106,8 +106,7 @@
     ]
   }
   </script>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+  
   <style>
     /* === الحل الجذري لـ Layout Shift === */
     /* تحديد الأبعاد مباشرة في HTML بدون انتظار CSS */
@@ -514,10 +513,7 @@
       .ad-container-wrapper.large {
         min-height: 170px;
       }
-     @font-face {
-  font-family: 'Segoe UI';
-  font-display: swap;
-}
+    }
   </style>
   
   <style>
@@ -621,6 +617,22 @@
       margin: 0 !important;
       padding: 0 !important;
     }
+/* منع أي Layout Shift في شاشة البداية */
+.play-button-container {
+  min-height: 100%;     /* يثبت الارتفاع قبل تحميل الخلفية */
+}
+
+/* تثبيت ارتفاع العنوان حتى قبل تحميل الخط */
+.play-button-title {
+  min-height: 3.2em;    /* يحجز مساحة للنص قبل تحميل الخط */
+}
+
+/* تثبيت مساحة صورة المعاينة قبل تحميلها */
+.game-preview-image {
+  display:block;
+}
+
+    
   </style>
   
   <!-- تم إضافة defer لتجنب render-blocking -->
