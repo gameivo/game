@@ -19,12 +19,6 @@
     gtag('config', 'G-S0H9XGTQCD');
   </script>
   
-  <!-- تحميل الصورة الرئيسية مسبقاً -->
-  <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image" type="image/webp" fetchpriority="high">
-  
-  <!-- تحميل خطوط مسبقاً -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  
   <meta name="theme-color" content="#1a2a6c">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,8 +47,7 @@
   <!-- Preconnect for critical resources -->
   <link rel="preconnect" href="https://gameivo.github.io">
   <link rel="preconnect" href="https://inkyedu118.github.io">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://gameivo.github.io/images/171.webp" as="image" fetchpriority="high">
   
   <!-- إضافة preconnect للأصول المهمة الأخرى -->
   <link rel="preconnect" href="https://www.highperformanceformat.com">
@@ -116,77 +109,47 @@
   
   <style>
     /* === الحل الجذري لـ Layout Shift === */
-    /* تحميل الخطوط بشكل فوري */
-    @font-face {
-      font-family: 'Segoe UI Fallback';
-      font-style: normal;
-      font-weight: 400;
-      src: local('Arial'), local('Helvetica');
-    }
+    /* تحديد الأبعاد مباشرة في HTML بدون انتظار CSS */
     
     /* CSS Critical */
     *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-    body{font-family:'Segoe UI Fallback','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);color:#fff;min-height:100vh;line-height:1.6;overflow-x:hidden}
     .game-header{background:rgba(0,0,0,.8);padding:15px 0;backdrop-filter:blur(10px);top:0;z-index:100;position:sticky}
-    /* إصلاح Layout Shift: تحديد أبعاد واضحة */
-    .container{max-width:1200px;margin:0 auto;padding:0 20px;position:relative}
+    /* إصلاح Layout Shift: إضافة min-height للـ container */
+    .container{max-width:1200px;margin:0 auto;padding:0 20px;min-height:1px}
     .header-content{display:flex;justify-content:space-between;align-items:center}
     .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}
     .back-btn{background:#6c5ce7;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;font-size:14px}
     .game-container{padding:30px 0;text-align:center}
     
-    /* === الحل النهائي - إزالة background-image الذي يسبب المشكلة === */
+    /* === الحل النهائي لـ game-frame - بدون أي تغيير في الحجم === */
     .game-frame-container {
-      /* Container خارجي يحجز المساحة تماماً */
+      /* Container خارجي يحجز المساحة */
       width: 100%;
       max-width: 800px;
-      height: 600px; /* ارتفاع ثابت */
+      height: 600px; /* ارتفاع ثابت محدد مسبقاً */
       margin: 0 auto 30px auto;
       position: relative;
       display: block;
-      /* خلفية ثابتة أثناء التحميل */
-      background: #000;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,.5);
-      /* منع أي تحول */
-      contain: layout style paint;
+      /* هذا يمنع أي Layout Shift */
     }
     
     .game-frame {
       /* العنصر الداخلي يملأ المساحة المحجوزة */
       width: 100%;
       height: 100%;
-      position: relative;
-      /* منع التغير */
-      will-change: transform;
-    }
-    
-    /* === الحل: إزالة background-image واستبداله بخلفية ثابتة === */
-    #play-screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      /* إزالة background-image واستبداله بخلفية ثابتة */
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.5);
       background: #000;
-      /* إضافة gradient ثابت بدلاً من الصورة المتحمّلة */
-      background: linear-gradient(135deg, #1a2a6c 0%, #2c3e50 50%, #1a2a6c 100%);
-      text-align: center;
-      z-index: 3;
-      /* حجز المساحة مسبقاً */
-      min-height: 600px;
-      gap: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      /* لا توجد تغييرات في الأبعاد - كل شيء محدد مسبقاً */
     }
     
-    #loading, #game-iframe {
+    /* تثبيت العناصر داخل game-frame */
+    #play-screen, #loading, #game-iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -196,65 +159,40 @@
       padding: 0;
     }
     
-    /* زر PLAY - تصميم ثابت بأبعاد محددة */
+    /* زر PLAY - تصميم ثابت */
     .play-button-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
-      width: 100%;
-      position: relative;
-      padding: 40px 20px;
-      /* مسافات ثابتة */
-      gap: 25px;
-    }
-    
-    /* حل مشكلة الصورة */
-    .preview-wrapper {
-      width: 200px;
-      height: 200px;
-      aspect-ratio: 1/1;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 5px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-      background: linear-gradient(135deg, #1a2a6c, #b21f1f);
-      flex-shrink: 0;
-      position: relative;
+      background: #000;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://gameivo.github.io/images/171.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      text-align: center;
+      z-index: 3;
     }
     
     .game-preview-image {
-      width: 100%;
-      height: 100%;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       display: block;
-      opacity: 1;
-      /* تجنب أي تأخير */
-      content-visibility: auto;
-      contain-intrinsic-size: 200px 200px;
     }
     
-    /* الحل: تحديد أبعاد دقيقة للنصوص */
     .play-button-title {
       font-size: 2.5rem;
       font-weight: 800;
+      margin-bottom: 15px;
       color: #ffd700;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
       line-height: 1.2;
-      /* تحديد أبعاد ثابتة للعنوان */
-      height: 70px; /* ارتفاع ثابت لسطرين */
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 0 20px;
-      margin: 0;
-      /* منع تغيير الخط */
-      font-size-adjust: 0.5;
-      /* حجز المساحة للنص */
-      contain-intrinsic-size: 70px;
     }
     
     .play-btn {
@@ -268,16 +206,10 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 12px;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
-      /* تحديد أبعاد ثابتة للزر */
-      height: 60px;
-      min-height: 60px;
-      min-width: 250px;
-      flex-shrink: 0;
-      margin: 0;
+      margin: 0 auto;
     }
     
     .play-btn:hover {
@@ -517,40 +449,7 @@
       min-width: 300px;
     }
     
-    /* Media Queries - تعديل الأبعاد لشاشات مختلفة */
-    @media (max-width: 1024px) {
-      .game-frame-container {
-        height: 500px;
-      }
-      
-      #play-screen {
-        min-height: 500px;
-      }
-      
-      .play-button-title {
-        font-size: 2.2rem;
-        height: 60px;
-        min-height: 60px;
-      }
-      
-      .play-btn {
-        height: 55px;
-        min-height: 55px;
-        padding: 16px 40px;
-        font-size: 1.3rem;
-        min-width: 220px;
-      }
-      
-      .preview-wrapper {
-        width: 180px;
-        height: 180px;
-      }
-      
-      .game-preview-image {
-        contain-intrinsic-size: 180px 180px;
-      }
-    }
-    
+    /* Media Queries - تعديل حجم game-frame-container */
     @media (max-width: 768px) {
       .page-layout {
         flex-direction: column;
@@ -561,34 +460,21 @@
       }
       
       .game-frame-container {
-        height: 450px;
-      }
-      
-      #play-screen {
-        min-height: 450px;
+        height: 450px; /* تصغير الحجم على التابلت */
       }
       
       .play-btn {
         padding: 15px 35px;
         font-size: 1.2rem;
-        height: 50px;
-        min-height: 50px;
-        min-width: 200px;
       }
       
       .play-button-title {
         font-size: 2rem;
-        height: 55px;
-        min-height: 55px;
-      }
-      
-      .preview-wrapper {
-        width: 160px;
-        height: 160px;
       }
       
       .game-preview-image {
-        contain-intrinsic-size: 160px 160px;
+        width: 160px;
+        height: 160px;
       }
       
       .ad-container-wrapper.sidebar {
@@ -598,13 +484,7 @@
     
     @media (max-width: 480px) {
       .game-frame-container {
-        height: 400px;
-      }
-      
-      #play-screen {
-        min-height: 400px;
-        padding: 20px 15px;
-        gap: 20px;
+        height: 350px; /* تصغير أكثر على الموبايل */
       }
       
       .header-content {
@@ -614,25 +494,16 @@
       
       .play-button-title {
         font-size: 1.8rem;
-        height: 50px;
-        min-height: 50px;
       }
       
       .play-btn {
         padding: 12px 30px;
         font-size: 1.1rem;
-        height: 45px;
-        min-height: 45px;
-        min-width: 180px;
-      }
-      
-      .preview-wrapper {
-        width: 140px;
-        height: 140px;
       }
       
       .game-preview-image {
-        contain-intrinsic-size: 140px 140px;
+        width: 140px;
+        height: 140px;
       }
       
       .ad-container-wrapper {
@@ -785,16 +656,8 @@
             <div class="game-frame" id="main-game-frame">
               <!-- شاشة التشغيل -->
               <div id="play-screen" class="play-button-container">
-                <!-- إضافة fetchpriority=high للصورة الرئيسية -->
-                <div class="preview-wrapper">
-                  <img src="https://gameivo.github.io/images/171.webp" 
-                       alt="4th and Goal 2022" 
-                       class="game-preview-image" 
-                       width="200" 
-                       height="200" 
-                       loading="eager" 
-                       fetchpriority="high">
-                </div>
+                <!-- إضافة fetchpriority=high للصورة الرئيسية لتحسين LCP -->
+                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager" fetchpriority="high">
                 <h1 class="play-button-title">4th and Goal 2022</h1>
                 
                 <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
@@ -927,13 +790,8 @@
 (function() {
   'use strict';
   
-  // تحميل الخطوط بعد تحميل الصفحة
-  window.addEventListener('load', function() {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800&display=swap';
-    document.head.appendChild(link);
-  });
+  // إزالة الكود الذي يسبب forced reflow (إضافة width/height للصور)
+  // هذا الكود كان يسبب 42ms من forced reflow
   
   const lazyLoad = function() {
     const iframe = document.getElementById('game-iframe');
