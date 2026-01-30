@@ -148,28 +148,6 @@
       /* لا توجد تغييرات في الأبعاد - كل شيء محدد مسبقاً */
     }
     
-    /* === حل Layout Shift الجذري === */
-    /* جميع الطبقات داخل game-frame تكون مطلقة وتتغير بالـ opacity فقط */
-    .layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-    
-    .layer.active {
-      opacity: 1;
-      pointer-events: auto;
-      z-index: 2;
-    }
-    
     /* تثبيت العناصر داخل game-frame */
     #play-screen, #loading, #game-iframe {
       position: absolute;
@@ -194,6 +172,7 @@
       background-position: center;
       background-repeat: no-repeat;
       text-align: center;
+      z-index: 3;
     }
     
     .game-preview-image {
@@ -239,12 +218,13 @@
     }
     
     .loading{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
+      display:none;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:100%;
       background:#002B50;
+      z-index:2;
     }
     
     .loading-spinner{
@@ -260,7 +240,9 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     
     #game-iframe {
+      display: none;
       border: none;
+      z-index: 1;
       background: #000;
     }
     
@@ -673,24 +655,34 @@
             <!-- game-frame داخل container محجوز مسبقاً -->
             <div class="game-frame" id="main-game-frame">
               <!-- شاشة التشغيل -->
-              <div id="play-screen" class="play-button-container layer active">
-                <img src="https://gameivo.github.io/images/171.webp" alt="4th and Goal 2022" class="game-preview-image" width="200" height="200" loading="eager" fetchpriority="high">
-                <h1 class="play-button-title">4th and Goal 2022</h1>
-                
-                <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
-                  <span class="play-btn-icon">▶</span>
-                  <span>PLAY NOW FOR FREE</span>
-                </button>
-              </div>
-              
-              <!-- شاشة التحميل -->
-              <div id="loading" class="loading layer">
-                <div class="loading-spinner"></div>
-                <div id="loading-text">Loading 4th and Goal 2022...</div>
-              </div>
+              <!-- layers system بدون CLS -->
+<div id="play-screen" class="play-button-container layer active">
+  <img src="https://gameivo.github.io/images/171.webp"
+       alt="4th and Goal 2022"
+       class="game-preview-image"
+       width="200" height="200"
+       loading="eager" fetchpriority="high">
 
-              <!-- اللعبة -->
-              <iframe id="game-iframe" class="layer" src="about:blank" allow="autoplay;fullscreen" scrolling="no" title="4th and Goal 2022 - Free HTML5 Game on FreePlayHub" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
+  <h1 class="play-button-title">4th and Goal 2022</h1>
+
+  <button id="play-btn" class="play-btn" aria-label="Play 4th and Goal 2022">
+    <span class="play-btn-icon">▶</span>
+    <span>PLAY NOW FOR FREE</span>
+  </button>
+</div>
+
+<div id="loading" class="loading layer">
+  <div class="loading-spinner"></div>
+  <div id="loading-text">Loading 4th and Goal 2022...</div>
+</div>
+
+<iframe id="game-iframe"
+        class="layer"
+        src="about:blank"
+        allow="autoplay;fullscreen"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
+</iframe>
+
               
               <!-- زر التكبير -->
               <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
@@ -807,10 +799,12 @@
 (function() {
   'use strict';
   
-  // إزالة الكود الذي يسبب forced reflow
-  // تم إزالة iframe.removeAttribute('src') الذي كان يسبب CLS
+  // إزالة الكود الذي يسبب forced reflow (إضافة width/height للصور)
+  // هذا الكود كان يسبب 42ms من forced reflow
   
   const lazyLoad = function() {
+    const iframe = document.getElementById('game-iframe');
+    
     setTimeout(loadSuggestedGames, 1500);
   };
   
@@ -859,9 +853,18 @@
   const gameFrame = document.getElementById('main-game-frame');
   
   playBtn.addEventListener('click', function() {
-    // === الحل: استخدام classList بدلاً من style.display ===
-    playScreen.classList.remove('active');
-    loading.classList.add('active');
+    .layer {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.layer.active {
+  opacity:1;
+  pointer-events:auto;
+}
+
     
     if (typeof gtag !== 'undefined') {
       gtag('event', 'game_start', {'game_title': "4th and Goal 2022"});
@@ -870,8 +873,8 @@
     iframe.src = "https://inkyedu118.github.io/g16/class-685/";
     
     iframe.onload = function() {
-      loading.classList.remove('active');
-      iframe.classList.add('active');
+      loading.style.display = 'none';
+      iframe.style.display = 'block';
       zoomBtn.style.display = 'flex';
     };
     
